@@ -2,11 +2,12 @@ var hello = "hello javascript world"
 
 document.getElementById("demo").innerHTML = hello;
 
-function signIn(email, password){
+function signIn(){
+    co
     //something here
     //document.getElementById('textbox_id').value
 }
 
-function createAccount(email, password){
-
+function createAccount(){
+    console.log("hello! create account");
 }
