@@ -9,7 +9,7 @@ def create_account(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            print("lamooo is valid")
+            form.save()
        
     form = UserForm()
     return render(request, 'create-account.html', {'form': form})
