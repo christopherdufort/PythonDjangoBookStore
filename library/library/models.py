@@ -6,7 +6,6 @@ class User(models.Model):
     last_name = models.CharField(max_length=255) 
     address = models.CharField(max_length=255) 
     phone_number = models.CharField(max_length=255) 
-    name = models.CharField(max_length=255) 
     is_admin = models.BooleanField(default=False)
 
 class Book(models.Model):
