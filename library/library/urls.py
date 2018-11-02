@@ -22,8 +22,14 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sign-in', views.sign_in),
+<<<<<<< HEAD
     path(r'^$', views.homepage),
     path('book-entry', views.book_entry)
+=======
+    path('create-account', views.create_account),
+    path('client-home', views.client_home),
+    path(r'^$', views.homepage)
+>>>>>>> 966919996673002a2f4a8513f798ea36977676c6
 ]
 
 if settings.DEBUG:
