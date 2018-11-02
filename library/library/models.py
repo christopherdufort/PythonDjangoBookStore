@@ -7,6 +7,22 @@ class User(models.Model):
     address = models.CharField(max_length=255) 
     phone_number = models.CharField(max_length=255) 
     is_admin = models.BooleanField(default=False)
+    password = models.CharField(max_length=255) 
+    email = models.CharField(max_length=255) 
+    session_key = models.CharField(max_length=255)
+    session_expire = models.DateField(auto_now_add=True, blank=True)
+
+    def authenticate(request, email=None, password=None):
+        print("AUTH  CALLED")
+        try:
+            user = User.objects.get(email=email, password=password)
+        except User.DoesNotExist:
+            return "user not found"
+        except User.MultipleObjectsReturned:
+            return "multiple users with this email exist"
+        print("User found")
+        return user
+
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
