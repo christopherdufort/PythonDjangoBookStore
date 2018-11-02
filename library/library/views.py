@@ -7,3 +7,6 @@ def sign_in(request):
 
 def homepage(request):
     return HttpResponse("home")
+
+def book_entry(request):
+    return render(request, 'book-entry.html')
