@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm
-from .models import User
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm
+from .models import User,Book, Magazine, Video
 
 def sign_in(request):
     if request.method == 'POST':
@@ -37,3 +37,29 @@ def client_home(request):
 def homepage(request):
     return HttpResponse("home")
 
+def book_entry(request):
+    if request.method=='POST':
+        form=BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'book-entry.html')
+    form = BookForm()
+    return render(request, 'book-entry.html', {'form': form})
+
+def magazine_entry(request):
+    if request.method=='POST':
+        form=MagazineForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'magazine-entry.html')
+    form = MagazineForm()
+    return render(request, 'magazine-entry.html', {'form': form})
+
+def video_entry(request):
+    if request.method=='POST':
+        form=VideoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'video-entry.html')
+    form = VideoForm()
+    return render(request, 'video-entry.html', {'form': form})

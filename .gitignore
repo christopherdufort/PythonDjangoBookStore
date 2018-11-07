@@ -1,5 +1,9 @@
 #ignore IDE specific files
 .idea/*
+.vscode/*
+.DS_Store
+.AppleDouble
+.LSOverride
 
 #GitHub Suggested gitignore for python development environments.
 #https://github.com/github/gitignore/blob/master/Python.gitignore
