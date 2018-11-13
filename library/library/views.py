@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm,AdminForm
 from .models import User, Book, Magazine, Video
 
+from .DataBaseLayer import connectDb,insertCommand,selectCommand
 
 def sign_in(request):
     if request.method == 'POST':
@@ -75,7 +76,16 @@ def register_admin(request):
     if request.method == 'POST':
         form = AdminForm(request.POST)
         if form.is_valid():
-            form.save()
+            first_name = form["first_name"].value()
+            last_name = form["last_name"].value()
+            address = form["address"].value()
+            phone_number = form["phone_number"].value()
+            password = form["password"].value()
+            email = form["email"].value()
+
+            insertcmd = "INSERT INTO library_user(first_name,last_name,address,phone_number,is_admin,password,email,session_expire,session_key)VALUES('%s','%s','%s','%s',1,'%s','%s','2018-11-19','')" % (first_name, last_name, address, phone_number, password, email)
+            insertCommand(connectDb(), insertcmd)
+
             return render(request, 'Admin-home.html')
 
     form = AdminForm()
