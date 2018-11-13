@@ -31,17 +31,19 @@ class Book(models.Model):
     pages = models.IntegerField(10)
     publisher = models.CharField(max_length=255)
     language = models.CharField(max_length=255)
-    isbn_10 =  models.IntegerField(10)
+    isbn_10 = models.IntegerField(10)
     isbn_13 = models.IntegerField(13)
     is_loanable = models.BooleanField(default=True)    
+
 
 class Magazine(models.Model):
     title = models.CharField(max_length=255)
     publisher = models.CharField(max_length=255)
     language = models.CharField(max_length=255)
-    isbn_10 =  models.IntegerField(10)
+    isbn_10 = models.IntegerField(10)
     isbn_13 = models.IntegerField(13)
     is_loanable = models.BooleanField(default=True) 
+
 
 class Video(models.Model):
     title = models.CharField(max_length=255)
@@ -54,14 +56,15 @@ class Video(models.Model):
     release_date = models.DateField()
     is_loanable = models.BooleanField(default=True) 
 
+
 class Music(models.Model):
     title = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
     artist = models.CharField(max_length=255)
     label = models.CharField(max_length=255)
     release_date = models.DateField()
-    title = models.CharField(max_length=255)
     is_loanable = models.BooleanField(default=True) 
+
 
 #join table
 class CatalogItem(models.Model):
