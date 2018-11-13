@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm
-from .models import User,Book, Magazine, Video
+from .models import User, Book, Magazine, Video
 
 def sign_in(request):
     if request.method == 'POST':
