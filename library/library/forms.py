@@ -39,3 +39,9 @@ class MusicForm(forms.ModelForm):
     class Meta:
         model = Music
         fields = ('title', 'type', 'artist', 'label', 'release_date', 'is_loanable')
+
+
+class AdminForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'password', 'phone_number', 'address', 'is_admin')
