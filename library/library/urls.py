@@ -25,9 +25,10 @@ urlpatterns = [
     path('book-entry', views.book_entry),
     path('create-account', views.create_account),
     path('client-home', views.client_home),
-    path('magazine-entry',views.magazine_entry),
-    path('video-entry',views.video_entry),
-    path(r'^$', views.homepage)
+    path('magazine-entry', views.magazine_entry),
+    path('video-entry', views.video_entry),
+    path('register-admin', views.register_admin),
+    path(r'^$', views.homepage),
 ]
 
 if settings.DEBUG:
