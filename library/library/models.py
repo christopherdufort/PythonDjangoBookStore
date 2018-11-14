@@ -62,6 +62,8 @@ class Music(models.Model):
     release_date = models.DateField()
     title = models.CharField(max_length=255)
     is_loanable = models.BooleanField(default=True) 
+    subtitles= models.CharField(max_length=255)
+    dubbed=models.CharField(max_length=255)
 
 #join table
 class CatalogItem(models.Model):
