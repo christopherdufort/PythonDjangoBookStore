@@ -71,6 +71,15 @@ def video_entry(request):
     form = VideoForm()
     return render(request, 'video-entry.html', {'form': form})
 
+def admin_dashboard(request):
+    return render(request, 'admin-dashboard.html')
+
+def active_users(request):
+    #get active users
+    users = User.get_active_users()
+    print("HEYOOO")
+    print(users)
+    return render(request, 'active-users.html',{'users': users})
 
 def register_admin(request):
     if request.method == 'POST':

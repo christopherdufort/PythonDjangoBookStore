@@ -27,6 +27,8 @@ urlpatterns = [
     path('client-home', views.client_home),
     path('magazine-entry', views.magazine_entry),
     path('video-entry', views.video_entry),
+    path('admin-dashboard', views.admin_dashboard),
+    path('active-users', views.active_users),
     path('register-admin', views.register_admin),
     path(r'^$', views.homepage),
 ]

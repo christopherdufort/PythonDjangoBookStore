@@ -1,4 +1,9 @@
 from django.db import models
+from django.db.models import Q
+import datetime
+from datetime import timedelta
+import string
+import random
 
 
 class User(models.Model):
@@ -16,12 +21,22 @@ class User(models.Model):
         print("AUTH  CALLED")
         try:
             user = User.objects.get(email=email, password=password)
+            user.session_expire = (datetime.datetime.today()+timedelta(days=30))
+            user.session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+            user.save()
         except User.DoesNotExist:
             return "user not found"
         except User.MultipleObjectsReturned:
             return "multiple users with this email exist"
         print("User found")
         return user
+
+    def get_active_users():
+        #session_key exists [DONE]
+        #session_expire > today's date
+        today = datetime.datetime.today()
+        return User.objects.filter(session_expire__range=[today, "3020-01-31"]).exclude(session_key="")
+
 
 
 class Book(models.Model):

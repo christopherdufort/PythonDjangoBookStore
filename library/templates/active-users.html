@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Active Users</title>
+    <link rel="stylesheet" href='library/static/css/base.css' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>    
+<body class ="color-bg">
+    <h1>Active Users</h1>
+    <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th> 
+                <th>Session Key</th>
+                <th>Session Expire</th>
+            </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.session_expire}}</td>
+                <td>{{ user.session_key}}</td>
+            </tr>    
+        {% endfor %}
+    </table>
+    
+</body>
+</html>
