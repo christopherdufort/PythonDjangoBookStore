@@ -18,7 +18,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import Catalogue
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +29,6 @@ urlpatterns = [
     path('magazine-entry', views.magazine_entry),
     path('video-entry', views.video_entry),
     path('register-admin', views.register_admin),
-    path('catalogue', Catalogue.as_view()),
     path(r'^$', views.homepage),
 ]
 

@@ -1,10 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm
-from .models import User, Book, Magazine, Video
+from .models import User
 
-from .DataBaseLayer import connectDb, insertCommand, selectCommand
 
+from .DataBaseLayer import connectDb, insertCommand
+
+from .CatalogueModule import Catalogue
+
+
+catalogue = Catalogue()
+
+# PORTAL CLASS
 
 def sign_in(request):
     if request.method == 'POST':
@@ -45,12 +52,15 @@ def homepage(request):
 
 def book_entry(request):
     if request.method == 'POST':
-        form = BookForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'book-entry.html')
-    form = BookForm()
-    return render(request, 'book-entry.html', {'form': form})
+        book_form = BookForm(request.POST)
+        if book_form.is_valid():
+            book_data = book_form.cleaned_data
+            catalogue.add_item("book", book_data)
+            # return catalogue.add_item("book", book_data)
+            return HttpResponse("Book added to database")
+    # Request is a 'GET' return an empty form
+    book_form = BookForm()
+    return render(request, 'book-entry.html', {'form': book_form})
 
 
 def magazine_entry(request):

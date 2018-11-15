@@ -1,0 +1,25 @@
+{% load static from staticfiles %}
+<html>
+    <head>
+        <title>Sign In</title>
+        <link rel = "stylesheet" href = 'library/static/css/base.css'/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    </head>
+    <body class ="color-bg">
+        
+        <div class = "content">
+            <div class = "input-holder">
+                <h1>Concordia Library</h1><br>
+
+                <form method="post" style = "display: inline-grid;">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Sign In</button>
+                    <button type = "button"><a href="/create-account">Create Account</a></button>
+                </form>
+
+            </div>
+        </div>
+        <script src="library/static/js/sign-in.js"></script>
+    </body>
+</html>

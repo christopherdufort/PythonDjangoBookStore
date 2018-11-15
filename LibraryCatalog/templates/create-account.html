@@ -1,0 +1,26 @@
+{% load static from staticfiles %}
+<html>
+
+<head>
+    <title>Sign In</title>
+    <link rel="stylesheet" href='library/static/css/base.css' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+<body class ="color-bg">
+
+
+    <h1>Create Account</h1>
+
+
+    <div style = "text-align: center; width: 100%">
+        <form method="post" style = "display: inline-grid;">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    
+</body>
+
+</html>
