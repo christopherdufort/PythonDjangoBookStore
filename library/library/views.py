@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm,AdminForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, Category
 from .models import User, Book, Magazine, Video
 
-from .DataBaseLayer import connectDb,insertCommand,selectCommand
+from .DataBaseLayer import connectDb, insertCommand, selectCommand
+
 
 def sign_in(request):
     if request.method == 'POST':
@@ -43,7 +44,7 @@ def homepage(request):
 
 
 def book_entry(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         form=BookForm(request.POST)
         if form.is_valid():
             form.save()
@@ -53,8 +54,8 @@ def book_entry(request):
 
 
 def magazine_entry(request):
-    if request.method=='POST':
-        form=MagazineForm(request.POST)
+    if request.method == 'POST':
+        form = MagazineForm(request.POST)
         if form.is_valid():
             form.save()
             return render(request, 'magazine-entry.html')
@@ -64,7 +65,7 @@ def magazine_entry(request):
 
 def video_entry(request):
     if request.method == 'POST':
-        form=VideoForm(request.POST)
+        form = VideoForm(request.POST)
         if form.is_valid():
             form.save()
             return render(request, 'video-entry.html')
@@ -90,6 +91,50 @@ def register_admin(request):
 
     form = AdminForm()
     return render(request, 'create-admin.html', {'form': form})
+
+
+def catalog_view(request):
+    form = Category()
+    return render(request, 'catalog-view.html', {'form': form})
+
+
+def catalog_book(request):
+    form = Category()
+    selectcmd = "select title,author from library_book"
+    table = selectCommand(connectDb(), selectcmd)
+
+    context = {'table': table}
+    return render(request, 'BookView.html', context)
+
+
+def catalog_music(request):
+    form = Category()
+    selectcmd = "select title,artist from library_music"
+    table = selectCommand(connectDb(), selectcmd)
+
+    context = {'table': table}
+    return render(request, 'musicView.html', context)
+
+
+def catalog_video(request):
+    form = Category()
+    selectcmd = "select title,actors from library_video"
+    table = selectCommand(connectDb(), selectcmd)
+
+    context = {'table': table}
+    return render(request, 'video-view.html', context)
+
+
+def catalog_magazine(request):
+    form = Category()
+    selectcmd = "select title,publisher from library_magazine"
+    table = selectCommand(connectDb(), selectcmd)
+
+    context = {'table': table}
+    return render(request, 'magazine-view.html', context)
+
+
+
 
 
 

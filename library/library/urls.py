@@ -28,6 +28,11 @@ urlpatterns = [
     path('magazine-entry', views.magazine_entry),
     path('video-entry', views.video_entry),
     path('register-admin', views.register_admin),
+    path('catalog-view', views.catalog_view),
+    path('Book-view', views.catalog_book),
+    path('music-view', views.catalog_music),
+    path('magazine-view', views.catalog_magazine),
+    path('video-view', views.catalog_video),
     path(r'^$', views.homepage),
 ]
 

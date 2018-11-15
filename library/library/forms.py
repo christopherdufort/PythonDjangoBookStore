@@ -45,3 +45,16 @@ class AdminForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'password', 'phone_number', 'address')
+
+
+class Category(forms.Form):
+    catalog_list = [
+        (1, u'Book'),
+        (2, u'Music'),
+        (3, u'Videos'),
+        (4, u'Magazine'),
+         ]
+    catalog = forms.ChoiceField(choices=catalog_list)
+
+
+
