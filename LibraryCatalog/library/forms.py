@@ -1,59 +1,74 @@
 from django import forms
-from .models import User, Magazine, Video, Music
+from datetime import datetime
+from datetime import timedelta
+
+# Custom form used for login
+class AuthenticationForm(forms.Form):
+    email = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=255)
 
 
-class AuthenticationForm(forms.ModelForm):
+# Custom form for user creation and user data
+class UserForm(forms.Form):
+    first_name = forms.CharField(max_length=255)
+    last_name = forms.CharField(max_length=255)
+    address = forms.CharField(max_length=255)
+    phone_number = forms.CharField(max_length=255)
+    is_admin = forms.BooleanField(initial=False)
+    password = forms.CharField(max_length=255)
+    email = forms.CharField(max_length=255)
+    session_key = forms.CharField(max_length=255)
+    session_expire = forms.DateTimeField(initial=datetime.now() + timedelta(hours=1))
 
-    class Meta:
-        model = User
-        fields = ('email', 'password')
+
+# Custom form for admin creation and admin data
+class AdminForm(forms.Form):
+    first_name = forms.CharField(max_length=255)
+    last_name = forms.CharField(max_length=255)
+    address = forms.CharField(max_length=255)
+    phone_number = forms.CharField(max_length=255)
+    is_admin = forms.BooleanField(initial=True)
+    password = forms.CharField(max_length=255)
+    email = forms.CharField(max_length=255)
 
 
-class UserForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ('email', 'first_name', 'last_name', 'password', 'phone_number', 'address')
-
-
-# Custom
+# Custom form for input of books
 class BookForm(forms.Form):
     title = forms.CharField(max_length=255)
     author = forms.CharField(max_length=255)
-    book_format = forms.CharField(max_length=255)
+    book_format = forms.CharField(max_length=255)   # comma separated array
     pages = forms.IntegerField(min_value=0, max_value=9999)
     publisher = forms.CharField(max_length=255)
-    language = forms.CharField(max_length=255)
+    language = forms.CharField(max_length=255)   # comma separated array
     isbn_10 = forms.IntegerField(min_value=0000000000, max_value=9999999999)
     isbn_13 = forms.IntegerField(min_value=0000000000000, max_value=9999999999999)
 
 
-# class BookForm(forms.ModelForm):
-#     class Meta:
-#         model = Book
-#         fields = ('title', 'author', 'format', 'pages', 'publisher', 'language', 'isbn_10', 'isbn_13')
+# Custom form for input of magazines
+class MagazineForm(forms.Form):
+    title = forms.CharField(max_length=255)
+    publisher = forms.CharField(max_length=255)
+    language = forms.CharField(max_length=255)   # comma separated array
+    isbn_10 = forms.IntegerField(min_value=0000000000, max_value=9999999999)
+    isbn_13 = forms.IntegerField(min_value=0000000000000, max_value=9999999999999)
 
 
-class MagazineForm(forms.ModelForm):
-    class Meta:
-        model = Magazine
-        fields = ('title', 'publisher', 'language', 'isbn_10', 'isbn_13')
+# Custom form for input of videos
+class VideoForm(forms.Form):
+    title = forms.CharField(max_length=255)
+    director = forms.CharField(max_length=255)
+    producers = forms.CharField(max_length=500)  # comma separated array
+    actors = forms.CharField(max_length=500)  # comma separated array
+    language = forms.CharField(max_length=255)  # comma separated array
+    subtitles = forms.CharField(max_length=255)  # comma separated array
+    dubbed = forms.CharField(max_length=255)   # comma separated array
+    release_date = forms.DateField()
 
 
-class VideoForm(forms.ModelForm):
-    class Meta:
-        model = Video
-        fields = ('title', 'director', 'producers', 'actors', 'language', 'subtitles', 'dubbed',
-                  'release_date', 'is_loanable')
-
-
+# Custom form for input of music
 class MusicForm(forms.ModelForm):
-    class Meta:
-        model = Music
-        fields = ('title', 'type', 'artist', 'label', 'release_date', 'is_loanable')
-
-
-class AdminForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email', 'password', 'phone_number', 'address')
+    title = forms.CharField(max_length=255)
+    type = forms.CharField(max_length=255)
+    artist = forms.CharField(max_length=255)   # comma separated array
+    label = forms.CharField(max_length=255)
+    release_date = forms.DateField()

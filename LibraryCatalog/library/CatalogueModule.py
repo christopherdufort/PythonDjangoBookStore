@@ -1,5 +1,5 @@
-# from LibraryCatalog.library.modelz.BookModule import Book
-from .modelz.BookModule import Book
+# from LibraryCatalog.library.models.BookModule import Book
+from .models.BookModule import Book
 
 
 class Catalogue:
@@ -19,7 +19,7 @@ class Catalogue:
             book.store()  # Store self in database
             print(book)  # Debug test of correct insertion
             self.book_list.append(book)
-            #return print(book)
+
         # if item_type == "magazine":
             # Do magazine stuff
         # if item_type == "Video":
