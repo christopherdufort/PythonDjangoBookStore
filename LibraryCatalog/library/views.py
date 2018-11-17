@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm
 from .models.BookModule import Book
-from .DataBaseLayer import connectDb, insertCommand
+from .DataBaseLayer import  insertCommand,updateCommand,selectCommand
 
 from .CatalogueModule import Catalogue
 from .LoanSystem import LoanSystem
@@ -62,6 +62,29 @@ def book_entry(request):
     book_form = BookForm()
     return render(request, 'book-entry.html', {'form': book_form})
 
+def bookviewupdate(request,id):
+    if request.method == 'GET':
+        book_form = BookForm()
+        book_data = catalogue.get_items("book",id)
+        book_form["title"].initial = book_data.title
+        book_form["author"].initial = book_data.author
+        book_form["book_format"].initial = book_data.book_format
+        book_form["pages"].initial = book_data.pages
+        book_form["publisher"].initial = book_data.publisher
+        book_form["language"].initial = book_data.language
+        book_form["isbn_13"].initial = book_data.isbn_13
+        book_form["isbn_10"].initial = book_data.isbn_10
+        # book_form["id"].initial= book_data.book_id
+    elif request.method == 'POST':
+        book_form = BookForm(request.POST)
+        if book_form.is_valid():
+            book_data = book_form.cleaned_data
+            catalogue.update_item("book", book_data, id)
+            book_form = BookForm()
+            return HttpResponse("Book UPDATED to database")  # Should probably direct to list of all books
+
+    return render(request, 'book-view-update.html', {'form': book_form})
+
 
 def magazine_entry(request):
     if request.method == 'POST':
@@ -96,9 +119,16 @@ def register_admin(request):
 
             insertcmd = "INSERT INTO library_user(first_name,last_name,address,phone_number,is_admin,password,email,session_expire,session_key)VALUES('%s','%s','%s','%s',1,'%s','%s','2018-11-19','')" % (
             first_name, last_name, address, phone_number, password, email)
-            insertCommand(connectDb(), insertcmd)
+            insertCommand(insertcmd)
 
             return render(request, 'Admin-home.html')
 
     form = AdminForm()
     return render(request, 'create-admin.html', {'form': form})
+
+
+def bookviewdelete(request,id):
+    if request.method == 'GET':
+        book_form = BookForm()
+        book_data = catalogue.delete_items("book",id)
+    return HttpResponse("Book Deleted from  database")  # Should probably direct to list of all books
