@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS `book` (
   `pages` int(11) NOT NULL,
   `publisher` varchar(255) NOT NULL,
   `language` varchar(255) NOT NULL,
-  `isbn_13` bigint(20) DEFAULT NULL,
   `isbn_10` bigint(20) DEFAULT NULL,
+  `isbn_13` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
