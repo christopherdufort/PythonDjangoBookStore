@@ -8,7 +8,7 @@
 <body>
     <h1>Enter Book</h1>
     <div>
-        <form method="POST" style="display: inline-grid;">
+        <form method="POST" action="book-entry" style="display: inline-grid;">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Submit">

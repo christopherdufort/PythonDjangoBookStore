@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from django.conf import settings
-from django.conf.urls.static import static 
+from django.conf.urls.static import static
+
 
 urlpatterns = [
+    path('', views.homepage),
     path('admin/', admin.site.urls),
     path('sign-in', views.sign_in),
     path('book-entry', views.book_entry),
@@ -30,7 +32,7 @@ urlpatterns = [
     path('admin-dashboard', views.admin_dashboard),
     path('active-users', views.active_users),
     path('register-admin', views.register_admin),
-    path(r'^$', views.homepage),
+
 ]
 
 if settings.DEBUG:
