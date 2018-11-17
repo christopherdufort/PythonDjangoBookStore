@@ -34,7 +34,7 @@ class Catalogue:
             book = Book()
             book.fillingbookitem(item_data.get('id'),item_data.get('title'), item_data.get('author'), item_data.get('book_format'),
                         item_data.get('pages'), item_data.get('publisher'), item_data.get('language'),
-                        item_data.get('isbn_10'), item_data.get('isbn_13'))
+                         item_data.get('isbn_13'),item_data.get('isbn_10'))
             book.updateBooktostore(id)  # Store self in database
             print(book)  # Debug test of correct insertion
             self.book_list.append(book)
