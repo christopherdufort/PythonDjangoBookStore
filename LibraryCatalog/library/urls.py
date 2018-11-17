@@ -26,15 +26,17 @@ urlpatterns = [
     path('sign-in', views.sign_in),
     path('book-entry', views.book_entry),
     path('book-view', views.book_entry),
-     path('book-view-update/<int:id>/', views.bookviewupdate),
-    #path('book-view-update', views.bookviewupdate),
+    path('book-view-update/<int:id>/', views.bookviewupdate),
     path('book-view-delete/<int:id>/', views.bookviewdelete),
     path('book-view', views.book_entry),
     path('create-account', views.create_account),
     path('client-home', views.client_home),
     path('magazine-entry', views.magazine_entry),
     path('video-entry', views.video_entry),
+    path('video-view-update/<int:id>/', views.videoviewupdate),
+    path('video-view-delete/<int:id>/', views.videoviewdelete),
     path('register-admin', views.register_admin),
+
 
 ]
 

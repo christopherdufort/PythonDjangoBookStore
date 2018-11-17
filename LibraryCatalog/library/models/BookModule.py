@@ -6,7 +6,7 @@ from .. import DataBaseLayer
 # Custom made Book class (model) not using Django ORM at all, contains attributes and functions
 # This model communicates with the database through the DataBaseLayer module
 class Book:
-    book_id: int=-1
+    book_id: int = -1
     title: str
     author: str
     book_format: str
