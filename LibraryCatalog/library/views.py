@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm
 from .models.BookModule import Book
-from .DataBaseLayer import  insertCommand,updateCommand,selectCommand
+from .DataBaseLayer import insertCommand, updateCommand, selectCommand
 
 from .CatalogueModule import Catalogue
 from .LoanSystem import LoanSystem
@@ -98,13 +98,41 @@ def magazine_entry(request):
 
 def video_entry(request):
     if request.method == 'POST':
-        form = VideoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'video-entry.html')
-    form = VideoForm()
-    return render(request, 'video-entry.html', {'form': form})
+        video_form = VideoForm(request.POST)
 
+        if video_form.is_valid():
+            video_data = video_form.cleaned_data
+            catalogue.add_item("video", video_data)
+            return HttpResponse("Video added to database")  # Should probably direct to list of all books
+
+    # Request is a 'GET' return an empty form
+
+    video_form = VideoForm()
+    return render(request, 'video-entry.html', {'form': video_form})
+
+
+def videoviewupdate(request, id):
+    if request.method == 'GET':
+        video_form = VideoForm()
+        video_data = catalogue.get_items("video", id)
+        video_form["title"].initial = video_data.title
+        video_form["director"].initial = video_data.director
+        video_form["producers"].initial = video_data.producers
+        video_form["actors"].initial = video_data.actors
+        video_form["language"].initial = video_data.language
+        video_form["subtitles"].initial = video_data.subtitles
+        video_form["dubbed"].initial = video_data.dubbed
+        video_form["release_date"].initial = video_data.release_date
+        # book_form["id"].initial= book_data.book_id
+    elif request.method == 'POST':
+        video_form = VideoForm(request.POST)
+        if video_form.is_valid():
+            video_data = video_form.cleaned_data
+            catalogue.update_item("video", video_data, id)
+            video_form = VideoForm()
+            return HttpResponse("Book UPDATED to database")  # Should probably direct to list of all books
+
+    return render(request, 'video-view-update.html', {'form': video_form})
 
 def register_admin(request):
     if request.method == 'POST':
@@ -132,3 +160,9 @@ def bookviewdelete(request,id):
         book_form = BookForm()
         book_data = catalogue.delete_items("book",id)
     return HttpResponse("Book Deleted from  database")  # Should probably direct to list of all books
+
+def videoviewdelete(request,id):
+    if request.method == 'GET':
+        video_form = VideoForm()
+        video_data = catalogue.delete_items("video", id)
+    return HttpResponse("video Deleted from  database")  # Should probably direct to list of all Videos

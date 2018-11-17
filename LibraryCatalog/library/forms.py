@@ -63,7 +63,7 @@ class VideoForm(forms.Form):
     language = forms.CharField(max_length=255)  # comma separated array
     subtitles = forms.CharField(max_length=255)  # comma separated array
     dubbed = forms.CharField(max_length=255)   # comma separated array
-    release_date = forms.DateField()
+    release_date = forms.CharField(max_length=255)
 
 
 # Custom form for input of music
