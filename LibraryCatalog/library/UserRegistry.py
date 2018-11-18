@@ -20,16 +20,15 @@ class UserRegistry:
 
     def authenticate(email=None, password=None):
         print("AUTH  CALLED")
-        conn = DataBaseLayer.connectDb()
         sql_select = "SELECT * FROM User WHERE email = '" + email+ "' AND password = '" + password + "';"
-        user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(conn, sql_select)[0])
+        user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(sql_select)[0])
   
         session_expire = (datetime.datetime.today()+timedelta(days=30))
         session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
         sql_insert = "UPDATE user SET session_expire = '"+str(session_expire)+"',session_key = '"+session_key+"'  WHERE id = '" + "1"+"';"
-        DataBaseLayer.insertCommand(conn, sql_insert)
+        DataBaseLayer.insertCommand(sql_insert)
         #need to get the user again after update
-        user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(conn, sql_select)[0])
+        user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(sql_select)[0])
         print("$$$$")
         print(user)  
         return user
@@ -58,8 +57,7 @@ class UserRegistry:
         print("today")
         print(today)
         sql = "SELECT * FROM user WHERE NOT session_key = '' AND session_expire >= '"+str(today)+"';"
-        conn = DataBaseLayer.connectDb()
-        bad_format_users = DataBaseLayer.selectCommand(conn, sql)
+        bad_format_users = DataBaseLayer.selectCommand(sql)
         users = []
         for bad_format_user in bad_format_users:
             users.append(UserRegistry.formatUserTableObject(bad_format_user))
