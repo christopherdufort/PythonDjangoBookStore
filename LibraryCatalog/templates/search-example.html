@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>enter title of items below..</h1>
+    <div>
+        <form method="POST" action="search-example" style="display: inline-grid;">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

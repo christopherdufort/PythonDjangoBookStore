@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm, SearchForm
 from .models.BookModule import Book
 from .DataBaseLayer import insertCommand, updateCommand, selectCommand
 
@@ -239,3 +239,15 @@ def musicviewdelete(request,id):
         music_form = MusicForm()
         music_data = catalogue.delete_items("music", id)
     return HttpResponse("Music Deleted from  database")
+
+
+def search_example(request):
+    search_form = SearchForm()
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        if search_form.is_valid():
+            search_data = search_form.cleaned_data
+            results = catalogue.findByTitle(search_data)
+        return render(request, 'search-example-results.html', {'form': search_form, 'results': results})
+    if request.method == 'GET':
+        return render(request, 'search-example.html', {'form': search_form})

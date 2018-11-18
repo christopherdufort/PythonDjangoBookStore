@@ -41,6 +41,7 @@ urlpatterns = [
     path('music-view-update/<int:id>/', views.musicviewupdate),
     path('music-view-delete/<int:id>/', views.musicviewdelete),
     path('register-admin', views.register_admin),
+    path('search-example', views.search_example),
 
 
 ]

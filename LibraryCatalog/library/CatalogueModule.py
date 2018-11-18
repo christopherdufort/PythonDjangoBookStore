@@ -123,3 +123,10 @@ class Catalogue:
            music = Music()
            affetedRow = music.deleterow(id)
            return affetedRow
+
+    def findByTitle(self, search_data):
+        book = Book()
+        print("search input was " + search_data.get('titleSearch'))
+        matching_books = book.findBookByTitle(search_data.get('titleSearch'))
+        return matching_books
+

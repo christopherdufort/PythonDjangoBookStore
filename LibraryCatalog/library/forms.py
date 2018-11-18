@@ -73,3 +73,7 @@ class MusicForm(forms.Form):
     artist = forms.CharField(max_length=255)   # comma separated array
     label = forms.CharField(max_length=255)
     release_date = forms.DateField()
+
+
+class SearchForm(forms.Form):
+    titleSearch = forms.CharField(max_length=255)

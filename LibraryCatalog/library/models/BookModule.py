@@ -103,3 +103,9 @@ class Book:
         self.book_id = DataBaseLayer.insertCommand(delete_query)
         # Update the id(from database) of the inserted book
         #self.book_id = DataBaseLayer.last_id_inserted()
+
+    def findBookByTitle(self, title):
+        find_query = "SELECT * FROM book where title LIKE'%%%s%%'"%(title)  # %% is used to escape the % in the query which is zero or more characters
+        returnData = DataBaseLayer.selectCommand(find_query)
+        return returnData
+

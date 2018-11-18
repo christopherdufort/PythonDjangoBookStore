@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <style>
+        table, th, td {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <h1>enter title of items below..</h1>
+    <div>
+        <form method="POST" action="search-example" style="display: inline-grid;">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+        <h3>Results of your search are:</h3>
+        <table>
+            <tr>
+                <th>Book Title</th>
+                <th>Book Author</th>
+                <th>Book Format</th>
+                <th>Book Pages</th>
+                <th>Book Publisher</th>
+                <th>Book Language</th>
+                <th>Book isbn10</th>
+                <th>Book isbn13</th>
+            </tr>
+            {% for book in results %}
+            <tr>
+                <td>{{ book.1 }}</td>
+                <td>{{ book.2 }}</td>
+                <td>{{ book.3 }}</td>
+                <td>{{ book.4 }}</td>
+                <td>{{ book.5 }}</td>
+                <td>{{ book.6 }}</td>
+                <td>{{ book.7 }}</td>
+                <td>{{ book.8 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
