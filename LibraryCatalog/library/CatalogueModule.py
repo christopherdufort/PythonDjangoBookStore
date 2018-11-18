@@ -2,6 +2,7 @@
 from .models.BookModule import Book
 from .models.VideoModule import Video
 from .models.MagazineModule import Magazine
+from .models.MusicModule import Music
 
 
 class Catalogue:
@@ -40,8 +41,13 @@ class Catalogue:
                 print(video)
                 self.video_list.append(video)
 
-        # if item_type == "music":
-            # Do music stuff
+        if item_type == "music":
+                music = Music()
+                music.fillingmusicitem(item_data.get('title'), item_data.get('type'), item_data.get('artist'), item_data.get('label'),
+                                       item_data.get('release_date'))
+                music.store()
+                print(music)
+                self.music_list.append(music)
 
 
     def update_item(self, item_type, item_data,id):
@@ -70,6 +76,14 @@ class Catalogue:
             print(magazine)  # Debug test of correct insertion
             self.book_list.append(magazine)
 
+        if item_type == "music":
+            music = Music()
+            music.fillingmusicitem(item_data.get('title'), item_data.get('type'), item_data.get('artist'), item_data.get('label'),
+                                   item_data.get('release_date'))
+            music.updateMusictostore(id)  # Store self in database
+            print(music)  # Debug test of correct insertion
+            self.book_list.append(music)
+
     def get_items(self, item_type, id):
         if item_type == "book":
             book = Book()
@@ -86,6 +100,11 @@ class Catalogue:
             table = magazine.selectMagazinefromstore(id)
             magazine.fillingmagazineitem(table[1], table[2], table[3], table[4], table[5])
             return magazine
+        if item_type == "music":
+           music = Music()
+           table = music.selectMusicfromstore(id)
+           music.fillingmusicitem(table[1], table[2], table[3], table[4], table[5])
+           return music
 
     def delete_items(self, item_type, id):
         if item_type == "book":
@@ -99,4 +118,8 @@ class Catalogue:
         if item_type == "magazine":
            magazine = Magazine()
            affetedRow = magazine.deleterow(id)
+           return affetedRow
+        if item_type == "music":
+           music = Music()
+           affetedRow = music.deleterow(id)
            return affetedRow

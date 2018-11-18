@@ -67,7 +67,7 @@ class VideoForm(forms.Form):
 
 
 # Custom form for input of music
-class MusicForm(forms.ModelForm):
+class MusicForm(forms.Form):
     title = forms.CharField(max_length=255)
     type = forms.CharField(max_length=255)
     artist = forms.CharField(max_length=255)   # comma separated array

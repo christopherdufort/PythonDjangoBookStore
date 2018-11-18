@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm
 from .models.BookModule import Book
 from .DataBaseLayer import insertCommand, updateCommand, selectCommand
 
@@ -158,6 +158,40 @@ def videoviewupdate(request, id):
 
     return render(request, 'video-view-update.html', {'form': video_form})
 
+
+def music_entry(request):
+    if request.method == 'POST':
+        music_form = MusicForm(request.POST)
+
+        if music_form.is_valid():
+            music_data = music_form.cleaned_data
+            catalogue.add_item("music", music_data)
+            return HttpResponse("Music added to database")
+    music_form = MusicForm()
+    return render(request, 'music-entry.html', {'form': music_form})
+
+
+def musicviewupdate(request, id):
+    if request.method == 'GET':
+        music_form = MusicForm()
+        music_data = catalogue.get_items("music", id)
+        music_form["title"].initial = music_data.title
+        music_form["type"].initial = music_data.type
+        music_form["artist"].initial = music_data.artist
+        music_form["label"].initial = music_data.label
+        music_form["release_date"].initial = music_data.release_date
+
+    elif request.method == 'POST':
+        music_form = MusicForm(request.POST)
+        if music_form.is_valid():
+            music_data = music_form.cleaned_data
+            catalogue.update_item("music", music_data, id)
+            music_form = MusicForm()
+            return HttpResponse("Music UPDATED to database")
+
+    return render(request, 'music-view-update.html', {'form': music_form})
+
+
 def register_admin(request):
     if request.method == 'POST':
         form = AdminForm(request.POST)
@@ -185,14 +219,23 @@ def bookviewdelete(request,id):
         book_data = catalogue.delete_items("book",id)
     return HttpResponse("Book Deleted from  database")  # Should probably direct to list of all books
 
+
 def videoviewdelete(request,id):
     if request.method == 'GET':
         video_form = VideoForm()
         video_data = catalogue.delete_items("video", id)
     return HttpResponse("video Deleted from  database")  # Should probably direct to list of all Videos
 
+
 def magazineviewdelete(request,id):
     if request.method == 'GET':
         magazine_form = MagazineForm()
         magazine_data = catalogue.delete_items("magazine", id)
     return HttpResponse("magazine Deleted from  database")
+
+
+def musicviewdelete(request,id):
+    if request.method == 'GET':
+        music_form = MusicForm()
+        music_data = catalogue.delete_items("music", id)
+    return HttpResponse("Music Deleted from  database")
