@@ -32,6 +32,8 @@ urlpatterns = [
     path('create-account', views.create_account),
     path('client-home', views.client_home),
     path('magazine-entry', views.magazine_entry),
+    path('magazine-view-update/<int:id>/', views.magazineviewupdate),
+    path('magazine-view-delete/<int:id>/', views.magazineviewdelete),
     path('video-entry', views.video_entry),
     path('video-view-update/<int:id>/', views.videoviewupdate),
     path('video-view-delete/<int:id>/', views.videoviewdelete),

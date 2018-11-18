@@ -12,7 +12,7 @@ from contextlib import closing
 
 def insertCommand(insertcmd):
     # Connect to the database
-    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='Admin123', db='soen341')
+    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='', db='soen341')
     try:
         with conn.cursor() as curr:
             curr = conn.cursor()
@@ -27,7 +27,7 @@ def insertCommand(insertcmd):
 
 def updateCommand(updatecmd):
     # Connect to the database
-    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='Admin123', db='soen341')
+    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='', db='soen341')
     try:
         with conn.cursor() as curr:
             curr = conn.cursor()
@@ -42,7 +42,7 @@ def updateCommand(updatecmd):
 
 def selectCommand(selectCmd):
     # Connect to the database
-    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='Admin123', db='soen341')
+    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='', db='soen341')
     try:
         with conn.cursor() as curr:
             curr.execute(selectCmd)
@@ -55,7 +55,7 @@ def selectCommand(selectCmd):
 
 def deleteCommand(deletecmd):
     # Connect to the database
-    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='Admin123', db='soen341')
+    conn = pymysql.Connect(host='localhost', port=3306, user='root', password='', db='soen341')
     try:
         with conn.cursor() as curr:
             curr = conn.cursor()

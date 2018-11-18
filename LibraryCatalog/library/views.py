@@ -88,13 +88,37 @@ def bookviewupdate(request,id):
 
 def magazine_entry(request):
     if request.method == 'POST':
-        form = MagazineForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'magazine-entry.html')
-    form = MagazineForm()
-    return render(request, 'magazine-entry.html', {'form': form})
+        magazine_form = MagazineForm(request.POST)
 
+        if magazine_form.is_valid():
+            magazine_data = magazine_form.cleaned_data
+            catalogue.add_item("magazine", magazine_data)
+            return HttpResponse("Magazine added to database")
+
+
+    magazine_form = MagazineForm()
+    return render(request, 'magazine-entry.html', {'form': magazine_form})
+
+
+def magazineviewupdate(request,id):
+    if request.method == 'GET':
+        magazine_form = MagazineForm()
+        magazine_data = catalogue.get_items("magazine",id)
+        magazine_form["title"].initial = magazine_data.title
+        magazine_form["publisher"].initial = magazine_data.publisher
+        magazine_form["language"].initial = magazine_data.language
+        magazine_form["isbn_10"].initial = magazine_data.isbn_10
+        magazine_form["isbn_13"].initial = magazine_data.isbn_13
+
+    elif request.method == 'POST':
+        magazine_form = MagazineForm(request.POST)
+        if magazine_form.is_valid():
+            magazine_data = magazine_form.cleaned_data
+            catalogue.update_item("magazine", magazine_data, id)
+            magazine_form = MagazineForm()
+            return HttpResponse("Magazine UPDATED to database")
+
+    return render(request, 'magazine-view-update.html', {'form': magazine_form})
 
 def video_entry(request):
     if request.method == 'POST':
@@ -123,14 +147,14 @@ def videoviewupdate(request, id):
         video_form["subtitles"].initial = video_data.subtitles
         video_form["dubbed"].initial = video_data.dubbed
         video_form["release_date"].initial = video_data.release_date
-        # book_form["id"].initial= book_data.book_id
+
     elif request.method == 'POST':
         video_form = VideoForm(request.POST)
         if video_form.is_valid():
             video_data = video_form.cleaned_data
             catalogue.update_item("video", video_data, id)
             video_form = VideoForm()
-            return HttpResponse("Book UPDATED to database")  # Should probably direct to list of all books
+            return HttpResponse("Video UPDATED to database")
 
     return render(request, 'video-view-update.html', {'form': video_form})
 
@@ -166,3 +190,9 @@ def videoviewdelete(request,id):
         video_form = VideoForm()
         video_data = catalogue.delete_items("video", id)
     return HttpResponse("video Deleted from  database")  # Should probably direct to list of all Videos
+
+def magazineviewdelete(request,id):
+    if request.method == 'GET':
+        magazine_form = MagazineForm()
+        magazine_data = catalogue.delete_items("magazine", id)
+    return HttpResponse("magazine Deleted from  database")

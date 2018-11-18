@@ -1,6 +1,7 @@
 # from LibraryCatalog.library.models.BookModule import Book
 from .models.BookModule import Book
 from .models.VideoModule import Video
+from .models.MagazineModule import Magazine
 
 
 class Catalogue:
@@ -22,8 +23,13 @@ class Catalogue:
             print(book)  # Debug test of correct insertion
             self.book_list.append(book)
 
-        # if item_type == "magazine":
-            # Do magazine stuff
+        if item_type == "magazine":
+            magazine = Magazine()
+            magazine.fillingmagazineitem(item_data.get('title'), item_data.get('publisher'), item_data.get('language'),
+                                         item_data.get('isbn_10'), item_data.get('isbn_13'))
+            magazine.store()  # Store self in database
+            print(magazine)  # Debug test of correct insertion
+            self.magazine_list.append(magazine)
 
         if item_type == "video":
                 video = Video()
@@ -56,6 +62,14 @@ class Catalogue:
                 print(video)  # Debug test of correct insertion
                 self.book_list.append(video)
 
+        if item_type == "magazine":
+            magazine = Magazine()
+            magazine.fillingmagazineitem(item_data.get('title'), item_data.get('publisher'), item_data.get('language'),
+                                         item_data.get('isbn_10'), item_data.get('isbn_13'))
+            magazine.updateMagazinetostore(id)  # Store self in database
+            print(magazine)  # Debug test of correct insertion
+            self.book_list.append(magazine)
+
     def get_items(self, item_type, id):
         if item_type == "book":
             book = Book()
@@ -67,6 +81,11 @@ class Catalogue:
            table = video.selectVideofromstore(id)
            video.fillingvideoitem(table[1], table[2], table[3], table[4], table[5], table[6], table[7], table[8])
            return video
+        if item_type == "magazine":
+            magazine = Magazine()
+            table = magazine.selectMagazinefromstore(id)
+            magazine.fillingmagazineitem(table[1], table[2], table[3], table[4], table[5])
+            return magazine
 
     def delete_items(self, item_type, id):
         if item_type == "book":
@@ -76,4 +95,8 @@ class Catalogue:
         if item_type == "video":
            video = Video()
            affetedRow = video.deleterow(id)
+           return affetedRow
+        if item_type == "magazine":
+           magazine = Magazine()
+           affetedRow = magazine.deleterow(id)
            return affetedRow
