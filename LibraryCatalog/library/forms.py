@@ -2,6 +2,7 @@ from django import forms
 from datetime import datetime
 from datetime import timedelta
 from . import DataBaseLayer
+import time
 
 # Custom form used for login
 class AuthenticationForm(forms.Form):
@@ -19,10 +20,11 @@ class UserForm(forms.Form):
     password = forms.CharField(max_length=255)
     email = forms.CharField(max_length=255)
     session_key = forms.CharField(max_length=255)
-    session_expire = forms.DateTimeField(initial=datetime.now() + timedelta(hours=1))
+    #session_expire = forms.DateTimeField(initial=datetime.now() + timedelta(hours=1))
 
     def save(form):
         print("THIS IS THE FORM TO SAVE")
+        session_expire = (datetime.today()+timedelta(days=30))
         conn = DataBaseLayer.connectDb()
         sql = "INSERT INTO `soen341`.`user`(`first_name`, `last_name`, `email`, `address`, `phone_number`, `password`, `session_key`, `session_expire`, `is_admin`) VALUES('";
         sql += form.cleaned_data['first_name'] + "', '"
@@ -32,14 +34,11 @@ class UserForm(forms.Form):
         sql += form.cleaned_data['phone_number'] + "', '"
         sql += form.cleaned_data['password'] + "', '"
         sql += form.cleaned_data['session_key'] + "', '"
-        sql += str(form.cleaned_data['session_expire'])  + "', '"
+        sql += str(session_expire)  + "', '"
         sql += ("1" if form.cleaned_data['is_admin']else "0")+ "');" 
         print("THIS IS THE SQL QUERRY")
         print(sql)
         DataBaseLayer.insertCommand(conn, sql)
-
-        #INSERT INTO `soen341`.`user`(`first_name`, `last_name`, `email`, `address`, `phone_number`, `password`, `session_key`, `session_expire`) VALUES(Alessandro, Kreslin, kalessandro14@gmail.com, 9406 Avenue Joseph Melançon, 5144360810, admin, kalessandro14@gmail.com, 2018-12-30);
-
 
 
 # Custom form for admin creation and admin data
