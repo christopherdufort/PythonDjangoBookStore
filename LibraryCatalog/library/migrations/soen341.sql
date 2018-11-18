@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `book` (
   `pages` int(11) NOT NULL,
   `publisher` varchar(255) NOT NULL,
   `language` varchar(255) NOT NULL,
-  `isbn_13` bigint(20) DEFAULT NULL,
   `isbn_10` bigint(20) DEFAULT NULL,
+  `isbn_13` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -80,11 +80,11 @@ CREATE TABLE IF NOT EXISTS `magazine` (
 DROP TABLE IF EXISTS `music`;
 CREATE TABLE IF NOT EXISTS `music` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `artist` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   `release_date` date NOT NULL,
-  `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

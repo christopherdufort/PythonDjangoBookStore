@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Entry</title>
+    <link rel="stylesheet" href='library/static/css/base.css' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+    <h1>Enter Video</h1>
+    <div>
+        <form method="POST" style="display: inline-grid;">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
