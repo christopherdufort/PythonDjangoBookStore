@@ -123,3 +123,21 @@ class Catalogue:
            music = Music()
            affetedRow = music.deleterow(id)
            return affetedRow
+
+    def listview(self, item_type):
+       if item_type == "book":
+          book = Book()
+          table = book.getbooklist()
+          return table
+       if item_type == "music":
+          music = Music()
+          table = music.getmusiclist()
+          return table
+       if item_type == "magazine":
+          magazine = Magazine()
+          table = magazine.getmagazinelist()
+          return table
+       if item_type == "video":
+          video = Video()
+          table = video.getvideolist()
+          return table

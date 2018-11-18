@@ -63,5 +63,11 @@ class Magazine:
         self.magazine_id = DataBaseLayer.insertCommand(delete_query)
 
 
+    def getmagazinelist(self):
+            select_query = "select * from magazine"
+            tables = DataBaseLayer.selectCommand(select_query)
+            return tables
+
+
 
 

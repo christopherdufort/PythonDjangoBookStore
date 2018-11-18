@@ -41,6 +41,10 @@ urlpatterns = [
     path('music-view-update/<int:id>/', views.musicviewupdate),
     path('music-view-delete/<int:id>/', views.musicviewdelete),
     path('register-admin', views.register_admin),
+    path('book-list', views.booklist),
+    path('video-list', views.videolist),
+    path('magazine-list', views.magazinelist),
+    path('music-list', views.musiclist),
 
 
 ]

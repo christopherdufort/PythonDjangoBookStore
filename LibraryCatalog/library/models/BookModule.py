@@ -103,3 +103,8 @@ class Book:
         self.book_id = DataBaseLayer.insertCommand(delete_query)
         # Update the id(from database) of the inserted book
         #self.book_id = DataBaseLayer.last_id_inserted()
+
+    def getbooklist(self):
+        select_query = "select * from book"
+        tables = DataBaseLayer.selectCommand(select_query)
+        return tables
