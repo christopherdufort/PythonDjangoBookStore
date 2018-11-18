@@ -37,6 +37,9 @@ urlpatterns = [
     path('video-entry', views.video_entry),
     path('video-view-update/<int:id>/', views.videoviewupdate),
     path('video-view-delete/<int:id>/', views.videoviewdelete),
+    path('music-entry', views.music_entry),
+    path('music-view-update/<int:id>/', views.musicviewupdate),
+    path('music-view-delete/<int:id>/', views.musicviewdelete),
     path('register-admin', views.register_admin),
 
 
