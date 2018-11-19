@@ -248,3 +248,30 @@ def musicviewdelete(request,id):
         music_form = MusicForm()
         music_data = catalogue.delete_items("music", id)
     return HttpResponse("Music Deleted from  database")
+
+
+def booklist(request):
+    if request.method == 'GET':
+      book_data = catalogue.listview("book")
+      context = {'table': book_data}
+    return render(request, 'book-list.html', context)
+
+def musiclist(request):
+    if request.method == 'GET':
+      music_data = catalogue.listview("music")
+      context = {'table': music_data}
+    return render(request, 'music-list.html', context)
+
+
+def videolist(request):
+    if request.method == 'GET':
+      video_data = catalogue.listview("video")
+      context = {'table': video_data}
+    return render(request, 'video-list.html', context)
+
+
+def magazinelist(request):
+    if request.method == 'GET':
+      magazine_data = catalogue.listview("magazine")
+      context = {'table': magazine_data}
+    return render(request, 'magazine-list.html', context)
