@@ -26,7 +26,7 @@ class Catalogue:
 
         if item_type == "magazine":
             magazine = Magazine()
-            magazine.fillingmagazineitem(item_data.get('title'), item_data.get('publisher'), item_data.get('language'),
+            magazine.fillingmagazineitem(item_data.get('id'),item_data.get('title'), item_data.get('publisher'), item_data.get('language'),
                                          item_data.get('isbn_10'), item_data.get('isbn_13'))
             magazine.store()  # Store self in database
             print(magazine)  # Debug test of correct insertion
@@ -34,7 +34,7 @@ class Catalogue:
 
         if item_type == "video":
                 video = Video()
-                video.fillingvideoitem(item_data.get('title'), item_data.get('director'), item_data.get('producers'),
+                video.fillingvideoitem(item_data.get('id'),item_data.get('title'), item_data.get('director'), item_data.get('producers'),
                                        item_data.get('actors'), item_data.get('language'), item_data.get('subtitles'),
                                        item_data.get('dubbed'), item_data.get('release_date'))
                 video.store()
@@ -43,8 +43,8 @@ class Catalogue:
 
         if item_type == "music":
                 music = Music()
-                music.fillingmusicitem(item_data.get('title'), item_data.get('type'), item_data.get('artist'), item_data.get('label'),
-                                       item_data.get('release_date'))
+                music.fillingmusicitem(item_data.get('id'),item_data.get('title'), item_data.get('type'), item_data.get('artist'), item_data.get('label'),
+                                       item_data.get('release_date'),item_data.get('Asin'))
                 music.store()
                 print(music)
                 self.music_list.append(music)
@@ -61,7 +61,7 @@ class Catalogue:
             self.book_list.append(book)
         if item_type == "video":
                 video = Video()
-                video.fillingvideoitem(item_data.get('title'), item_data.get('director'), item_data.get('producers'),
+                video.fillingvideoitem(id,item_data.get('title'), item_data.get('director'), item_data.get('producers'),
                                        item_data.get('actors'), item_data.get('language'), item_data.get('subtitles'),
                                        item_data.get('dubbed'), item_data.get('release_date'))
                 video.updateVideotostore(id)  # Store self in database
@@ -70,7 +70,7 @@ class Catalogue:
 
         if item_type == "magazine":
             magazine = Magazine()
-            magazine.fillingmagazineitem(item_data.get('title'), item_data.get('publisher'), item_data.get('language'),
+            magazine.fillingmagazineitem(id,item_data.get('title'), item_data.get('publisher'), item_data.get('language'),
                                          item_data.get('isbn_10'), item_data.get('isbn_13'))
             magazine.updateMagazinetostore(id)  # Store self in database
             print(magazine)  # Debug test of correct insertion
@@ -78,8 +78,8 @@ class Catalogue:
 
         if item_type == "music":
             music = Music()
-            music.fillingmusicitem(item_data.get('title'), item_data.get('type'), item_data.get('artist'), item_data.get('label'),
-                                   item_data.get('release_date'))
+            music.fillingmusicitem(id, item_data.get('title'),item_data.get('type'), item_data.get('artist'), item_data.get('label'),
+                                   item_data.get('release_date'),item_data.get('Asin'))
             music.updateMusictostore(id)  # Store self in database
             print(music)  # Debug test of correct insertion
             self.book_list.append(music)
@@ -93,17 +93,17 @@ class Catalogue:
         if item_type == "video":
            video = Video()
            table = video.selectVideofromstore(id)
-           video.fillingvideoitem(table[1], table[2], table[3], table[4], table[5], table[6], table[7], table[8])
+           video.fillingvideoitem(id,table[1], table[2], table[3], table[4], table[5], table[6], table[7], table[8])
            return video
         if item_type == "magazine":
             magazine = Magazine()
             table = magazine.selectMagazinefromstore(id)
-            magazine.fillingmagazineitem(table[1], table[2], table[3], table[4], table[5])
+            magazine.fillingmagazineitem(id,table[1], table[2], table[3], table[4], table[5])
             return magazine
         if item_type == "music":
            music = Music()
            table = music.selectMusicfromstore(id)
-           music.fillingmusicitem(table[1], table[2], table[3], table[4], table[5])
+           music.fillingmusicitem(id,table[1], table[2], table[3], table[4], table[5],table[6])
            return music
 
     def delete_items(self, item_type, id):
@@ -126,18 +126,51 @@ class Catalogue:
 
     def listview(self, item_type):
        if item_type == "book":
-          book = Book()
-          table = book.getbooklist()
-          return table
+            book_list = []
+            book = Book()
+            table = book.selectAllBookfromstore()
+            for rows in table:
+                single = Book()
+                single.fillingbookitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
+                                                rows[6], rows[7],rows[8])
+                book_list.append(single)
+
+            return book_list
        if item_type == "music":
-          music = Music()
-          table = music.getmusiclist()
-          return table
+           music_list = []
+           music = Music()
+           table = music.selectAllMusicfromstore()
+           for rows in table:
+               single = Music()
+               single.fillingmusicitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],rows[6])
+               music_list.append(single)
+           return music_list
        if item_type == "magazine":
-          magazine = Magazine()
-          table = magazine.getmagazinelist()
-          return table
+           magazine_list = []
+           magazine = Magazine()
+           table = magazine.selectAllMagazinesfromstore()
+           for rows in table:
+               single = Magazine()
+               single.fillingmagazineitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5])
+               magazine_list.append(single)
+           return magazine_list
        if item_type == "video":
-          video = Video()
-          table = video.getvideolist()
-          return table
+           video_list = []
+           video = Video()
+           table = video.selectAllVideofromstore()
+           for rows in table:
+               single = Video()
+               single.fillingvideoitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
+                                      rows[6], rows[7], rows[8])
+               video_list.append(single)
+           return video_list
+
+
+
+
+
+
+
+
+
+

@@ -16,7 +16,7 @@ class Magazine:
     def __init__(self):
         pass
 
-    def fillingmagazineitem(self, title, publisher, language, isbn_10, isbn_13):
+    def fillingmagazineitem(self,id, title, publisher, language, isbn_10, isbn_13):
 
         self.magazine_id = id  # Known placeholder until given an id out of database
         self.title = title
@@ -55,6 +55,11 @@ class Magazine:
         select_query = "select * from magazine where id='%d'" % (id)
         tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
+
+    def selectAllMagazinesfromstore(self):
+        select_query = "select * from magazine "
+        tables = DataBaseLayer.selectCommand(select_query)
+        return tables
 
 
     def deleterow(self, id):

@@ -152,7 +152,7 @@ def videoviewupdate(request, id):
         video_form = VideoForm(request.POST)
         if video_form.is_valid():
             video_data = video_form.cleaned_data
-            catalogue.update_item("video", video_data, id)
+            catalogue.update_item("video", video_data,id)
             video_form = VideoForm()
             return HttpResponse("Video UPDATED to database")
 
@@ -180,6 +180,7 @@ def musicviewupdate(request, id):
         music_form["artist"].initial = music_data.artist
         music_form["label"].initial = music_data.label
         music_form["release_date"].initial = music_data.release_date
+        music_form["Asin"].initial = music_data.ASIN
 
     elif request.method == 'POST':
         music_form = MusicForm(request.POST)
@@ -275,3 +276,12 @@ def magazinelist(request):
       magazine_data = catalogue.listview("magazine")
       context = {'table': magazine_data}
     return render(request, 'magazine-list.html', context)
+
+def view_All(request):
+    if request.method == 'GET':
+        book_data = catalogue.listview("book")
+        magazine_data = catalogue.listview("magazine")
+        video_data = catalogue.listview("video")
+        music_data = catalogue.listview("music")
+        context = {'books': book_data,'magazines':magazine_data,'video':video_data,'music':music_data}
+    return render(request, 'view-All.html', context)

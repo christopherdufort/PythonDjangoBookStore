@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `music` (
   `artist` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   `release_date` date NOT NULL,
+  `ASIN` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

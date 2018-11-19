@@ -91,6 +91,11 @@ class Book:
         select_query ="select * from book where id='%d'"% (id)
         tables=DataBaseLayer.selectCommand(select_query)
         return tables[0]
+
+    def selectAllBookfromstore(self,):
+        select_query = "select * from book "
+        tables = DataBaseLayer.selectCommand(select_query)
+        return tables
         # to_string method
   #  def __str__(self):
    #     return "Book Details: " + str(self.book_id) + ", " + self.title + ", " + self.author + ", " + self.book_format + ", " + str(self.pages) + ", " + self.publisher + ", " + self.language + ", " + str(self.isbn_10) + ", "
