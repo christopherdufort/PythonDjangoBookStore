@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SOEN 341 SEARCH BOOK BY ISBN10</title>
+	<link rel="stylesheet" href='library/static/css/base.css' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+<body>
+
+	<h1>SEARCH BOOK BY ISBN10</h1>
+
+	<h2>Search results below</h2>
+
+	 <div>
+	  
+	  <table>
+            <tr>
+                <th>Book Title</th>
+                <th>Book Author</th>
+                <th>Book Format</th>
+                <th>Book Pages</th>
+                <th>Book Publisher</th>
+                <th>Book Language</th>
+                <th>Book isbn10</th>
+                <th>Book isbn13</th>
+            </tr>
+            {% for book in results %}
+            <tr>
+                <td>{{ book.1 }}</td>
+                <td>{{ book.2 }}</td>
+                <td>{{ book.3 }}</td>
+                <td>{{ book.4 }}</td>
+                <td>{{ book.5 }}</td>
+                <td>{{ book.6 }}</td>
+                <td>{{ book.7 }}</td>
+                <td>{{ book.8 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+	  
+		<h2>Enter and submit the number that you would like to search again</h2>
+	  
+        <form method="GET" action="book-searchISBN10" style="display: inline-grid;">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Search books by ISBN10">
+        </form>
+        
+    </div>
+
+
+
+</body>
+</html>
