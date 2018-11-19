@@ -19,11 +19,11 @@ def sign_in(request):
     if request.method == 'POST':
         auth_form = AuthenticationForm(request.POST)
         if auth_form.is_valid():
-            user_data = auth_form.cleaned_data
-            user = userRegistry.sign_in(user_data)
+            user = UserRegistry.sign_in(auth_form)
             if (user):
                 print("USER EXISTS GO TO CLIENT PAGE")
-                if (user.is_admin):
+                print(user)
+                if (user['is_admin']):
                     print("go to admin home")
                 else:
                     return render(request, 'client-home.html')
@@ -35,7 +35,7 @@ def create_account(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
+            UserForm.save(form)
             return render(request, 'client-home.html')
 
     form = UserForm()
@@ -191,6 +191,15 @@ def musicviewupdate(request, id):
 
     return render(request, 'music-view-update.html', {'form': music_form})
 
+def admin_dashboard(request):
+    return render(request, 'admin-dashboard.html')
+
+def active_users(request):
+    #get active users
+    users = UserRegistry.get_active_users()
+    print("HEYOOO")
+    print(users)
+    return render(request, 'active-users.html',{'users': users})
 
 def register_admin(request):
     if request.method == 'POST':

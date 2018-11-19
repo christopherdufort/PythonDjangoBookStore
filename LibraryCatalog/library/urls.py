@@ -35,6 +35,8 @@ urlpatterns = [
     path('magazine-view-update/<int:id>/', views.magazineviewupdate),
     path('magazine-view-delete/<int:id>/', views.magazineviewdelete),
     path('video-entry', views.video_entry),
+    path('admin-dashboard', views.admin_dashboard),
+    path('active-users', views.active_users),
     path('video-view-update/<int:id>/', views.videoviewupdate),
     path('video-view-delete/<int:id>/', views.videoviewdelete),
     path('music-entry', views.music_entry),
