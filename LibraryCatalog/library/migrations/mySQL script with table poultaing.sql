@@ -110,6 +110,10 @@ select * from book;
 Populate Tables
 */
 
+-- one admin
+
+INSERT INTO user (first_name, last_name, email, address, phone_number, password, session_key, session_expire, is_admin) VALUES ('Admin', 'Admin', 'admin@admin.com', '123admin', '1234567', 'admin', 'abc123', '', '1');
+
 -- book
 INSERT INTO book (title, author, format, pages, publisher, language, isbn_10, isbn_13) VALUES ('Book Title  1', 'Book Author  1', 'Soft Cover', 100, 'Clearing House', 'English', 1023456789, 1023456789100);
 INSERT INTO book (title, author, format, pages, publisher, language, isbn_10, isbn_13) VALUES ('Book Title  2', 'Book Author  2', 'Soft Cover', 129, 'Clearing House', 'English', 1322222111, 220888877889);
