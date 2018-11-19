@@ -61,3 +61,7 @@ class Music:
         delete_query = "DELETE FROM music WHERE id='%s'" % (id)
         self.music_id = DataBaseLayer.insertCommand(delete_query)
 
+    def getmusiclist(self):
+        select_query = "select * from music"
+        tables = DataBaseLayer.selectCommand(select_query)
+        return tables

@@ -60,4 +60,9 @@ class Video:
     def __str__(self):
         return "Video Details: "
 
+    def getvideolist(self):
+        select_query = "select * from video"
+        tables = DataBaseLayer.selectCommand(select_query)
+        return tables
+
 
