@@ -19,7 +19,7 @@ class Video:
     def __init__(self):
         pass
 
-    def fillingvideoitem(self, title, director, producers, actors, language, subtitles, dubbed, release_date):
+    def fillingvideoitem(self,id, title, director, producers, actors, language, subtitles, dubbed, release_date):
 
         self.video_id = id  # Known placeholder until given an id out of database
         self.title = title
@@ -45,6 +45,11 @@ class Video:
         select_query ="select * from video where id='%d'"% (id)
         tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
+
+    def selectAllVideofromstore(self):
+        select_query = "select * from video "
+        tables = DataBaseLayer.selectCommand(select_query)
+        return tables
 
     def updateVideotostore(self, id):
 

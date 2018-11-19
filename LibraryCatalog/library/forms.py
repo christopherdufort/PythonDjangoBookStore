@@ -75,6 +75,7 @@ class MagazineForm(forms.Form):
     language = forms.CharField(max_length=255)   # comma separated array
     isbn_10 = forms.IntegerField(min_value=0000000000, max_value=9999999999)
     isbn_13 = forms.IntegerField(min_value=0000000000000, max_value=9999999999999)
+    id = forms.IntegerField(min_value=0000000000000, max_value=9999999999999).hidden_widget
 
 
 # Custom form for input of videos
@@ -87,6 +88,7 @@ class VideoForm(forms.Form):
     subtitles = forms.CharField(max_length=255)  # comma separated array
     dubbed = forms.CharField(max_length=255)   # comma separated array
     release_date = forms.CharField(max_length=255)
+    id = forms.IntegerField(min_value=0000000000000, max_value=9999999999999).hidden_widget
 
 
 # Custom form for input of music
@@ -96,3 +98,5 @@ class MusicForm(forms.Form):
     artist = forms.CharField(max_length=255)   # comma separated array
     label = forms.CharField(max_length=255)
     release_date = forms.DateField()
+    Asin=forms.CharField(max_length=255)
+    id = forms.IntegerField(min_value=0000000000000, max_value=9999999999999).hidden_widget

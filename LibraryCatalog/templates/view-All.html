@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h3 class = "page-header text-center">Admin Functionality</h3>
+<div class="container">
+<!-- Centered Pills -->
+<ul class="nav nav-pills nav-justified">
+  <li class="active"><a href="#">Home</a></li>
+  <li><a href="#Books">Books</a></li>
+  <li><a href="#magazines">Magazines</a></li>
+  <li><a href="#video">Video</a></li>
+    <li><a href="#music">Music</a></li>
+</ul>
+<h4 class = "page-header text-left">Books Details</h4>
+<table class="table table-condensed" id="Books">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in books %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/book-view-update/{{ row.book_id }}/"> EDIT</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+<h4 class = "page-header text-left" id="magazines">magazines Details</h4>
+<table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in magazines %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/magazine-view-update/{{ row.magazine_id }}/"> EDIT</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+
+<h4 class = "page-header text-left" id="video">Video Details</h4>
+<table class="table table-condensed" >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in video %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/video-view-update/{{ row.video_id }}/"> EDIT</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+ <h4 class = "page-header text-left" id="music">Music Details</h4>
+<table class="table table-condensed" >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in music %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/music-view-update/{{ row.music_id }}/"> EDIT</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+</div>
+</body>
+
+</html>
