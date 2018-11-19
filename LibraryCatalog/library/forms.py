@@ -24,11 +24,10 @@ class UserForm(forms.Form):
     #session_key = forms.CharField(max_length=255)
     #session_expire = forms.DateTimeField(initial=datetime.now() + timedelta(hours=1))
 
-    def save(form):
+    def save(form, is_admin):
         print("THIS IS THE FORM TO SAVE")
         session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
         session_expire = (datetime.today()+timedelta(days=30))
-        is_admin = False
         sql = "INSERT INTO `soen341`.`user`(`first_name`, `last_name`, `email`, `address`, `phone_number`, `password`, `session_key`, `session_expire`, `is_admin`) VALUES('";
         sql += form.cleaned_data['first_name'] + "', '"
         sql += form.cleaned_data['last_name'] + "', '"
@@ -42,17 +41,6 @@ class UserForm(forms.Form):
         print("THIS IS THE SQL QUERRY")
         print(sql)
         DataBaseLayer.insertCommand(sql)
-
-
-# Custom form for admin creation and admin data
-class AdminForm(forms.Form):
-    first_name = forms.CharField(max_length=255)
-    last_name = forms.CharField(max_length=255)
-    address = forms.CharField(max_length=255)
-    phone_number = forms.CharField(max_length=255)
-    is_admin = forms.BooleanField(initial=True)
-    password = forms.CharField(max_length=255)
-    email = forms.CharField(max_length=255)
 
 
 # Custom form for input of books

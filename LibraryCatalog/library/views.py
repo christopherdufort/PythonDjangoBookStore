@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, MusicForm
 from .models.BookModule import Book
 from .DataBaseLayer import insertCommand, updateCommand, selectCommand
 
@@ -24,7 +24,7 @@ def sign_in(request):
                 print("USER EXISTS GO TO CLIENT PAGE")
                 print(user)
                 if (user['is_admin']):
-                    print("go to admin home")
+                    return render(request, 'admin-dashboard.html')
                 else:
                     return render(request, 'client-home.html')
     form = AuthenticationForm()
@@ -35,8 +35,18 @@ def create_account(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            UserForm.save(form)
+            UserForm.save(form, False)
             return render(request, 'client-home.html')
+
+    form = UserForm()
+    return render(request, 'create-account.html', {'form': form})
+
+def register_admin(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            UserForm.save(form, True)
+            return render(request, 'admin-dashboard.html')
 
     form = UserForm()
     return render(request, 'create-account.html', {'form': form})
@@ -197,29 +207,7 @@ def admin_dashboard(request):
 def active_users(request):
     #get active users
     users = UserRegistry.get_active_users()
-    print("HEYOOO")
-    print(users)
     return render(request, 'active-users.html',{'users': users})
-
-def register_admin(request):
-    if request.method == 'POST':
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            first_name = form["first_name"].value()
-            last_name = form["last_name"].value()
-            address = form["address"].value()
-            phone_number = form["phone_number"].value()
-            password = form["password"].value()
-            email = form["email"].value()
-
-            insertcmd = "INSERT INTO library_user(first_name,last_name,address,phone_number,is_admin,password,email,session_expire,session_key)VALUES('%s','%s','%s','%s',1,'%s','%s','2018-11-19','')" % (
-            first_name, last_name, address, phone_number, password, email)
-            insertCommand(insertcmd)
-
-            return render(request, 'Admin-home.html')
-
-    form = AdminForm()
-    return render(request, 'create-admin.html', {'form': form})
 
 
 def bookviewdelete(request,id):
