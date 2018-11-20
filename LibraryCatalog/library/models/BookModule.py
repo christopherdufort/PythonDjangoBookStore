@@ -55,61 +55,37 @@ class Book:
 
 
     # Example function
-    def get_title(self):
-        return self.title
-
-    # Example function
-    def set_title(self, title):
-        self.title = title
-
-
-    # Example function
     def is_loanable(self):
             return "true"
 
     # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
     def store(self):
-        # conn = DataBaseLayer.connectDb()
         insert_query = "INSERT INTO book (title,author,format,pages,publisher,language,isbn_10,isbn_13)VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(self.title, self.author, self.book_format, self.pages, self.publisher, self.language, self.isbn_10, self.isbn_13)
         self.book_id = DataBaseLayer.insertCommand(insert_query)
-        # Update the id(from database) of the inserted book
-        #self.book_id = DataBaseLayer.last_id_inserted()
 
-        # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
-
+# update record
     def updateBooktostore(self, id):
         # conn = DataBaseLayer.connectDb()
         update_query = "UPDATE book SET title='%s',author='%s',format='%s',pages='%s',publisher='%s',language='%s',isbn_10='%s',isbn_13='%s' WHERE id = '%s'"%(self.title, self.author, self.book_format, self.pages, self.publisher, self.language, self.isbn_10,self.isbn_13,id)
-        # update_query="UPDATE book SET title='s',author='s',format='s',pages=5,publisher='s',language='s',isbn_10=5,isbn_13=5 WHERE id =10"
         self.book_id = DataBaseLayer.updateCommand(update_query)
         # Update the id(from database) of the inserted book
         #self.book_id = DataBaseLayer.last_id_inserted()
 
-
-
-    def selectBookfromstore(self,id):
-        select_query ="select * from book where id='%d'"% (id)
-        tables=DataBaseLayer.selectCommand(select_query)
+# retrieve record based on ID
+    def selectBookfromstore(self, id):
+        select_query = "select * from book where id='%d'"% (id)
+        tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
 
+# retrieve all record
     def selectAllBookfromstore(self,):
         select_query = "select * from book "
         tables = DataBaseLayer.selectCommand(select_query)
         return tables
-        # to_string method
-  #  def __str__(self):
-   #     return "Book Details: " + str(self.book_id) + ", " + self.title + ", " + self.author + ", " + self.book_format + ", " + str(self.pages) + ", " + self.publisher + ", " + self.language + ", " + str(self.isbn_10) + ", "
 
-
- # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
-    def deleterow(self,id):
+# delete record
+    def deleterow(self, id):
         # conn = DataBaseLayer.connectDb()
         delete_query = "DELETE FROM book WHERE id='%s'"%(id)
         self.book_id = DataBaseLayer.insertCommand(delete_query)
-        # Update the id(from database) of the inserted book
-        #self.book_id = DataBaseLayer.last_id_inserted()
 
-    def getbooklist(self):
-        select_query = "select * from book"
-        tables = DataBaseLayer.selectCommand(select_query)
-        return tables

@@ -321,3 +321,12 @@ def magazinedetails(request, id):
             return render(request, 'magazine-details.html', context)
 
 
+def catalogview(request):
+    if request.method == 'GET':
+        book_data = catalogue.listview("book")
+        magazine_data = catalogue.listview("magazine")
+        video_data = catalogue.listview("video")
+        music_data = catalogue.listview("music")
+        context = {'books': book_data, 'magazines': magazine_data, 'video': video_data, 'music': music_data}
+    return render(request, 'catalogue.html', context)
+
