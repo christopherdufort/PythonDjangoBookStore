@@ -1,6 +1,9 @@
 # SOEN 341-H Software Process Fall 2018 - Term Project
 
-One Paragraph of project description goes here
+Library Catalog Software System V1.0
+
+Library Catalog is a user oriented software system designed to automate the library process for both library clients as well as library administrators. The user functionalities include searching and browsing the library catalog as well as loaning and returning items. The administrators have the capability of adding, removing and modifying library items. Additional documentation about software specifications are available in the SRS Document (Software Requirement Specification) and code implementation details are available ind the SAD Document (Software Architecture Document).
+
 
 ## Prerequisite
 Install the following:
