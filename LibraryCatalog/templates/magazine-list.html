@@ -29,25 +29,37 @@
         <a class="ml-2 btn btn-outline-primary" href="/">Home</a>
     </div>
 
+    <style>
+   table {
+    border-collapse: collapse;
+     }
+
+    table, td, th {
+    border: 1px solid black;
+     }
+</style>
+
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h3 class="display-4">Magazine</h3>
       <p class="lead"></p>
-        <table style="width:50%">
-
-         <!--<tr>-->
-           <!--<th>Title</th>-->
-           <!--<th>Author</th>-->
-         <!--</tr>-->
-    {% for row in table %}
-         <tr>
-            {% for item in row %}
-               <td>
-               {{ item }}
-               </td>
-                 {% endfor %}
-         </tr>
+        <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Publisher</th>
+          <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in magazine %}
+      <tr>
+        <td>{{ row.title }}</td>
+          <td>{{ row.publisher }}</td>
+        <td><a href="/magazine-details/{{ row.magazine_id }}/">Details</a></td>
+      </tr>
     {% endfor %}
-</table>
+    </tbody>
+  </table>
     </div>
 
       <footer class="pt-4 my-md-5 pt-md-5 border-top">
