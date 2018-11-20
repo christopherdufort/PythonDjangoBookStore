@@ -63,7 +63,7 @@ class Video:
     def deleterow(self,id):
 
         delete_query = "DELETE FROM video WHERE id='%s'"%(id)
-        self.video_id = DataBaseLayer.insertCommand(delete_query)
+        self.video_id = DataBaseLayer.deleteCommand(delete_query)
 
 
 

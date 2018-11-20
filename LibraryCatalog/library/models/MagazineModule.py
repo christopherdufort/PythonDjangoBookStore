@@ -65,7 +65,7 @@ class Magazine:
     def deleterow(self, id):
         # conn = DataBaseLayer.connectDb()
         delete_query = "DELETE FROM magazine WHERE id='%s'" % (id)
-        self.magazine_id = DataBaseLayer.insertCommand(delete_query)
+        self.magazine_id = DataBaseLayer.deleteCommand(delete_query)
 
 
 
