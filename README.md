@@ -2,7 +2,7 @@
 
 Library Catalog Software System V1.0
 
-Library Catalog is a user oriented software system designed to automate the library process for both library clients as well as library administrators. The user functionalities include searching and browsing the library catalog as well as loaning and returning items. The administrators have the capability of adding, removing and modifying library items. Additional documentation about software specifications are available in the SRS Document (Software Requirement Specification) and code implementation details are available ind the SAD Document (Software Architecture Document).
+Library Catalog is a user oriented software system designed to automate the library process for both library clients as well as library administrators. The user functionalities include searching and browsing the library catalog as well as loaning and returning items. The administrators have the capability of adding, removing and modifying library items. Additional documentation about software specifications are available in the SRS Document (Software Requirement Specification) and code implementation details are available in the SAD Document (Software Architecture Document).
 
 
 ## Prerequisite
@@ -16,7 +16,8 @@ Following used for windows development:
 * pip 18.1 (10.1+)
 * wheel 0.32.1
 * [mysqlclient-1.3.13-cp37-cp37m-win32.whl](https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python)
-* ...
+* "pip install pymysql" - connector package
+*..
 ---
 Mac/Linux:
 * ...
