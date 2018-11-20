@@ -36,38 +36,33 @@ class Music:
 
     # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
 
-
-    # to_string method
-    def __str__(self):
-        return "Music Details: "
-
+# Save Record
     def store(self):
         # conn = DataBaseLayer.connectDb()
         insert_query = "INSERT INTO music (title,type,artist,label,release_date,ASIN)VALUES('%s', '%s', '%s', '%s', '%s','%s')" % (self.title, self.type, self.artist, self.label, self.release_date,self.ASIN)
         self.music_id = DataBaseLayer.insertCommand(insert_query)
 
+# Update record
     def updateMusictostore(self, id):
         # conn = DataBaseLayer.connectDb()
         update_query = "UPDATE music SET title='%s',type='%s',artist='%s',label='%s',release_date='%s',ASIN='%s' WHERE id = '%s'" % (
             self.title, self.type, self.artist, self.label, self.release_date,self.ASIN, id)
         self.music_id = DataBaseLayer.updateCommand(update_query)
 
+# Retrieve record based on ID
     def selectMusicfromstore(self, id):
         select_query = "select * from music where id='%d'" % (id)
         tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
 
+# Retrieve all records
     def selectAllMusicfromstore(self):
         select_query = "select * from music "
         tables = DataBaseLayer.selectCommand(select_query)
         return tables
 
+# Delete Record
     def deleterow(self, id):
         # conn = DataBaseLayer.connectDb()
         delete_query = "DELETE FROM music WHERE id='%s'" % (id)
-        self.music_id = DataBaseLayer.insertCommand(delete_query)
-
-    def getmusiclist(self):
-        select_query = "select * from music"
-        tables = DataBaseLayer.selectCommand(select_query)
-        return tables
+        self.music_id = DataBaseLayer.deleteCommand(delete_query)

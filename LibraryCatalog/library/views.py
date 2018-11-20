@@ -62,6 +62,7 @@ def book_entry(request):
     book_form = BookForm()
     return render(request, 'book-entry.html', {'form': book_form})
 
+
 def bookviewupdate(request,id):
     if request.method == 'GET':
         book_form = BookForm()
@@ -253,29 +254,30 @@ def musicviewdelete(request,id):
 
 def booklist(request):
     if request.method == 'GET':
-      book_data = catalogue.listview("book")
-      context = {'table': book_data}
+       book_data = catalogue.listview("book")
+       context = {'book': book_data}
     return render(request, 'book-list.html', context)
 
 def musiclist(request):
     if request.method == 'GET':
       music_data = catalogue.listview("music")
-      context = {'table': music_data}
+      context = {'music': music_data}
     return render(request, 'music-list.html', context)
 
 
 def videolist(request):
     if request.method == 'GET':
       video_data = catalogue.listview("video")
-      context = {'table': video_data}
+      context = {'video': video_data}
     return render(request, 'video-list.html', context)
 
 
 def magazinelist(request):
     if request.method == 'GET':
       magazine_data = catalogue.listview("magazine")
-      context = {'table': magazine_data}
+      context = {'magazine': magazine_data}
     return render(request, 'magazine-list.html', context)
+
 
 def view_All(request):
     if request.method == 'GET':
@@ -283,5 +285,48 @@ def view_All(request):
         magazine_data = catalogue.listview("magazine")
         video_data = catalogue.listview("video")
         music_data = catalogue.listview("music")
-        context = {'books': book_data,'magazines':magazine_data,'video':video_data,'music':music_data}
+        context = {'books': book_data, 'magazines': magazine_data, 'video': video_data, 'music': music_data}
     return render(request, 'view-All.html', context)
+
+
+def bookdetails(request, id):
+    if request.method == 'GET':
+        book_form = BookForm()
+        book_data = catalogue.get_items("book", id)
+        context = {'b': book_data}
+        return render(request, 'book-details.html', context)
+
+
+def musicdetails(request, id):
+    if request.method == 'GET':
+        music_form = MusicForm()
+        music_data = catalogue.get_items("music", id)
+        context = {'b': music_data}
+        return render(request, 'music-details.html', context)
+
+
+def videodetails(request, id):
+    if request.method == 'GET':
+        video_form = VideoForm()
+        video_data = catalogue.get_items("video", id)
+        context = {'b': video_data}
+        return render(request, 'video-details.html', context)
+
+
+def magazinedetails(request, id):
+        if request.method == 'GET':
+            magazine_form = MagazineForm()
+            magazine_data = catalogue.get_items("magazine", id)
+            context = {'b': magazine_data}
+            return render(request, 'magazine-details.html', context)
+
+
+def catalogview(request):
+    if request.method == 'GET':
+        book_data = catalogue.listview("book")
+        magazine_data = catalogue.listview("magazine")
+        video_data = catalogue.listview("video")
+        music_data = catalogue.listview("music")
+        context = {'books': book_data, 'magazines': magazine_data, 'video': video_data, 'music': music_data}
+    return render(request, 'catalogue.html', context)
+
