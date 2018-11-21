@@ -169,13 +169,13 @@ class Catalogue:
     #   - title, author, language                   from forms.BookSearchForm
     #   - findBookByTitle()                         from module/BookModule.py
 
-     def findBookByISBN10(self, search_data):
+    def findBookByISBN10(self, search_data):
 	    book = Book()
 	    print("search input was " + search_data.get('ISBN_Search'))
 	    matching_books = book.findBookByISBN10(search_data.get('ISBN_Search'))		
 	    return matching_books
 
-        def findBookByAny(self, search_data):
+    def findBookByAny(self, search_data):
         book = Book()
         #Print all inputs from for to console
         print("CatalogueModule.py.findBookANY - title of search input was " + search_data.get('title'))
