@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm, BookSearchISBN10FORM, BookSearchForm, SearchForm
 from .models.BookModule import Book
 from .DataBaseLayer import insertCommand, updateCommand, selectCommand
 
@@ -330,3 +330,19 @@ def catalogview(request):
         context = {'books': book_data, 'magazines': magazine_data, 'video': video_data, 'music': music_data}
     return render(request, 'catalogue.html', context)
 
+#BOOK SEARCH BY ANY CRITERIA
+def booksearch(request):
+    search_form = BookSearchForm()
+    if request.method == 'POST':
+        search_form = BookSearchForm(request.POST)
+        print("\nPrint request is: \n")
+        print(str(request.POST))
+        if search_form.is_valid():
+            search_data = search_form.cleaned_data
+            print("\nSearch data is\n")
+            print(search_data)
+            results = catalogue.findBookByAny(search_data)
+        return render(request, 'book-searchresults.html', {'form': search_form, 'results': results})
+    if request.method == 'GET':
+        print("METHOD WENT TO GET IN VIEWS.py/booksearch()")
+        return render(request, 'book-search.html', {'form': search_form})		
