@@ -91,6 +91,14 @@ class Book:
 
 	#Search for books by any criteria
     def searchBook(self, title, author, publisher, language, isbn10, isbn13, id, minPages, maxPages):
+        print("BookModule.searchBook has been called\nHere are the parameters passed in:\n")        
+        print ("title =")
+        print (title)
+#SOURCE OF ERROR        ALL INTEGERS BEING READ AS 'NONE'   SEE CONCOLE PRINT STATEMENTS    *************************************************************************************************
+        print ("ISBN10 =")
+        print (isbn10)
+        print ("ISBN13 =")
+        print (isbn13)
         if title != '':
             title_included = True
         else:
@@ -107,10 +115,14 @@ class Book:
             language_included = True
         else:
             language_included = False
-        if isbn10 != None:
+#SOURCE OF ERROR*************************************************************************************************
+        if isbn10 != 'None':
+#SOURCE OF ERROR*************************************************************************************************
             isbn10_included = True
+            print("BookModule.py line #154 isbn10 has been evaluated as " + str( isbn10_included ))
         else:
             isbn10_included = False
+            print("BookModule.py line #157 isbn10 has been evaluated as " + str( isbn10_included ))
         if isbn13 != None:
             isbn13_included = True
         else:
@@ -146,7 +158,11 @@ class Book:
                 returnQuery += " AND language LIKE'%%%s%%'"%(language)
             if isbn10_included:
                 returnQuery += "AND isbn_10 = " 
-                returnQuery += str(isbn10)
+                print ("str(isbn10) = ")
+                print (str(isbn10))
+                print ("isbn10 = ")
+                print (isbn10)
+                returnQuery += isbn10
             if isbn13_included:
                 returnQuery += " AND isbn_13 = "
                 returnQuery += str(isbn13)
@@ -265,5 +281,5 @@ class Book:
         
         #Send Query String to database
         print (returnQuery)
-        return DataBaseLayer.selectCommand(returnQuery) 
+        return DataBaseLayer.selectCommand(returnQuery)
 
