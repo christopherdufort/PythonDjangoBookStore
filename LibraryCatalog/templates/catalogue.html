@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Catalog</title>
+
+      {% load static %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "/css/bootstrap.min.css"%}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static "/css/pricing.css"%}" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">SOEN341 LibraryCatalog</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="book-list">BookList</a>
+        <a class="p-2 text-dark" href="magazine-list">MagazineList</a>
+        <a class="p-2 text-dark" href="music-list">MusicList</a>
+        <a class="p-2 text-dark" href="video-list">VideosList</a>
+      </nav>
+        <a class="ml-2 btn btn-outline-primary" href="/">Home</a>
+    </div>
+    <style>
+   table {
+    border-collapse: collapse;
+     }
+
+    table, td, th {
+    border: 1px solid black;
+     }
+</style>
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h4 class = "page-header text-left">Books</h4>
+<table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in books %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/book-details/{{ row.book_id }}/"> Details</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+<h4 class = "page-header text-left" >Magazines</h4>
+<table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in magazines %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/magazine-details/{{ row.magazine_id }}/"> Details</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+
+<h4 class = "page-header text-left" id="video">Video Details</h4>
+<table class="table table-condensed" >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in video %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/video-details/{{ row.video_id }}/"> Details</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+ <h4 class = "page-header text-left">Music</h4>
+<table class="table table-condensed" >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in music %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td><a href="/music-details/{{ row.music_id }}/"> Details</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+    </div>
+
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <small class="d-block mb-3 text-muted">&copy; 2018 SOEN341 Team 3</small>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="{% static "/js/jsjquery-slim.min.js"%}"><\/script>')</script>
+    <script src="{% static "/js/popper.min.js"%}"></script>
+    <script src="{% static "/js/bootstrap.min.js"%}"></script>
+    <script src="{% static "/js/holder.min.js"%}"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+</html>
