@@ -162,7 +162,7 @@ class Book:
                 print (str(isbn10))
                 print ("isbn10 = ")
                 print (isbn10)
-                returnQuery += isbn10
+                returnQuery += str(isbn10)
             if isbn13_included:
                 returnQuery += " AND isbn_13 = "
                 returnQuery += str(isbn13)
