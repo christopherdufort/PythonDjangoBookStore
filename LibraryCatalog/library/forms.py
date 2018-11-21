@@ -100,3 +100,15 @@ class MusicForm(forms.Form):
     release_date = forms.DateField()
     Asin=forms.CharField(max_length=255)
     id = forms.IntegerField(min_value=0000000000000, max_value=9999999999999).hidden_widget
+    
+# Search any or all book criteria
+class BookSearchForm(forms.Form):
+    title = forms.CharField(max_length=255, required=False)
+    author = forms.CharField(max_length=255, required=False)
+    minPages = forms.IntegerField(min_value=0, max_value=9999, required=False)
+    maxPages = forms.IntegerField(min_value=0, max_value=9999, required=False)
+    publisher = forms.CharField(max_length=255, required=False)
+    language = forms.CharField(max_length=255, required=False)
+    isbn_10 = forms.IntegerField(min_value=0000000000, max_value=9999999999, required=False)
+    isbn_13 = forms.IntegerField(min_value=0000000000000, max_value=9999999999999, required=False)
+    id = forms.IntegerField(min_value=0000000000000, max_value=9999999999999, required=False)
