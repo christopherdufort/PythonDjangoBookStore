@@ -116,7 +116,7 @@ class Book:
         else:
             language_included = False
 #SOURCE OF ERROR*************************************************************************************************
-        if isbn10 != 'None':
+        if isbn10 != None:
 #SOURCE OF ERROR*************************************************************************************************
             isbn10_included = True
             print("BookModule.py line #154 isbn10 has been evaluated as " + str( isbn10_included ))
