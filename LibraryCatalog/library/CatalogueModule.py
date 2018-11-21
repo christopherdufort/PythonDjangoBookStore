@@ -175,7 +175,7 @@ class Catalogue:
 	    matching_books = book.findBookByISBN10(search_data.get('ISBN_Search'))		
 	    return matching_books
 
-    def findBookByAny(self, search_data):
+        def findBookByAny(self, search_data):
         book = Book()
         #Print all inputs from for to console
         print("CatalogueModule.py.findBookANY - title of search input was " + search_data.get('title'))
@@ -209,13 +209,34 @@ class Catalogue:
             language_included = True
         else:
             language_included = False
+        if search_data.get('tid') != '':
+            id_included = True
+        else:
+            id_included = False
+        if search_data.get('isbn_10') != '':
+            isbn_10_included = True
+        else:
+            isbn_10_included = False
+        if search_data.get('isbn_13') != '':
+            isbn_13_included = True
+        else:
+            isbn_13_included = False
+        if search_data.get('minPages') != '':
+            minPages_included = True
+        else:
+            minPages_included = False
+        if search_data.get('maxPages') != '':
+            maxPages_included = True
+        else:
+            maxPages_included = False
         #Conditions for filtering search
         #If title included only
         #
-        if title_included or author_included or publisher_included or language_included:
+        if title_included or author_included or publisher_included or language_included or id_included or isbn_10_included or isbn_13_included or minPages_included or maxPages_included:
             return book.searchBook(search_data.get('title'), search_data.get('author'), search_data.get('publisher'), search_data.get('language'), search_data.get('isbn10'), search_data.get('isbn13'), search_data.get('id'), search_data.get('minPages'), search_data.get('maxPages'))
         else:
             return book.findBookByTitle(search_data.get('titleSearch'))
+
 
 
 
