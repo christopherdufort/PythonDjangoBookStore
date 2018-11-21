@@ -89,3 +89,197 @@ class Book:
         delete_query = "DELETE FROM book WHERE id='%s'"%(id)
         self.book_id = DataBaseLayer.deleteCommand(delete_query)
 
+	#Search for books by any criteria
+    def searchBook(self, title, author, publisher, language, isbn10, isbn13, id, minPages, maxPages):
+        print("BookModule.searchBook has been called\nHere are the parameters passed in:\n")        
+        print ("title =")
+        print (title)
+#SOURCE OF ERROR        ALL INTEGERS BEING READ AS 'NONE'   SEE CONCOLE PRINT STATEMENTS    *************************************************************************************************
+        print ("ISBN10 =")
+        print (isbn10)
+        print ("ISBN13 =")
+        print (isbn13)
+        if title != '':
+            title_included = True
+        else:
+            title_included = False
+        if author != '':
+            author_included = True
+        else:
+            author_included = False
+        if publisher != '':
+            publisher_included = True
+        else:
+            publisher_included = False
+        if language != '':
+            language_included = True
+        else:
+            language_included = False
+#SOURCE OF ERROR*************************************************************************************************
+        if isbn10 != 'None':
+#SOURCE OF ERROR*************************************************************************************************
+            isbn10_included = True
+            print("BookModule.py line #154 isbn10 has been evaluated as " + str( isbn10_included ))
+        else:
+            isbn10_included = False
+            print("BookModule.py line #157 isbn10 has been evaluated as " + str( isbn10_included ))
+        if isbn13 != None:
+            isbn13_included = True
+        else:
+            isbn13_included = False
+        if id != None:
+            id_included = True
+        else:
+            id_included = False
+        if minPages != None:
+            minPages_included = True
+        else:
+            minPages_included = False 
+        if maxPages != None:
+            maxPages_included = True
+        else:
+            maxPages_included = False   
+        #PRINT TRUTH VALUES
+        print("ISBN10_INCLUDED?" + str(isbn10_included))
+        print("ISBN13_INCLUDED?" + str(isbn13_included))  
+        print("ID_INCLUDED?" + str(id_included))  
+        print("MINPAGES_INCLUDED?" + str(minPages_included))  
+        print("MAXPAGES_INCLUDED?" + str(maxPages_included))                
+	    #Start Query String
+        returnQuery = "SELECT * FROM book where "
+        #Add to string necessary components
+        if title_included:
+            returnQuery += "title LIKE '%%%s%%'"%(title)
+            if author_included:
+                returnQuery += " AND author LIKE'%%%s%%'"%(author)
+            if publisher_included:
+                returnQuery += " AND publisher LIKE'%%%s%%'"%(publisher)
+            if language_included:
+                returnQuery += " AND language LIKE'%%%s%%'"%(language)
+            if isbn10_included:
+                returnQuery += "AND isbn_10 = " 
+                print ("str(isbn10) = ")
+                print (str(isbn10))
+                print ("isbn10 = ")
+                print (isbn10)
+                returnQuery += isbn10
+            if isbn13_included:
+                returnQuery += " AND isbn_13 = "
+                returnQuery += str(isbn13)
+            if id_included:
+                returnQuery += " AND id = "
+                returnQuery += str(id)
+            if minPages_included:
+                returnQuery += " AND pages > "
+                returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)      
+        elif author_included:
+            returnQuery += "author LIKE'%%%s%%'"%(author)
+            if publisher_included:
+                returnQuery += " AND publisher LIKE'%%%s%%'"%(publisher)
+            if language_included:
+                returnQuery += " AND language LIKE'%%%s%%'"%(language)
+            if isbn10_included:
+                returnQuery += "AND isbn_10 = " 
+                returnQuery += str(isbn10)
+            if isbn13_included:
+                returnQuery += " AND isbn_13 = "
+                returnQuery += str(isbn13)
+            if id_included:
+                returnQuery += " AND id = "
+                returnQuery += str(id)
+            if minPages_included:
+                returnQuery += " AND pages > "
+                returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)                            
+        elif publisher_included:
+            returnQuery += "publisher LIKE'%%%s%%'"%(publisher)
+            if language_included:
+                returnQuery += " AND language LIKE'%%%s%%'"%(language)
+            if isbn10_included:
+                returnQuery += "AND isbn_10 = " 
+                returnQuery += str(isbn10)
+            if isbn13_included:
+                returnQuery += " AND isbn_13 = "
+                returnQuery += str(isbn13)
+            if id_included:
+                returnQuery += " AND id = "
+                returnQuery += str(id)
+            if minPages_included:
+                returnQuery += " AND pages > "
+                returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)                            
+        elif language_included:
+            returnQuery += "language LIKE'%%%s%%'"%(language) 
+            if isbn10_included:
+                returnQuery += "AND isbn_10 = " 
+                returnQuery += str(isbn10)
+            if isbn13_included:
+                returnQuery += " AND isbn_13 = "
+                returnQuery += str(isbn13)
+            if id_included:
+                returnQuery += " AND id = "
+                returnQuery += str(id)
+            if minPages_included:
+                returnQuery += " AND pages > "
+                returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)
+        elif isbn10_included:
+            returnQuery += "AND isbn_10 = " 
+            returnQuery += str(isbn10)
+            if isbn13_included:
+                returnQuery += " AND isbn_13 = "
+                returnQuery += str(isbn13)
+            if id_included:
+                returnQuery += " AND id = "
+                returnQuery += str(id)
+            if minPages_included:
+                returnQuery += " AND pages > "
+                returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)
+
+        elif isbn13_included:
+            returnQuery += " AND isbn_13 = "
+            returnQuery += str(isbn13)
+            if id_included:
+                returnQuery += " AND id = "
+                returnQuery += str(id)
+            if minPages_included:
+                returnQuery += " AND pages > "
+                returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)
+        elif id_included:
+            returnQuery += " AND id = "
+            returnQuery += str(id)
+            if minPages_included:
+                returnQuery += " AND pages > "
+                returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)
+        elif minPages_included:
+            returnQuery += " AND pages > "
+            returnQuery += str(minPages)
+            if maxPages_included:
+                returnQuery += " AND pages < "
+                returnQuery += str(maxPages)
+        elif maxPages_included:
+            returnQuery += " AND pages < "
+            returnQuery += str(maxPages)                                                                             
+        
+        #Send Query String to database
+        print (returnQuery)
+        return DataBaseLayer.selectCommand(returnQuery)
+
