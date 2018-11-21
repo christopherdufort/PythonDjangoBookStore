@@ -88,4 +88,56 @@ class Book:
         # conn = DataBaseLayer.connectDb()
         delete_query = "DELETE FROM book WHERE id='%s'"%(id)
         self.book_id = DataBaseLayer.deleteCommand(delete_query)
+        
+ #Function for searching any book 
+    #   - title, author, language                   from forms.BookSearchForm
+    #   - findBookByTitle()                         from module/BookModule.py
+
+     def findBookByISBN10(self, search_data):
+	    book = Book()
+	    print("search input was " + search_data.get('ISBN_Search'))
+	    matching_books = book.findBookByISBN10(search_data.get('ISBN_Search'))		
+	    return matching_books
+
+    def findBookByAny(self, search_data):
+        book = Book()
+        #Print all inputs from for to console
+        print("CatalogueModule.py.findBookANY - title of search input was " + search_data.get('title'))
+        print("CatalogueModule.py.findBookANY - author of search input was " + search_data.get('author'))
+        print("CatalogueModule.py.findBookANY - language of search input was " + search_data.get('language'))
+        print("CatalogueModule.py.findBookANY - publisher of search input was " + search_data.get('publisher'))
+        print("CatalogueModule.py.findBookANY - id search input was ")
+        print(search_data.get('id'))
+        print("CatalogueModule.py.findBookANY - minPages search input was ")
+        print(search_data.get('minPages'))
+        print("CatalogueModule.py.findBookANY -  maxPages search input was ")
+        print(search_data.get('maxPages'))
+        print("CatalogueModule.py.findBookANY -  isbn10 search input was ")
+        print(search_data.get('isbn_10'))
+        print("CatalogueModule.py.findBookANY -  isbn13 search input was ")
+        print(search_data.get('isbn_13'))
+        #Assign True to values that are included in the search
+        if search_data.get('title') != '':
+            title_included = True
+        else:
+            title_included = False
+        if search_data.get('author') != '':
+            author_included = True
+        else:
+            author_included = False
+        if search_data.get('publisher') != '':
+            publisher_included = True
+        else:
+            publisher_included = False
+        if search_data.get('language') != '':
+            language_included = True
+        else:
+            language_included = False
+        #Conditions for filtering search
+        #If title included only
+        #
+        if title_included or author_included or publisher_included or language_included:
+            return book.searchBook(search_data.get('title'), search_data.get('author'), search_data.get('publisher'), search_data.get('language'), search_data.get('isbn10'), search_data.get('isbn13'), search_data.get('id'), search_data.get('minPages'), search_data.get('maxPages'))
+        else:
+            return book.findBookByTitle(search_data.get('titleSearch'))
 
