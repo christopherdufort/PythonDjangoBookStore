@@ -51,7 +51,8 @@ urlpatterns = [
     path('magazine-list', views.magazinelist),
     path('music-list', views.musiclist),
     path('view-All', views.view_All),
-    path('catalogue', views.catalogview)
+    path('catalogue', views.catalogview),
+    path('book-search', views.booksearch),
 
 
 ]
