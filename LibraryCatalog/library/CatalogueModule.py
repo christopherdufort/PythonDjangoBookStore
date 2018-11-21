@@ -233,7 +233,7 @@ class Catalogue:
         #If title included only
         #
         if title_included or author_included or publisher_included or language_included or id_included or isbn_10_included or isbn_13_included or minPages_included or maxPages_included:
-            return book.searchBook(search_data.get('title'), search_data.get('author'), search_data.get('publisher'), search_data.get('language'), search_data.get('isbn10'), search_data.get('isbn13'), search_data.get('id'), search_data.get('minPages'), search_data.get('maxPages'))
+            return book.searchBook(search_data.get('title'), search_data.get('author'), search_data.get('publisher'), search_data.get('language'), search_data.get('isbn_10'), search_data.get('isbn_13'), search_data.get('id'), search_data.get('minPages'), search_data.get('maxPages'))
         else:
             return book.findBookByTitle(search_data.get('titleSearch'))
 
