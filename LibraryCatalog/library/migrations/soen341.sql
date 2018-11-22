@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_admin` tinyint(1) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `session_expire` date NOT NULL,
-  `session_key` varchar(255) NOT NULL,
+  `session_expire` date,
+  `session_key` varchar(255),
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -110,4 +110,5 @@ CREATE TABLE IF NOT EXISTS `video` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
 COMMIT;

@@ -5,6 +5,14 @@
         <link rel = "stylesheet" href = 'static/css/base.css'/>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
+    <style>
+    a{
+        text-decoration: none;
+    }
+    .button-holder{
+        width:100%;
+    }
+    </style>
     <body class ="color-bg">
         
         <div class = "content">
@@ -14,8 +22,10 @@
                 <form method="post" style = "display: inline-grid;">
                     {% csrf_token %}
                     {{ form }}
-                    <button type="submit">Sign In</button>
-                    <button type = "button"><a href="/create-account">Create Account</a></button>
+                    <div class = "button-holder">
+                        <button type="submit">Sign In</button>
+                        <button type = "button"><a href="/create-account">Create Account</a></button>
+                    </div>
                 </form>
 
             </div>
