@@ -42,7 +42,7 @@
 	  
 		<h2>Enter and Select the criteria to be included in your book search</h2>
 	  
-        <form method="GET" action="book-search" style="display: inline-grid;">
+        <form method="POST" action="book-search" style="display: inline-grid;">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="SEARCH BOOKS">

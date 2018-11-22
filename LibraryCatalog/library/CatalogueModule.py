@@ -165,7 +165,117 @@ class Catalogue:
                video_list.append(single)
            return video_list
 
+    def listtitleview(self, item_type, title):
+          if item_type == "book":
+               book_list = []
+               book = Book()
+               table = book.selectBookbytitlefromstore(title)
+               for rows in table:
+                   single = Book()
+                   single.fillingbookitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
+                                          rows[6], rows[7], rows[8])
+                   book_list.append(single)
+               return book_list
+          if item_type == "music":
+               music_list = []
+               music = Music()
+               table = music.selectMusicbytitlefromstore(title)
+               for rows in table:
+                   single = Music()
+                   single.fillingmusicitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5], rows[6])
+                   music_list.append(single)
+               return music_list
+          if item_type == "magazine":
+               magazine_list = []
+               magazine = Magazine()
+               table = magazine.selectMagazinebytitlefromstore(title)
+               for rows in table:
+                   single = Magazine()
+                   single.fillingmagazineitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5])
+                   magazine_list.append(single)
+               return magazine_list
+          if item_type == "video":
+               video_list = []
+               video = Video()
+               table = video.selectVideobytitlefromstore(title)
+               for rows in table:
+                   single = Video()
+                   single.fillingvideoitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
+                                           rows[6], rows[7], rows[8])
+                   video_list.append(single)
+               return video_list
 
+ #Function for searching any book 
+    #   - title, author, language                   from forms.BookSearchForm
+    #   - findBookByTitle()                         from module/BookModule.py
+
+    def findBookByISBN10(self, search_data):
+	    book = Book()
+	    print("search input was " + search_data.get('ISBN_Search'))
+	    matching_books = book.findBookByISBN10(search_data.get('ISBN_Search'))		
+	    return matching_books
+
+    def findBookByAny(self, search_data):
+        book = Book()
+        #Print all inputs from for to console
+        print("CatalogueModule.py.findBookANY - title of search input was " + search_data.get('title'))
+        print("CatalogueModule.py.findBookANY - author of search input was " + search_data.get('author'))
+        print("CatalogueModule.py.findBookANY - language of search input was " + search_data.get('language'))
+        print("CatalogueModule.py.findBookANY - publisher of search input was " + search_data.get('publisher'))
+        print("CatalogueModule.py.findBookANY - id search input was ")
+        print(search_data.get('id'))
+        print("CatalogueModule.py.findBookANY - minPages search input was ")
+        print(search_data.get('minPages'))
+        print("CatalogueModule.py.findBookANY -  maxPages search input was ")
+        print(search_data.get('maxPages'))
+        print("CatalogueModule.py.findBookANY -  isbn10 search input was ")
+        print(search_data.get('isbn_10'))
+        print("CatalogueModule.py.findBookANY -  isbn13 search input was ")
+        print(search_data.get('isbn_13'))
+        #Assign True to values that are included in the search
+        if search_data.get('title') != '':
+            title_included = True
+        else:
+            title_included = False
+        if search_data.get('author') != '':
+            author_included = True
+        else:
+            author_included = False
+        if search_data.get('publisher') != '':
+            publisher_included = True
+        else:
+            publisher_included = False
+        if search_data.get('language') != '':
+            language_included = True
+        else:
+            language_included = False
+        if search_data.get('tid') != '':
+            id_included = True
+        else:
+            id_included = False
+        if search_data.get('isbn_10') != '':
+            isbn_10_included = True
+        else:
+            isbn_10_included = False
+        if search_data.get('isbn_13') != '':
+            isbn_13_included = True
+        else:
+            isbn_13_included = False
+        if search_data.get('minPages') != '':
+            minPages_included = True
+        else:
+            minPages_included = False
+        if search_data.get('maxPages') != '':
+            maxPages_included = True
+        else:
+            maxPages_included = False
+        #Conditions for filtering search
+        #If title included only
+        #
+        if title_included or author_included or publisher_included or language_included or id_included or isbn_10_included or isbn_13_included or minPages_included or maxPages_included:
+            return book.searchBook(search_data.get('title'), search_data.get('author'), search_data.get('publisher'), search_data.get('language'), search_data.get('isbn_10'), search_data.get('isbn_13'), search_data.get('id'), search_data.get('minPages'), search_data.get('maxPages'))
+        else:
+            return book.findBookByTitle(search_data.get('titleSearch'))
 
 
 

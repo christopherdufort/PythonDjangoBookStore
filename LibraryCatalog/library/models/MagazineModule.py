@@ -55,6 +55,13 @@ class Magazine:
         tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
 
+# retrieve record based on Title
+    def selectMagazinebytitlefromstore(self, title):
+            titlesearch = '%' + title + '%'
+            select_query = "SELECT * from magazine WHERE CONCAT (title,publisher) LIKE '%s'" % (titlesearch)
+            tables = DataBaseLayer.selectCommand(select_query)
+            return tables
+
 # Retrieve all record
     def selectAllMagazinesfromstore(self):
         select_query = "select * from magazine "

@@ -47,6 +47,13 @@ class Video:
         tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
 
+# retrieve record based on Title
+    def selectVideobytitlefromstore(self, title):
+            titlesearch = '%' + title + '%'
+            select_query = "SELECT * from video WHERE CONCAT (title,actors) LIKE '%s'" % (titlesearch)
+            tables = DataBaseLayer.selectCommand(select_query)
+            return tables
+
 # Retrieve all records
     def selectAllVideofromstore(self):
         select_query = "select * from video "
