@@ -11,6 +11,9 @@ class AuthenticationForm(forms.Form):
     email = forms.CharField(max_length=255)
     password = forms.CharField(max_length=255)
 
+# Custom form used for search
+class SearchForm(forms.Form):
+    Search = forms.CharField(max_length=255)
 
 # Custom form for user creation and user data
 class UserForm(forms.Form):

@@ -165,6 +165,46 @@ class Catalogue:
                video_list.append(single)
            return video_list
 
+    def listtitleview(self, item_type, title):
+          if item_type == "book":
+               book_list = []
+               book = Book()
+               table = book.selectBookbytitlefromstore(title)
+               for rows in table:
+                   single = Book()
+                   single.fillingbookitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
+                                          rows[6], rows[7], rows[8])
+                   book_list.append(single)
+               return book_list
+          if item_type == "music":
+               music_list = []
+               music = Music()
+               table = music.selectMusicbytitlefromstore(title)
+               for rows in table:
+                   single = Music()
+                   single.fillingmusicitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5], rows[6])
+                   music_list.append(single)
+               return music_list
+          if item_type == "magazine":
+               magazine_list = []
+               magazine = Magazine()
+               table = magazine.selectMagazinebytitlefromstore(title)
+               for rows in table:
+                   single = Magazine()
+                   single.fillingmagazineitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5])
+                   magazine_list.append(single)
+               return magazine_list
+          if item_type == "video":
+               video_list = []
+               video = Video()
+               table = video.selectVideobytitlefromstore(title)
+               for rows in table:
+                   single = Video()
+                   single.fillingvideoitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
+                                           rows[6], rows[7], rows[8])
+                   video_list.append(single)
+               return video_list
+
  #Function for searching any book 
     #   - title, author, language                   from forms.BookSearchForm
     #   - findBookByTitle()                         from module/BookModule.py

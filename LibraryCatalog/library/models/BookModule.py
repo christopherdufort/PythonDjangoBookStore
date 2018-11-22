@@ -77,6 +77,13 @@ class Book:
         tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
 
+# retrieve record based on Title
+    def selectBookbytitlefromstore(self, title):
+            titlesearch = '%' + title + '%'
+            select_query = "SELECT * from book WHERE CONCAT (title,author) LIKE '%s'" % (titlesearch)
+            tables = DataBaseLayer.selectCommand(select_query)
+            return tables
+
 # retrieve all record
     def selectAllBookfromstore(self,):
         select_query = "select * from book "
