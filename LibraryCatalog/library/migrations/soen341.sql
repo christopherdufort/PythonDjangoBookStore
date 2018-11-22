@@ -1,4 +1,13 @@
 -- MySQL Server version: 5.7.23
+-- Python Version: 3.7.0
+
+/*
+Table Creation script
+This script is run manually to create the structure of the database.
+To run this script open up the mysql console and type the following command:
+source absolute\path\to\soen341.sql
+*/
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -16,7 +25,7 @@ USE soen341;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `library_user`
+-- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -29,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_admin` tinyint(1) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `session_expire` date,
+  `session_expire` datetime,
   `session_key` varchar(255),
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -37,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `library_book`
+-- Table structure for table `book`
 --
 
 DROP TABLE IF EXISTS `book`;
@@ -49,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `book` (
   `pages` int(11) NOT NULL,
   `publisher` varchar(255) NOT NULL,
   `language` varchar(255) NOT NULL,
-  `isbn_10` bigint(20) DEFAULT NULL,
-  `isbn_13` bigint(20) DEFAULT NULL,
+  `isbn_10` bigint(20) NOT NULL,
+  `isbn_13` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -85,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `music` (
   `artist` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   `release_date` date NOT NULL,
-  `ASIN` int(10) NOT NULL,
+  `asin` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -106,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `video` (
   `subtitles` varchar(255) NOT NULL,
   `dubbed` varchar(255) NOT NULL,
   `release_date` date NOT NULL,
+  `run_time` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
