@@ -27,6 +27,11 @@
         <a class="p-2 text-dark" href="#music">Music</a>
       </nav>
         <a class="ml-2 btn btn-outline-primary" href="admin-dashboard">Home</a>
+        <form  method="post" action = "sign-in">
+          {% csrf_token %}
+          <input type="hidden" name="logout" value="true">
+          <button type = "submit" class="btn btn-primary">Logout</button>
+        </form>
     </div>
     <style>
    table {

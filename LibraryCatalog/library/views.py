@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, MusicForm, BookSearchForm ,SearchForm
 from .models.BookModule import Book
-from .DataBaseLayer import insertCommand, updateCommand, selectCommand
+from . import DataBaseLayer
 
 from .CatalogueModule import Catalogue
 from .LoanSystem import LoanSystem
@@ -14,20 +14,27 @@ userRegistry = UserRegistry()
 
 # PORTAL CLASS ( Entry Point -> Intermediate step between the Presentation Layer (Template)and the Business Layer)
 
-
 def sign_in(request):
+    form = AuthenticationForm()
     if request.method == 'POST':
+        if(request.POST.get('logout') and ('user_id' in request.COOKIES)):
+            sql_insert = "UPDATE user SET session_expire = 'NULL', session_key = 'NULL'  WHERE id = '" + str(request.COOKIES.get('user_id') )+"';"
+            DataBaseLayer.insertCommand(sql_insert)
+            resp = render(request, 'sign-in.html', {'form': form})
+            resp.set_cookie('user_id', ['user_id'])
+            return resp
         auth_form = AuthenticationForm(request.POST)
         if auth_form.is_valid():
             user = UserRegistry.sign_in(auth_form)
             if (user):
-                print("USER EXISTS GO TO CLIENT PAGE")
-                print(user)
                 if (user['is_admin']):
-                    return render(request, 'admin-dashboard.html')
+                    resp = render(request, 'admin-dashboard.html')
+                    resp.set_cookie('user_id', user['id'])
+                    return resp
                 else:
-                    return render(request, 'client-home.html')
-    form = AuthenticationForm()
+                    resp =  render(request, 'homepage.html')
+                    resp.set_cookie('user_id', user['id'])
+                    return resp
     return render(request, 'sign-in.html', {'form': form})
 
 

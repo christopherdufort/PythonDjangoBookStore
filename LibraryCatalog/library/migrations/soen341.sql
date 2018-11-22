@@ -120,4 +120,5 @@ CREATE TABLE IF NOT EXISTS `video` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
 COMMIT;

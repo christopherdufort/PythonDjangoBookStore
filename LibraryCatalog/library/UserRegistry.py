@@ -25,7 +25,7 @@ class UserRegistry:
   
         session_expire = (datetime.datetime.today()+timedelta(days=30))
         session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-        sql_insert = "UPDATE user SET session_expire = '"+str(session_expire)+"',session_key = '"+session_key+"'  WHERE id = '" + "1"+"';"
+        sql_insert = "UPDATE user SET session_expire = '"+str(session_expire)+"',session_key = '"+session_key+"'  WHERE id = '" + str(user["id"])+"';"
         DataBaseLayer.insertCommand(sql_insert)
         #need to get the user again after update
         user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(sql_select)[0])
