@@ -28,26 +28,43 @@
       </nav>
         <a class="ml-2 btn btn-outline-primary" href="/">Home</a>
     </div>
+<style>
+   table {
+    border-collapse: collapse;
+     }
 
+    table, td, th {
+    border: 1px solid black;
+     }
+</style>
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h3 class="display-4">Books</h3>
       <p class="lead"></p>
-        <table style="width:50%">
-
-         <!--<tr>-->
-           <!--<th>Title</th>-->
-           <!--<th>Author</th>-->
-         <!--</tr>-->
-    {% for row in table %}
-         <tr>
-            {% for item in row %}
-               <td>
-               {{ item }}
-               </td>
-                 {% endfor %}
-         </tr>
+    <div>
+            <form method="POST" action="book-list" style="display: inline-grid;">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+          <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in book %}
+      <tr>
+        <td>{{ row.title }}</td>
+          <td>{{ row.author }}</td>
+        <td><a href="/book-details/{{ row.book_id }}/">Details</a></td>
+      </tr>
     {% endfor %}
-</table>
+    </tbody>
+  </table>
     </div>
 
       <footer class="pt-4 my-md-5 pt-md-5 border-top">

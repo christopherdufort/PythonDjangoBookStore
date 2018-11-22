@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SOEN 341 SEARCH BOOK</title>
+	<link rel="stylesheet" href='library/static/css/base.css' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+<body>
+
+	<h1>SEARCH BOOK BY ANY CRITERIA</h1>
+	
+	<h2>Search results below</h2>
+
+	 <div>
+	  
+	  <table>
+            <tr>
+                <th>Book Title</th>
+                <th>Book Author</th>
+                <th>Book Format</th>
+                <th>Book Pages</th>
+                <th>Book Publisher</th>
+                <th>Book Language</th>
+                <th>Book isbn10</th>
+                <th>Book isbn13</th>
+            </tr>
+            {% for book in results %}
+            <tr>
+                <td>{{ book.1 }}</td>
+                <td>{{ book.2 }}</td>
+                <td>{{ book.3 }}</td>
+                <td>{{ book.4 }}</td>
+                <td>{{ book.5 }}</td>
+                <td>{{ book.6 }}</td>
+                <td>{{ book.7 }}</td>
+                <td>{{ book.8 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+	  
+		<h2>Enter and Select the criteria to be included in your book search</h2>
+	  
+        <form method="POST" action="book-search" style="display: inline-grid;">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="SEARCH BOOKS">
+        </form>
+        
+    </div>
+
+
+
+</body>
+</html>

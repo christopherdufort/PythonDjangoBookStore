@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SOEN 341 SEARCH BOOK</title>
+	<link rel="stylesheet" href='library/static/css/base.css' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+<body>
+
+	<h1>SEARCH BOOK BY ANY CRITERIA</h1>
+	
+	<h2>Enter and Select the criteria to be included in your book search</h2>
+	
+	
+	  <div>
+        <form method="POST" action="book-search" style="display: inline-grid;">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="SEARCH BOOKS">
+        </form>
+    </div>
+
+
+
+</body>
+</html>
