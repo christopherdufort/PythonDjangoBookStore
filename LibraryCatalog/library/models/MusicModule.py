@@ -55,6 +55,13 @@ class Music:
         tables = DataBaseLayer.selectCommand(select_query)
         return tables[0]
 
+# retrieve record based on Title
+    def selectMusicbytitlefromstore(self, title):
+            titlesearch = '%' + title + '%'
+            select_query = "SELECT * from music WHERE CONCAT (title,artist) LIKE '%s'" % (titlesearch)
+            tables = DataBaseLayer.selectCommand(select_query)
+            return tables
+
 # Retrieve all records
     def selectAllMusicfromstore(self):
         select_query = "select * from music "

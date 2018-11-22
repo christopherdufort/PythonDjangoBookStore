@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm, BookSearchForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm, BookSearchForm ,SearchForm
 from .models.BookModule import Book
 from .DataBaseLayer import insertCommand, updateCommand, selectCommand
 
@@ -253,30 +253,58 @@ def musicviewdelete(request,id):
 
 
 def booklist(request):
+    search_form = SearchForm()
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        if search_form.is_valid():
+            search_data = search_form.cleaned_data
+            book = catalogue.listtitleview("book", search_data.get('Search'))
+            return render(request, 'book-list.html', {'form': search_form, 'book': book})
+
     if request.method == 'GET':
-       book_data = catalogue.listview("book")
-       context = {'book': book_data}
-    return render(request, 'book-list.html', context)
+       book = catalogue.listview("book")
+       return render(request, 'book-list.html', {'form': search_form, 'book': book})
 
 def musiclist(request):
+    search_form = SearchForm()
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        if search_form.is_valid():
+            search_data = search_form.cleaned_data
+            music = catalogue.listtitleview("music", search_data.get('Search'))
+            return render(request, 'music-list.html', {'form': search_form, 'music': music})
+
     if request.method == 'GET':
-      music_data = catalogue.listview("music")
-      context = {'music': music_data}
-    return render(request, 'music-list.html', context)
+      music = catalogue.listview("music")
+      return render(request, 'music-list.html', {'form': search_form, 'music': music})
 
 
 def videolist(request):
+    search_form = SearchForm()
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        if search_form.is_valid():
+            search_data = search_form.cleaned_data
+            video = catalogue.listtitleview("video", search_data.get('Search'))
+            return render(request, 'video-list.html', {'form': search_form, 'video': video})
+
     if request.method == 'GET':
-      video_data = catalogue.listview("video")
-      context = {'video': video_data}
-    return render(request, 'video-list.html', context)
+      video = catalogue.listview("video")
+      return render(request, 'video-list.html', {'form': search_form, 'video': video})
 
 
 def magazinelist(request):
+    search_form = SearchForm()
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        if search_form.is_valid():
+            search_data = search_form.cleaned_data
+            magazine = catalogue.listtitleview("magazine", search_data.get('Search'))
+            return render(request, 'magazine-list.html', {'form': search_form, 'magazine': magazine})
+
     if request.method == 'GET':
-      magazine_data = catalogue.listview("magazine")
-      context = {'magazine': magazine_data}
-    return render(request, 'magazine-list.html', context)
+      magazine = catalogue.listview("magazine")
+      return render(request, 'magazine-list.html', {'form': search_form, 'magazine': magazine})
 
 
 def view_All(request):
