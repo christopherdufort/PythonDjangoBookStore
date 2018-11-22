@@ -56,7 +56,7 @@ class Book:
 
     # Example function
     def is_loanable(self):
-            return "true"
+            return "Yes"
 
     # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
     def store(self):
@@ -80,7 +80,7 @@ class Book:
 # retrieve record based on Title
     def selectBookbytitlefromstore(self, title):
             titlesearch = '%' + title + '%'
-            select_query = "SELECT * from book WHERE CONCAT (title,author) LIKE '%s'" % (titlesearch)
+            select_query = "SELECT * from book WHERE CONCAT (title,author,publisher,language,isbn_10,isbn_13) LIKE '%s'" % (titlesearch)
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 

@@ -32,7 +32,7 @@ class Music:
 
     # Example function
     def is_loanable(self):
-            return "true"
+            return "Yes"
 
     # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
 
@@ -58,7 +58,7 @@ class Music:
 # retrieve record based on Title
     def selectMusicbytitlefromstore(self, title):
             titlesearch = '%' + title + '%'
-            select_query = "SELECT * from music WHERE CONCAT (title,artist) LIKE '%s'" % (titlesearch)
+            select_query = "SELECT * from music WHERE CONCAT (title,artist,type,release_date,ASIN) LIKE '%s'" % (titlesearch)
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 

@@ -15,11 +15,12 @@ class Video:
     subtitles: str
     dubbed: str
     release_date: str
+    run_time: str
 
     def __init__(self):
         pass
 
-    def fillingvideoitem(self, id, title, director, producers, actors, language, subtitles, dubbed, release_date):
+    def fillingvideoitem(self, id, title, director, producers, actors, language, subtitles, dubbed, release_date, run_time):
 
         self.video_id = id  # Known placeholder until given an id out of database
         self.title = title
@@ -30,15 +31,16 @@ class Video:
         self.subtitles = subtitles
         self.dubbed = dubbed
         self.release_date = release_date
+        self.run_time = run_time
 
     # Example function
     def is_loanable(self):
-            return "true"
+            return "Yes"
 
     # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
     # Save Record
     def store(self):
-        insert_query = "INSERT INTO video (title,director,producers,actors,language,subtitles,dubbed,release_date)VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(self.title, self.director, self.producers, self.actors, self.language, self.subtitles, self.dubbed, self.release_date)
+        insert_query = "INSERT INTO video (title,director,producers,actors,language,subtitles,dubbed,release_date,run_time)VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(self.title, self.director, self.producers, self.actors, self.language, self.subtitles, self.dubbed, self.release_date, self.run_time)
         self.video_id = DataBaseLayer.insertCommand(insert_query)
 
 # Retrieve based on Id
@@ -50,7 +52,7 @@ class Video:
 # retrieve record based on Title
     def selectVideobytitlefromstore(self, title):
             titlesearch = '%' + title + '%'
-            select_query = "SELECT * from video WHERE CONCAT (title,actors) LIKE '%s'" % (titlesearch)
+            select_query = "SELECT * from video WHERE CONCAT (title,director,actors,language,subtitles,release_date) LIKE '%s'" % (titlesearch)
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 
@@ -63,7 +65,7 @@ class Video:
 # Record Update
     def updateVideotostore(self, id):
 
-        update_query = "UPDATE video SET title='%s',director='%s',producers='%s',actors='%s',language='%s',subtitles='%s',dubbed='%s',release_date='%s' WHERE id = '%s'"%(self.title, self.director, self.producers, self.actors, self.language, self.subtitles, self.dubbed, self.release_date, id)
+        update_query = "UPDATE video SET title='%s',director='%s',producers='%s',actors='%s',language='%s',subtitles='%s',dubbed='%s',release_date='%s',run_time='%s' WHERE id = '%s'"%(self.title, self.director, self.producers, self.actors, self.language, self.subtitles, self.dubbed, self.release_date, self.run_time, id)
         self.video_id = DataBaseLayer.updateCommand(update_query)
 
 # Record deletion

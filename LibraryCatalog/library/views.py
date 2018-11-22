@@ -165,6 +165,7 @@ def videoviewupdate(request, id):
         video_form["subtitles"].initial = video_data.subtitles
         video_form["dubbed"].initial = video_data.dubbed
         video_form["release_date"].initial = video_data.release_date
+        video_form["run_time"].initial = video_data.run_time
 
     elif request.method == 'POST':
         video_form = VideoForm(request.POST)

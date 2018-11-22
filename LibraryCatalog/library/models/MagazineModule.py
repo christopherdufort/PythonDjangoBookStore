@@ -27,7 +27,7 @@ class Magazine:
 
     # Example function
     def is_loanable(self):
-            return "false"
+            return "No"
 
     # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module )
 
@@ -58,7 +58,7 @@ class Magazine:
 # retrieve record based on Title
     def selectMagazinebytitlefromstore(self, title):
             titlesearch = '%' + title + '%'
-            select_query = "SELECT * from magazine WHERE CONCAT (title,publisher) LIKE '%s'" % (titlesearch)
+            select_query = "SELECT * from magazine WHERE CONCAT (title,publisher,language,isbn_10,isbn_13) LIKE '%s'" % (titlesearch)
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 

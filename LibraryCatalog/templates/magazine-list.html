@@ -59,6 +59,9 @@
       <tr>
         <th>Title</th>
         <th>Publisher</th>
+          <th>Language</th>
+          <th>ISBN_10</th>
+          <th>ISBN_13</th>
           <th>Details</th>
       </tr>
     </thead>
@@ -67,6 +70,9 @@
       <tr>
         <td>{{ row.title }}</td>
           <td>{{ row.publisher }}</td>
+          <td>{{ row.language }}</td>
+          <td>{{ row.isbn_10 }}</td>
+          <td>{{ row.isbn_13 }}</td>
         <td><a href="/magazine-details/{{ row.magazine_id }}/">Details</a></td>
       </tr>
     {% endfor %}
