@@ -26,7 +26,7 @@ Mac/Linux:
 
 1. git pull origin master
 2. git checkout -b "new branch name"
-3. cd */library
+3. cd */LibraryCatalog
 4. python manage.py runserver
 
 ### Team Member Information

@@ -27,6 +27,11 @@
         <a class="p-2 text-dark" href="video-list">VideosList</a>
       </nav>
         <a class="ml-2 btn btn-outline-primary" href="/">Home</a>
+        <form  method="post" action = "sign-in">
+          {% csrf_token %}
+          <input type="hidden" name="logout" value="true">
+          <button type = "submit" class="btn btn-primary">Logout</button>
+        </form>
     </div>
     <style>
    table {
@@ -52,7 +57,10 @@
     <thead>
       <tr>
         <th>Title</th>
-        <th>Artist</th>
+        <th>Type</th>
+          <th>Artist</th>
+          <th>Release Date</th>
+          <th>ASIN</th>
           <th>Details</th>
       </tr>
     </thead>
@@ -60,7 +68,10 @@
     {% for row in music %}
       <tr>
         <td>{{ row.title }}</td>
+          <td>{{ row.type }}</td>
           <td>{{ row.artist }}</td>
+          <td>{{ row.release_date }}</td>
+          <td>{{ row.ASIN }}</td>
         <td><a href="/music-details/{{ row.music_id }}/">Details</a></td>
       </tr>
     {% endfor %}

@@ -27,6 +27,11 @@
         <a class="p-2 text-dark" href="video-list">VideosList</a>
       </nav>
         <a class="ml-2 btn btn-outline-primary" href="/">Home</a>
+        <form  method="post" action = "sign-in">
+          {% csrf_token %}
+          <input type="hidden" name="logout" value="true">
+          <button type = "submit" class="btn btn-primary">Logout</button>
+        </form>
     </div>
 <style>
    table {
@@ -52,6 +57,10 @@
       <tr>
         <th>Title</th>
         <th>Author</th>
+          <th>Publisher</th>
+          <th>Language</th>
+          <th>ISBN_10</th>
+          <th>ISBN_13</th>
           <th>Details</th>
       </tr>
     </thead>
@@ -60,6 +69,10 @@
       <tr>
         <td>{{ row.title }}</td>
           <td>{{ row.author }}</td>
+          <td>{{ row.publisher }}</td>
+          <td>{{ row.language }}</td>
+          <td>{{ row.isbn_10 }}</td>
+          <td>{{ row.isbn_13 }}</td>
         <td><a href="/book-details/{{ row.book_id }}/">Details</a></td>
       </tr>
     {% endfor %}

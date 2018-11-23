@@ -14,7 +14,7 @@ class Catalogue:
     def __init__(self):
         pass
 
-    def add_item(self, item_type, item_data):
+    def addItems(self, item_type, item_data):
         if item_type == "book":
             book = Book()
             book.fillingbookitem(item_data.get('id'),item_data.get('title'), item_data.get('author'), item_data.get('book_format'),
@@ -36,7 +36,8 @@ class Catalogue:
                 video = Video()
                 video.fillingvideoitem(item_data.get('id'),item_data.get('title'), item_data.get('director'), item_data.get('producers'),
                                        item_data.get('actors'), item_data.get('language'), item_data.get('subtitles'),
-                                       item_data.get('dubbed'), item_data.get('release_date'))
+                                       item_data.get('dubbed'), item_data.get('release_date'), item_data.get('run_time')
+                                       )
                 video.store()
                 print(video)
                 self.video_list.append(video)
@@ -44,13 +45,13 @@ class Catalogue:
         if item_type == "music":
                 music = Music()
                 music.fillingmusicitem(item_data.get('id'),item_data.get('title'), item_data.get('type'), item_data.get('artist'), item_data.get('label'),
-                                       item_data.get('release_date'),item_data.get('Asin'))
+                                       item_data.get('release_date'), item_data.get('Asin'))
                 music.store()
                 print(music)
                 self.music_list.append(music)
 
 
-    def update_item(self, item_type, item_data,id):
+    def modifyitems(self, item_type, item_data,id):
         if item_type == "book":
             book = Book()
             book.fillingbookitem(item_data.get('id'),item_data.get('title'), item_data.get('author'), item_data.get('book_format'),
@@ -63,7 +64,8 @@ class Catalogue:
                 video = Video()
                 video.fillingvideoitem(id,item_data.get('title'), item_data.get('director'), item_data.get('producers'),
                                        item_data.get('actors'), item_data.get('language'), item_data.get('subtitles'),
-                                       item_data.get('dubbed'), item_data.get('release_date'))
+                                       item_data.get('dubbed'), item_data.get('release_date'), item_data.get('run_date')
+                                       )
                 video.updateVideotostore(id)  # Store self in database
                 print(video)  # Debug test of correct insertion
                 self.book_list.append(video)
@@ -89,24 +91,29 @@ class Catalogue:
             book = Book()
             table = book.selectBookfromstore(id)
             book.fillingbookitem(table[0], table[1], table[2], table[3], table[4], table[5], table[6], table[7], table[8])
+            book.is_loanable = book.is_loanable()
             return book
         if item_type == "video":
            video = Video()
            table = video.selectVideofromstore(id)
-           video.fillingvideoitem(id,table[1], table[2], table[3], table[4], table[5], table[6], table[7], table[8])
+           video.fillingvideoitem(id, table[1], table[2], table[3], table[4], table[5], table[6], table[7], table[8],
+                                  table[9])
+           video.is_loanable = video.is_loanable
            return video
         if item_type == "magazine":
             magazine = Magazine()
             table = magazine.selectMagazinefromstore(id)
-            magazine.fillingmagazineitem(id,table[1], table[2], table[3], table[4], table[5])
+            magazine.fillingmagazineitem(id, table[1], table[2], table[3], table[4], table[5])
+            magazine.is_loanable = magazine.is_loanable
             return magazine
         if item_type == "music":
            music = Music()
            table = music.selectMusicfromstore(id)
-           music.fillingmusicitem(id,table[1], table[2], table[3], table[4], table[5],table[6])
+           music.fillingmusicitem(id, table[1], table[2], table[3], table[4], table[5], table[6])
+           music.is_loanable = music.is_loanable
            return music
 
-    def delete_items(self, item_type, id):
+    def deleteItems(self, item_type, id):
         if item_type == "book":
             book = Book()
             affetedRow = book.deleterow(id)
@@ -161,7 +168,7 @@ class Catalogue:
            for rows in table:
                single = Video()
                single.fillingvideoitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
-                                      rows[6], rows[7], rows[8])
+                                      rows[6], rows[7], rows[8], rows[9])
                video_list.append(single)
            return video_list
 
@@ -201,7 +208,7 @@ class Catalogue:
                for rows in table:
                    single = Video()
                    single.fillingvideoitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
-                                           rows[6], rows[7], rows[8])
+                                           rows[6], rows[7], rows[8], rows[9])
                    video_list.append(single)
                return video_list
 

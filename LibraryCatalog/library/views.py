@@ -1,9 +1,9 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm, BookSearchForm ,SearchForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, MusicForm, BookSearchForm, SearchForm
 from .models.BookModule import Book
-from .DataBaseLayer import insertCommand, updateCommand, selectCommand
+from . import DataBaseLayer
 
 from .CatalogueModule import Catalogue
 from .LoanSystem import LoanSystem
@@ -15,36 +15,58 @@ userRegistry = UserRegistry()
 
 # PORTAL CLASS ( Entry Point -> Intermediate step between the Presentation Layer (Template)and the Business Layer)
 
-
 def sign_in(request):
+    form = AuthenticationForm()
     if request.method == 'POST':
+        if(request.POST.get('logout') and ('user_id' in request.COOKIES)):
+            sql_insert = "UPDATE user SET session_expire = NULL, session_key = NULL WHERE id = '" + str(request.COOKIES.get('user_id') )+"';"
+            DataBaseLayer.insertCommand(sql_insert)
+            resp = render(request, 'sign-in.html', {'form': form})
+            resp.set_cookie('user_id', ['user_id'])
+            resp.delete_cookie('user_id')
+            resp.delete_cookie('session_key')
+            return resp
         auth_form = AuthenticationForm(request.POST)
         if auth_form.is_valid():
             user = UserRegistry.sign_in(auth_form)
             if (user):
-                print("USER EXISTS GO TO CLIENT PAGE")
-                print(user)
                 if (user['is_admin']):
-                    print("go to admin home")
+                    resp = render(request, 'admin-dashboard.html')
+                    resp.set_cookie('user_id', user['id'])
+                    resp.set_cookie('session_key', user['session_key'])
+                    return resp
                 else:
-                    return render(request, 'client-home.html')
-    form = AuthenticationForm()
+                    resp = render(request, 'homepage.html')
+                    resp.set_cookie('user_id', user['id'])
+                    resp.set_cookie('session_key', user['session_key'])
+                    return resp
     return render(request, 'sign-in.html', {'form': form})
 
 
 def create_account(request):
     if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_data = user_form.cleaned_data
+            userRegistry.registerNewUser(user_data)
+            return render(request, 'client-home.html')
+
+    form = UserForm()
+    return render(request, 'create-account.html', {'form': form})
+
+def registerNewadministrators(request):
+    if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            UserForm.save(form)
-            return render(request, 'client-home.html')
+            UserForm.save(form, True)
+            return render(request, 'admin-dashboard.html')
 
     form = UserForm()
     return render(request, 'create-account.html', {'form': form})
 
 
 def client_home(request):
-    return render(request, 'client-home.html')
+    return render(request, 'homepage.html')
 
 
 def homepage(request):
@@ -52,12 +74,12 @@ def homepage(request):
 
 
 # Updated example using the new business logic layer duplicate this for other models
-def book_entry(request):
+def makeNewBookEntry(request):
     if request.method == 'POST':
         book_form = BookForm(request.POST)
         if book_form.is_valid():
             book_data = book_form.cleaned_data
-            catalogue.add_item("book", book_data)
+            catalogue.addItems("book", book_data)
             return redirect(view_All)
             #HttpResponse("Book added to database")  # Should probably direct to list of all books
     # Request is a 'GET' return an empty form
@@ -65,7 +87,7 @@ def book_entry(request):
     return render(request, 'book-entry.html', {'form': book_form})
 
 
-def bookviewupdate(request,id):
+def modifyExistingBookRecord(request,id):
     if request.method == 'GET':
         book_form = BookForm()
         book_data = catalogue.get_items("book",id)
@@ -82,20 +104,20 @@ def bookviewupdate(request,id):
         book_form = BookForm(request.POST)
         if book_form.is_valid():
             book_data = book_form.cleaned_data
-            catalogue.update_item("book", book_data, id)
+            catalogue.modifyitems("book", book_data, id)
             book_form = BookForm()
             return HttpResponse("Book UPDATED to database")  # Should probably direct to list of all books
 
     return render(request, 'book-view-update.html', {'form': book_form})
 
 
-def magazine_entry(request):
+def makeNewMagazineEntry(request):
     if request.method == 'POST':
         magazine_form = MagazineForm(request.POST)
 
         if magazine_form.is_valid():
             magazine_data = magazine_form.cleaned_data
-            catalogue.add_item("magazine", magazine_data)
+            catalogue.addItems("magazine", magazine_data)
             return redirect(view_All)
 
 
@@ -103,7 +125,7 @@ def magazine_entry(request):
     return render(request, 'magazine-entry.html', {'form': magazine_form})
 
 
-def magazineviewupdate(request,id):
+def modifyExistingMagazineRecord(request,id):
     if request.method == 'GET':
         magazine_form = MagazineForm()
         magazine_data = catalogue.get_items("magazine",id)
@@ -117,19 +139,19 @@ def magazineviewupdate(request,id):
         magazine_form = MagazineForm(request.POST)
         if magazine_form.is_valid():
             magazine_data = magazine_form.cleaned_data
-            catalogue.update_item("magazine", magazine_data, id)
+            catalogue.modifyitems("magazine", magazine_data, id)
             magazine_form = MagazineForm()
             return HttpResponse("Magazine UPDATED to database")
 
     return render(request, 'magazine-view-update.html', {'form': magazine_form})
 
-def video_entry(request):
+def makeNewVideoEntry(request):
     if request.method == 'POST':
         video_form = VideoForm(request.POST)
 
         if video_form.is_valid():
             video_data = video_form.cleaned_data
-            catalogue.add_item("video", video_data)
+            catalogue.addItems("video", video_data)
             return redirect(view_All) # Should probably direct to list of all books
 
     # Request is a 'GET' return an empty form
@@ -138,7 +160,7 @@ def video_entry(request):
     return render(request, 'video-entry.html', {'form': video_form})
 
 
-def videoviewupdate(request, id):
+def modifyExistingVideoRecord(request, id):
     if request.method == 'GET':
         video_form = VideoForm()
         video_data = catalogue.get_items("video", id)
@@ -150,31 +172,32 @@ def videoviewupdate(request, id):
         video_form["subtitles"].initial = video_data.subtitles
         video_form["dubbed"].initial = video_data.dubbed
         video_form["release_date"].initial = video_data.release_date
+        video_form["run_time"].initial = video_data.run_time
 
     elif request.method == 'POST':
         video_form = VideoForm(request.POST)
         if video_form.is_valid():
             video_data = video_form.cleaned_data
-            catalogue.update_item("video", video_data,id)
+            catalogue.modifyitems("video", video_data,id)
             video_form = VideoForm()
             return HttpResponse("Video UPDATED to database")
 
     return render(request, 'video-view-update.html', {'form': video_form})
 
 
-def music_entry(request):
+def makeNewMusicEntry(request):
     if request.method == 'POST':
         music_form = MusicForm(request.POST)
 
         if music_form.is_valid():
             music_data = music_form.cleaned_data
-            catalogue.add_item("music", music_data)
+            catalogue.addItems("music", music_data)
             return redirect(view_All)
     music_form = MusicForm()
     return render(request, 'music-entry.html', {'form': music_form})
 
 
-def musicviewupdate(request, id):
+def modifyExistingMusicRecord(request, id):
     if request.method == 'GET':
         music_form = MusicForm()
         music_data = catalogue.get_items("music", id)
@@ -189,7 +212,7 @@ def musicviewupdate(request, id):
         music_form = MusicForm(request.POST)
         if music_form.is_valid():
             music_data = music_form.cleaned_data
-            catalogue.update_item("music", music_data, id)
+            catalogue.modifyitems("music", music_data, id)
             music_form = MusicForm()
             return HttpResponse("Music UPDATED to database")
 
@@ -198,59 +221,37 @@ def musicviewupdate(request, id):
 def admin_dashboard(request):
     return render(request, 'admin-dashboard.html')
 
-def active_users(request):
+def viewLoggedUsers(request):
     #get active users
     users = UserRegistry.get_active_users()
-    print("HEYOOO")
-    print(users)
     return render(request, 'active-users.html',{'users': users})
 
-def register_admin(request):
-    if request.method == 'POST':
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            first_name = form["first_name"].value()
-            last_name = form["last_name"].value()
-            address = form["address"].value()
-            phone_number = form["phone_number"].value()
-            password = form["password"].value()
-            email = form["email"].value()
 
-            insertcmd = "INSERT INTO library_user(first_name,last_name,address,phone_number,is_admin,password,email,session_expire,session_key)VALUES('%s','%s','%s','%s',1,'%s','%s','2018-11-19','')" % (
-            first_name, last_name, address, phone_number, password, email)
-            insertCommand(insertcmd)
-
-            return render(request, 'Admin-home.html')
-
-    form = AdminForm()
-    return render(request, 'create-admin.html', {'form': form})
-
-
-def bookviewdelete(request,id):
+def deleteExistingBookRecord(request,id):
     if request.method == 'GET':
         book_form = BookForm()
-        book_data = catalogue.delete_items("book",id)
+        book_data = catalogue.deleteItems("book",id)
     return HttpResponse("Book Deleted from  database")  # Should probably direct to list of all books
 
 
-def videoviewdelete(request,id):
+def deleteExistingVideoRecord(request,id):
     if request.method == 'GET':
         video_form = VideoForm()
-        video_data = catalogue.delete_items("video", id)
+        video_data = catalogue.deleteItems("video", id)
     return HttpResponse("video Deleted from  database")  # Should probably direct to list of all Videos
 
 
-def magazineviewdelete(request,id):
+def deleteExistingMagazineRecord(request,id):
     if request.method == 'GET':
         magazine_form = MagazineForm()
-        magazine_data = catalogue.delete_items("magazine", id)
+        magazine_data = catalogue.deleteItems("magazine", id)
     return HttpResponse("magazine Deleted from  database")
 
 
-def musicviewdelete(request,id):
+def deleteExistingMusicRecord(request,id):
     if request.method == 'GET':
         music_form = MusicForm()
-        music_data = catalogue.delete_items("music", id)
+        music_data = catalogue.deleteItems("music", id)
     return HttpResponse("Music Deleted from  database")
 
 
