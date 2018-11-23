@@ -32,7 +32,7 @@ class Book:
     #     self.isbn_13 = isbn_13
     #     self.is_loanable = 1  # Always known that a book is loanable 1 = true, 0 = false
 
-    def fillingbookitem(self, id, title, author, book_format, pages, publisher, language,isbn_13, isbn_10):
+    def fillingbookitem(self, id, title, author, book_format, pages, publisher, language, isbn_10, isbn_13):
 
         self.book_id = id  # Known placeholder until given an id out of database
         self.title = title
