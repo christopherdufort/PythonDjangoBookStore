@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, MusicForm, BookSearchForm ,SearchForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, MusicForm, BookSearchForm, SearchForm
 from .models.BookModule import Book
 from . import DataBaseLayer
 
@@ -48,7 +48,7 @@ def create_account(request):
     form = UserForm()
     return render(request, 'create-account.html', {'form': form})
 
-def register_admin(request):
+def registerNewadministrators(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -68,7 +68,7 @@ def homepage(request):
 
 
 # Updated example using the new business logic layer duplicate this for other models
-def book_entry(request):
+def makeNewBookEntry(request):
     if request.method == 'POST':
         book_form = BookForm(request.POST)
         if book_form.is_valid():
@@ -80,7 +80,7 @@ def book_entry(request):
     return render(request, 'book-entry.html', {'form': book_form})
 
 
-def bookviewupdate(request,id):
+def modifyExistingBookRecord(request,id):
     if request.method == 'GET':
         book_form = BookForm()
         book_data = catalogue.get_items("book",id)
@@ -104,7 +104,7 @@ def bookviewupdate(request,id):
     return render(request, 'book-view-update.html', {'form': book_form})
 
 
-def magazine_entry(request):
+def makeNewMagazineEntry(request):
     if request.method == 'POST':
         magazine_form = MagazineForm(request.POST)
 
@@ -118,7 +118,7 @@ def magazine_entry(request):
     return render(request, 'magazine-entry.html', {'form': magazine_form})
 
 
-def magazineviewupdate(request,id):
+def modifyExistingMagazineRecord(request,id):
     if request.method == 'GET':
         magazine_form = MagazineForm()
         magazine_data = catalogue.get_items("magazine",id)
@@ -138,7 +138,7 @@ def magazineviewupdate(request,id):
 
     return render(request, 'magazine-view-update.html', {'form': magazine_form})
 
-def video_entry(request):
+def makeNewVideoEntry(request):
     if request.method == 'POST':
         video_form = VideoForm(request.POST)
 
@@ -153,7 +153,7 @@ def video_entry(request):
     return render(request, 'video-entry.html', {'form': video_form})
 
 
-def videoviewupdate(request, id):
+def modifyExistingVideoRecord(request, id):
     if request.method == 'GET':
         video_form = VideoForm()
         video_data = catalogue.get_items("video", id)
@@ -178,7 +178,7 @@ def videoviewupdate(request, id):
     return render(request, 'video-view-update.html', {'form': video_form})
 
 
-def music_entry(request):
+def makeNewMusicEntry(request):
     if request.method == 'POST':
         music_form = MusicForm(request.POST)
 
@@ -190,7 +190,7 @@ def music_entry(request):
     return render(request, 'music-entry.html', {'form': music_form})
 
 
-def musicviewupdate(request, id):
+def modifyExistingMusicRecord(request, id):
     if request.method == 'GET':
         music_form = MusicForm()
         music_data = catalogue.get_items("music", id)
@@ -214,7 +214,7 @@ def musicviewupdate(request, id):
 def admin_dashboard(request):
     return render(request, 'admin-dashboard.html')
 
-def active_users(request):
+def viewLoggedUsers(request):
     #get active users
     users = UserRegistry.get_active_users()
     return render(request, 'active-users.html',{'users': users})
