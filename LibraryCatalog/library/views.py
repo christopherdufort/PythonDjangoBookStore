@@ -112,8 +112,8 @@ def modifyExistingBookRecord(request,id):
         book_form["pages"].initial = book_data.pages
         book_form["publisher"].initial = book_data.publisher
         book_form["language"].initial = book_data.language
-        book_form["isbn_13"].initial = book_data.isbn_13
         book_form["isbn_10"].initial = book_data.isbn_10
+        book_form["isbn_13"].initial = book_data.isbn_13
         # book_form["id"].initial= book_data.book_id
     elif request.method == 'POST':
         book_form = BookForm(request.POST)
