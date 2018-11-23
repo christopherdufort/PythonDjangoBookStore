@@ -49,7 +49,7 @@ class UserRegistry:
         return f_user
 
 
-    def get_active_users():
+    def viewLoggedUsers(self):
         #session_key exists 
         #session_expire > today's date
         today = datetime.datetime.today()
