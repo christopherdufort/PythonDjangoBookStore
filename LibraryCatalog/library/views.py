@@ -62,6 +62,8 @@ def create_account(request):
     return render(request, 'create-account.html', {'form': form})
 
 def registerNewadministrators(request):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         if user_form.is_valid():
@@ -83,9 +85,9 @@ def homepage(request):
 
 # Updated example using the new business logic layer duplicate this for other models
 def makeNewBookEntry(request):
-    if request.method == 'POST':
-        if checkIfAdmin(request) == False:
+    if checkIfAdmin(request) == False:
             return render(request, 'homepage.html', {'adminAlert': "admin"})
+    if request.method == 'POST':
         book_form = BookForm(request.POST)
         if book_form.is_valid():
             book_data = book_form.cleaned_data
@@ -98,6 +100,8 @@ def makeNewBookEntry(request):
 
 
 def modifyExistingBookRecord(request,id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         book_form = BookForm()
         book_data = catalogue.get_items("book",id)
@@ -116,12 +120,14 @@ def modifyExistingBookRecord(request,id):
             book_data = book_form.cleaned_data
             catalogue.modifyitems("book", book_data, id)
             book_form = BookForm()
-            return HttpResponse("Book UPDATED to database")  # Should probably direct to list of all books
+            return redirect(detailedView)  # Should probably direct to list of all books
 
     return render(request, 'book-view-update.html', {'form': book_form})
 
 
 def makeNewMagazineEntry(request):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'POST':
         magazine_form = MagazineForm(request.POST)
 
@@ -136,6 +142,8 @@ def makeNewMagazineEntry(request):
 
 
 def modifyExistingMagazineRecord(request,id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         magazine_form = MagazineForm()
         magazine_data = catalogue.get_items("magazine",id)
@@ -151,11 +159,13 @@ def modifyExistingMagazineRecord(request,id):
             magazine_data = magazine_form.cleaned_data
             catalogue.modifyitems("magazine", magazine_data, id)
             magazine_form = MagazineForm()
-            return HttpResponse("Magazine UPDATED to database")
+            return redirect(detailedView)
 
     return render(request, 'magazine-view-update.html', {'form': magazine_form})
 
 def makeNewVideoEntry(request):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'POST':
         video_form = VideoForm(request.POST)
 
@@ -171,6 +181,8 @@ def makeNewVideoEntry(request):
 
 
 def modifyExistingVideoRecord(request, id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         video_form = VideoForm()
         video_data = catalogue.get_items("video", id)
@@ -190,12 +202,14 @@ def modifyExistingVideoRecord(request, id):
             video_data = video_form.cleaned_data
             catalogue.modifyitems("video", video_data,id)
             video_form = VideoForm()
-            return HttpResponse("Video UPDATED to database")
+            return redirect(detailedView)
 
     return render(request, 'video-view-update.html', {'form': video_form})
 
 
 def makeNewMusicEntry(request):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'POST':
         music_form = MusicForm(request.POST)
 
@@ -208,6 +222,8 @@ def makeNewMusicEntry(request):
 
 
 def modifyExistingMusicRecord(request, id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         music_form = MusicForm()
         music_data = catalogue.get_items("music", id)
@@ -224,7 +240,7 @@ def modifyExistingMusicRecord(request, id):
             music_data = music_form.cleaned_data
             catalogue.modifyitems("music", music_data, id)
             music_form = MusicForm()
-            return HttpResponse("Music UPDATED to database")
+            return redirect(detailedView)
 
     return render(request, 'music-view-update.html', {'form': music_form})
 
@@ -236,37 +252,47 @@ def admin_dashboard(request):
     return render(request, 'admin-dashboard.html')
 
 def viewLoggedUsers(request):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     #get active users
     users = UserRegistry.get_active_users()
     return render(request, 'active-users.html',{'users': users})
 
 
 def deleteExistingBookRecord(request,id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         book_form = BookForm()
         book_data = catalogue.deleteItems("book",id)
-    return HttpResponse("Book Deleted from  database")  # Should probably direct to list of all books
+    return redirect(detailedView)  # Should probably direct to list of all books
 
 
 def deleteExistingVideoRecord(request,id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         video_form = VideoForm()
         video_data = catalogue.deleteItems("video", id)
-    return HttpResponse("video Deleted from  database")  # Should probably direct to list of all Videos
+    return redirect(detailedView) # Should probably direct to list of all Videos
 
 
 def deleteExistingMagazineRecord(request,id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         magazine_form = MagazineForm()
         magazine_data = catalogue.deleteItems("magazine", id)
-    return HttpResponse("magazine Deleted from  database")
+    return redirect(detailedView)
 
 
 def deleteExistingMusicRecord(request,id):
+    if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
     if request.method == 'GET':
         music_form = MusicForm()
         music_data = catalogue.deleteItems("music", id)
-    return HttpResponse("Music Deleted from  database")
+    return redirect(detailedView)
 
 
 def booklist(request):
