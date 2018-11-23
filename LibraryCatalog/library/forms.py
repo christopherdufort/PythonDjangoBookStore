@@ -11,9 +11,61 @@ class AuthenticationForm(forms.Form):
     email = forms.CharField(max_length=255)
     password = forms.CharField(max_length=255,widget=forms.PasswordInput)
 
-# Custom form used for search
-class SearchForm(forms.Form):
+# Custom form used for Book search
+class bookSearchForm(forms.Form):
+    Search = forms.CharField(max_length=255,required=False)
+    catalog_list = [
+        ('Random',u'Random'),
+        ('title', u'title'),
+        ('author', u'author'),
+        ('publisher', u'publisher'),
+    ]
+    SortedBy = forms.ChoiceField(choices=catalog_list)
+
+
+# Custom form used for Magazine search
+class magazineSearchForm(forms.Form):
+    Search = forms.CharField(max_length=255,required=False)
+    catalog_list = [
+        ('Random',u'Random'),
+        ('title', u'title'),
+        ('publisher', u'publisher'),
+    ]
+    SortedBy = forms.ChoiceField(choices=catalog_list)
+
+# Custom form used for Music search
+class musicSearchForm(forms.Form):
+    Search = forms.CharField(max_length=255,required=False)
+    catalog_list = [
+        ('Random',u'Random'),
+        ('title', u'title'),
+        ('type', u'type'),
+        ('artist', u'artist'),
+    ]
+    SortedBy = forms.ChoiceField(choices=catalog_list)
+
+# Custom form used for Video search
+class videoSearchForm(forms.Form):
+    Search = forms.CharField(max_length=255,required=False)
+    catalog_list = [
+        ('Random',u'Random'),
+        ('title', u'title'),
+        ('director', u'director'),
+        ('actors', u'actors'),
+    ]
+    SortedBy = forms.ChoiceField(choices=catalog_list)
+
+# Custom form used for Book search
+class bookSearchForm(forms.Form):
     Search = forms.CharField(max_length=255)
+    catalog_list = [
+        ('Random',u'Random'),
+        ('title', u'title'),
+        ('author', u'author'),
+        ('publisher', u'publisher'),
+    ]
+    FilterBy = forms.ChoiceField(choices=catalog_list)
+
 
 # Custom form for user creation and user data
 class UserForm(forms.Form):

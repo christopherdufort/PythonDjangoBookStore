@@ -172,11 +172,11 @@ class Catalogue:
                video_list.append(single)
            return video_list
 
-    def listtitleview(self, item_type, title):
+    def listtitleview(self, item_type, title,sortedBy):
           if item_type == "book":
                book_list = []
                book = Book()
-               table = book.selectBookbytitlefromstore(title)
+               table = book.selectBookbytitlefromstore(title,sortedBy)
                for rows in table:
                    single = Book()
                    single.fillingbookitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
@@ -186,7 +186,7 @@ class Catalogue:
           if item_type == "music":
                music_list = []
                music = Music()
-               table = music.selectMusicbytitlefromstore(title)
+               table = music.selectMusicbytitlefromstore(title,sortedBy)
                for rows in table:
                    single = Music()
                    single.fillingmusicitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5], rows[6])
@@ -195,7 +195,7 @@ class Catalogue:
           if item_type == "magazine":
                magazine_list = []
                magazine = Magazine()
-               table = magazine.selectMagazinebytitlefromstore(title)
+               table = magazine.selectMagazinebytitlefromstore(title,sortedBy)
                for rows in table:
                    single = Magazine()
                    single.fillingmagazineitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5])
@@ -204,13 +204,14 @@ class Catalogue:
           if item_type == "video":
                video_list = []
                video = Video()
-               table = video.selectVideobytitlefromstore(title)
+               table = video.selectVideobytitlefromstore(title,sortedBy)
                for rows in table:
                    single = Video()
                    single.fillingvideoitem(rows[0], rows[1], rows[2], rows[3], rows[4], rows[5],
                                            rows[6], rows[7], rows[8], rows[9])
                    video_list.append(single)
                return video_list
+
 
  #Function for searching any book 
     #   - title, author, language                   from forms.BookSearchForm

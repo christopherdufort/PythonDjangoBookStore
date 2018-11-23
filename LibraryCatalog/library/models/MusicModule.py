@@ -56,9 +56,11 @@ class Music:
         return tables[0]
 
 # retrieve record based on Title
-    def selectMusicbytitlefromstore(self, title):
+    def selectMusicbytitlefromstore(self, title,sortBy):
             titlesearch = '%' + title + '%'
             select_query = "SELECT * from music WHERE CONCAT (title,artist,type,release_date,ASIN) LIKE '%s'" % (titlesearch)
+            if (sortBy != "Random"):
+                select_query = select_query + " " + "ORDER BY" + " " + sortBy
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 

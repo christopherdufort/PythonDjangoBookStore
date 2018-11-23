@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, MusicForm, BookSearchForm, SearchForm
+from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, MusicForm, BookSearchForm, bookSearchForm,magazineSearchForm,musicSearchForm,videoSearchForm
 from .models.BookModule import Book
 from . import DataBaseLayer
 
@@ -297,12 +297,12 @@ def deleteExistingMusicRecord(request,id):
 
 
 def booklist(request):
-    search_form = SearchForm()
+    search_form = bookSearchForm()
     if request.method == 'POST':
-        search_form = SearchForm(request.POST)
+        search_form = bookSearchForm(request.POST)
         if search_form.is_valid():
             search_data = search_form.cleaned_data
-            book = catalogue.listtitleview("book", search_data.get('Search'))
+            book = catalogue.listtitleview("book", search_data.get('Search'),search_data.get('SortedBy'))
             return render(request, 'book-list.html', {'form': search_form, 'book': book})
 
     if request.method == 'GET':
@@ -310,12 +310,12 @@ def booklist(request):
        return render(request, 'book-list.html', {'form': search_form, 'book': book})
 
 def musiclist(request):
-    search_form = SearchForm()
+    search_form = musicSearchForm()
     if request.method == 'POST':
-        search_form = SearchForm(request.POST)
+        search_form = musicSearchForm(request.POST)
         if search_form.is_valid():
             search_data = search_form.cleaned_data
-            music = catalogue.listtitleview("music", search_data.get('Search'))
+            music = catalogue.listtitleview("music", search_data.get('Search'),search_data.get('SortedBy'))
             return render(request, 'music-list.html', {'form': search_form, 'music': music})
 
     if request.method == 'GET':
@@ -324,12 +324,12 @@ def musiclist(request):
 
 
 def videolist(request):
-    search_form = SearchForm()
+    search_form = videoSearchForm()
     if request.method == 'POST':
-        search_form = SearchForm(request.POST)
+        search_form = videoSearchForm(request.POST)
         if search_form.is_valid():
             search_data = search_form.cleaned_data
-            video = catalogue.listtitleview("video", search_data.get('Search'))
+            video = catalogue.listtitleview("video", search_data.get('Search'),search_data.get('SortedBy'))
             return render(request, 'video-list.html', {'form': search_form, 'video': video})
 
     if request.method == 'GET':
@@ -338,12 +338,12 @@ def videolist(request):
 
 
 def magazinelist(request):
-    search_form = SearchForm()
+    search_form = magazineSearchForm()
     if request.method == 'POST':
-        search_form = SearchForm(request.POST)
+        search_form = magazineSearchForm(request.POST)
         if search_form.is_valid():
             search_data = search_form.cleaned_data
-            magazine = catalogue.listtitleview("magazine", search_data.get('Search'))
+            magazine = catalogue.listtitleview("magazine", search_data.get('Search'),search_data.get('SortedBy'))
             return render(request, 'magazine-list.html', {'form': search_form, 'magazine': magazine})
 
     if request.method == 'GET':

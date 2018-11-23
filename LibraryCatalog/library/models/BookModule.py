@@ -78,9 +78,11 @@ class Book:
         return tables[0]
 
 # retrieve record based on Title
-    def selectBookbytitlefromstore(self, title):
+    def selectBookbytitlefromstore(self, title,sortBy):
             titlesearch = '%' + title + '%'
             select_query = "SELECT * from book WHERE CONCAT (title,author,publisher,language,isbn_10,isbn_13) LIKE '%s'" % (titlesearch)
+            if(sortBy != "Random"):
+                select_query=select_query +" "+"ORDER BY"+" "+sortBy
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 
