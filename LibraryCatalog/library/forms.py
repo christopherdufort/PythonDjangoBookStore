@@ -64,7 +64,7 @@ class bookSearchForm(forms.Form):
         ('author', u'author'),
         ('publisher', u'publisher'),
     ]
-    FilterBy = forms.ChoiceField(choices=catalog_list)
+    SortedBy = forms.ChoiceField(choices=catalog_list)
 
 
 # Custom form for user creation and user data
