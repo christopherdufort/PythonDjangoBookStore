@@ -3,12 +3,18 @@
 
 <head>
 	<title>SOEN 341 SEARCH BOOK</title>
-	<link rel="stylesheet" href='library/static/css/base.css' />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    {% load static %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "/css/bootstrap.min.css"%}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static "/css/pricing.css"%}" rel="stylesheet">
 </head>
 
 <body>
-
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+                <h5 class="my-0 mr-md-auto font-weight-normal">SOEN341 Book Entry</h5>
+                  
+              </div>
 	<h1>SEARCH BOOK BY ANY CRITERIA</h1>
 	
 	<h2>Enter and Select the criteria to be included in your book search</h2>

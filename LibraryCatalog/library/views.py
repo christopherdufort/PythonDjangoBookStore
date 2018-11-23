@@ -50,7 +50,7 @@ def create_account(request):
         user_form = UserForm(request.POST)
         if user_form.is_valid():
             user_data = user_form.cleaned_data
-            newUser = userRegistry.registerNewUser(user_data)
+            newUser = userRegistry.registerNewUser(user_data,0)
             resp = render(request, 'homepage.html')
             resp.set_cookie('user_id', newUser.user_id)
             resp.set_cookie('email', newUser.email)
@@ -63,9 +63,10 @@ def create_account(request):
 
 def registerNewadministrators(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            UserForm.save(form, True)
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_data = user_form.cleaned_data
+            newUser = userRegistry.registerNewUser(user_data,1)
             return render(request, 'admin-dashboard.html')
 
     form = UserForm()
@@ -89,7 +90,7 @@ def makeNewBookEntry(request):
         if book_form.is_valid():
             book_data = book_form.cleaned_data
             catalogue.addItems("book", book_data)
-            return redirect(view_All)
+            return redirect(detailedView)
             #HttpResponse("Book added to database")  # Should probably direct to list of all books
     # Request is a 'GET' return an empty form
     book_form = BookForm()
@@ -127,7 +128,7 @@ def makeNewMagazineEntry(request):
         if magazine_form.is_valid():
             magazine_data = magazine_form.cleaned_data
             catalogue.addItems("magazine", magazine_data)
-            return redirect(view_All)
+            return redirect(detailedView)
 
 
     magazine_form = MagazineForm()
@@ -161,7 +162,7 @@ def makeNewVideoEntry(request):
         if video_form.is_valid():
             video_data = video_form.cleaned_data
             catalogue.addItems("video", video_data)
-            return redirect(view_All) # Should probably direct to list of all books
+            return redirect(detailedView) # Should probably direct to list of all books
 
     # Request is a 'GET' return an empty form
 
@@ -201,7 +202,7 @@ def makeNewMusicEntry(request):
         if music_form.is_valid():
             music_data = music_form.cleaned_data
             catalogue.addItems("music", music_data)
-            return redirect(view_All)
+            return redirect(detailedView)
     music_form = MusicForm()
     return render(request, 'music-entry.html', {'form': music_form})
 
@@ -323,7 +324,7 @@ def magazinelist(request):
       return render(request, 'magazine-list.html', {'form': search_form, 'magazine': magazine})
 
 
-def view_All(request):
+def detailedView(request):
     if request.method == 'GET':
         book_data = catalogue.listview("book")
         magazine_data = catalogue.listview("magazine")
@@ -401,4 +402,8 @@ def checkIfAdmin(request):
             return False
         return True
     return False
+
+def loansystem(request):
+    return render(request, 'Loan-system.html')
+
 
