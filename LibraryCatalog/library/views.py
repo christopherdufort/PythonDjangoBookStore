@@ -74,7 +74,7 @@ def makeNewBookEntry(request):
         book_form = BookForm(request.POST)
         if book_form.is_valid():
             book_data = book_form.cleaned_data
-            catalogue.add_item("book", book_data)
+            catalogue.addItems("book", book_data)
             return redirect(view_All)
             #HttpResponse("Book added to database")  # Should probably direct to list of all books
     # Request is a 'GET' return an empty form
@@ -99,7 +99,7 @@ def modifyExistingBookRecord(request,id):
         book_form = BookForm(request.POST)
         if book_form.is_valid():
             book_data = book_form.cleaned_data
-            catalogue.update_item("book", book_data, id)
+            catalogue.modifyitems("book", book_data, id)
             book_form = BookForm()
             return HttpResponse("Book UPDATED to database")  # Should probably direct to list of all books
 
@@ -112,7 +112,7 @@ def makeNewMagazineEntry(request):
 
         if magazine_form.is_valid():
             magazine_data = magazine_form.cleaned_data
-            catalogue.add_item("magazine", magazine_data)
+            catalogue.addItems("magazine", magazine_data)
             return redirect(view_All)
 
 
@@ -134,7 +134,7 @@ def modifyExistingMagazineRecord(request,id):
         magazine_form = MagazineForm(request.POST)
         if magazine_form.is_valid():
             magazine_data = magazine_form.cleaned_data
-            catalogue.update_item("magazine", magazine_data, id)
+            catalogue.modifyitems("magazine", magazine_data, id)
             magazine_form = MagazineForm()
             return HttpResponse("Magazine UPDATED to database")
 
@@ -146,7 +146,7 @@ def makeNewVideoEntry(request):
 
         if video_form.is_valid():
             video_data = video_form.cleaned_data
-            catalogue.add_item("video", video_data)
+            catalogue.addItems("video", video_data)
             return redirect(view_All) # Should probably direct to list of all books
 
     # Request is a 'GET' return an empty form
@@ -173,7 +173,7 @@ def modifyExistingVideoRecord(request, id):
         video_form = VideoForm(request.POST)
         if video_form.is_valid():
             video_data = video_form.cleaned_data
-            catalogue.update_item("video", video_data,id)
+            catalogue.modifyitems("video", video_data,id)
             video_form = VideoForm()
             return HttpResponse("Video UPDATED to database")
 
@@ -186,7 +186,7 @@ def makeNewMusicEntry(request):
 
         if music_form.is_valid():
             music_data = music_form.cleaned_data
-            catalogue.add_item("music", music_data)
+            catalogue.addItems("music", music_data)
             return redirect(view_All)
     music_form = MusicForm()
     return render(request, 'music-entry.html', {'form': music_form})
@@ -207,7 +207,7 @@ def modifyExistingMusicRecord(request, id):
         music_form = MusicForm(request.POST)
         if music_form.is_valid():
             music_data = music_form.cleaned_data
-            catalogue.update_item("music", music_data, id)
+            catalogue.modifyitems("music", music_data, id)
             music_form = MusicForm()
             return HttpResponse("Music UPDATED to database")
 
@@ -222,31 +222,31 @@ def viewLoggedUsers(request):
     return render(request, 'active-users.html',{'users': users})
 
 
-def bookviewdelete(request,id):
+def deleteExistingBookRecord(request,id):
     if request.method == 'GET':
         book_form = BookForm()
-        book_data = catalogue.delete_items("book",id)
+        book_data = catalogue.deleteItems("book",id)
     return HttpResponse("Book Deleted from  database")  # Should probably direct to list of all books
 
 
-def videoviewdelete(request,id):
+def deleteExistingVideoRecord(request,id):
     if request.method == 'GET':
         video_form = VideoForm()
-        video_data = catalogue.delete_items("video", id)
+        video_data = catalogue.deleteItems("video", id)
     return HttpResponse("video Deleted from  database")  # Should probably direct to list of all Videos
 
 
-def magazineviewdelete(request,id):
+def deleteExistingMagazineRecord(request,id):
     if request.method == 'GET':
         magazine_form = MagazineForm()
-        magazine_data = catalogue.delete_items("magazine", id)
+        magazine_data = catalogue.deleteItems("magazine", id)
     return HttpResponse("magazine Deleted from  database")
 
 
-def musicviewdelete(request,id):
+def deleteExistingMusicRecord(request,id):
     if request.method == 'GET':
         music_form = MusicForm()
-        music_data = catalogue.delete_items("music", id)
+        music_data = catalogue.deleteItems("music", id)
     return HttpResponse("Music Deleted from  database")
 
 
