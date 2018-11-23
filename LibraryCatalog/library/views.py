@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UserForm, AuthenticationForm, BookForm, MagazineForm, VideoForm, AdminForm, MusicForm, BookSearchForm ,SearchForm
@@ -57,7 +58,8 @@ def book_entry(request):
         if book_form.is_valid():
             book_data = book_form.cleaned_data
             catalogue.add_item("book", book_data)
-            return HttpResponse("Book added to database")  # Should probably direct to list of all books
+            return redirect(view_All)
+            #HttpResponse("Book added to database")  # Should probably direct to list of all books
     # Request is a 'GET' return an empty form
     book_form = BookForm()
     return render(request, 'book-entry.html', {'form': book_form})
@@ -94,7 +96,7 @@ def magazine_entry(request):
         if magazine_form.is_valid():
             magazine_data = magazine_form.cleaned_data
             catalogue.add_item("magazine", magazine_data)
-            return HttpResponse("Magazine added to database")
+            return redirect(view_All)
 
 
     magazine_form = MagazineForm()
@@ -128,7 +130,7 @@ def video_entry(request):
         if video_form.is_valid():
             video_data = video_form.cleaned_data
             catalogue.add_item("video", video_data)
-            return HttpResponse("Video added to database")  # Should probably direct to list of all books
+            return redirect(view_All) # Should probably direct to list of all books
 
     # Request is a 'GET' return an empty form
 
@@ -167,7 +169,7 @@ def music_entry(request):
         if music_form.is_valid():
             music_data = music_form.cleaned_data
             catalogue.add_item("music", music_data)
-            return HttpResponse("Music added to database")
+            return redirect(view_All)
     music_form = MusicForm()
     return render(request, 'music-entry.html', {'form': music_form})
 
