@@ -9,6 +9,7 @@ import random
 
 class UserRegistry:
     active_user_list = []
+    user_list = []
 
     #use default values for all the fields excluding email and password
     def __init__(self):
@@ -23,13 +24,12 @@ class UserRegistry:
         sql_select = "SELECT * FROM User WHERE email = '" + email+ "' AND password = '" + password + "';"
         user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(sql_select)[0])
   
-        session_expire = (datetime.datetime.today()+timedelta(days=30))
+        session_expire = (datetime.datetime.today()+timedelta(hours=1))
         session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
         sql_insert = "UPDATE user SET session_expire = '"+str(session_expire)+"',session_key = '"+session_key+"'  WHERE id = '" + str(user["id"])+"';"
         DataBaseLayer.insertCommand(sql_insert)
         #need to get the user again after update
         user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(sql_select)[0])
-        print("$$$$")
         print(user)  
         return user
 
@@ -49,7 +49,7 @@ class UserRegistry:
         return f_user
 
 
-    def get_active_users():
+    def get_active_users(self):
         #session_key exists 
         #session_expire > today's date
         today = datetime.datetime.today()
@@ -64,3 +64,10 @@ class UserRegistry:
         print("SUCCESS!")
         print(users)
         return users
+
+
+    def registerNewUser(self,user_data):
+        user = User()
+        user.populateUser(user_data.get('id'), user_data.get('first_name'), user_data.get('last_name'), user_data.get('address'), user_data.get('phone'), user_data.get('is_admin'), user_data.get('password'), user_data.get('email'), user_data.get('session_expire'), user_data.get('session_key'))
+        user.store(0)  # Store self in database (not admin = 0)
+        self.user_list.append(user)

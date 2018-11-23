@@ -18,10 +18,12 @@ def sign_in(request):
     form = AuthenticationForm()
     if request.method == 'POST':
         if(request.POST.get('logout') and ('user_id' in request.COOKIES)):
-            sql_insert = "UPDATE user SET session_expire = 'NULL', session_key = 'NULL'  WHERE id = '" + str(request.COOKIES.get('user_id') )+"';"
+            sql_insert = "UPDATE user SET session_expire = NULL, session_key = NULL WHERE id = '" + str(request.COOKIES.get('user_id') )+"';"
             DataBaseLayer.insertCommand(sql_insert)
             resp = render(request, 'sign-in.html', {'form': form})
             resp.set_cookie('user_id', ['user_id'])
+            resp.delete_cookie('user_id')
+            resp.delete_cookie('session_key')
             return resp
         auth_form = AuthenticationForm(request.POST)
         if auth_form.is_valid():
@@ -30,19 +32,22 @@ def sign_in(request):
                 if (user['is_admin']):
                     resp = render(request, 'admin-dashboard.html')
                     resp.set_cookie('user_id', user['id'])
+                    resp.set_cookie('session_key', user['session_key'])
                     return resp
                 else:
-                    resp =  render(request, 'homepage.html')
+                    resp = render(request, 'homepage.html')
                     resp.set_cookie('user_id', user['id'])
+                    resp.set_cookie('session_key', user['session_key'])
                     return resp
     return render(request, 'sign-in.html', {'form': form})
 
 
 def create_account(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            UserForm.save(form, False)
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_data = user_form.cleaned_data
+            userRegistry.registerNewUser(user_data)
             return render(request, 'client-home.html')
 
     form = UserForm()
@@ -60,7 +65,7 @@ def register_admin(request):
 
 
 def client_home(request):
-    return render(request, 'client-home.html')
+    return render(request, 'homepage.html')
 
 
 def homepage(request):
