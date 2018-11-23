@@ -2,17 +2,25 @@
 <html>
 <head>
     <title>Book Entry</title>
-    <link rel="stylesheet" href='library/static/css/base.css' />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    {% load static %}
+    <link href="{% static "/css/bootstrap.min.css"%}" rel="stylesheet">
+    <link href="{% static "/css/pricing.css"%}" rel="stylesheet">
+
 </head>
 <body>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+                <h5 class="my-0 mr-md-auto font-weight-normal">SOEN341 Book Entry</h5>
+                  
+              </div>
+              <div align="center">
     <h1>Enter Book</h1>
     <div>
         <form method="POST"  style="display: inline-grid;">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="btn btn-primary form-control">
         </form>
     </div>
+</div>
 </body>
 </html>

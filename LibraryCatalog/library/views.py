@@ -50,7 +50,7 @@ def create_account(request):
         user_form = UserForm(request.POST)
         if user_form.is_valid():
             user_data = user_form.cleaned_data
-            newUser = userRegistry.registerNewUser(user_data)
+            newUser = userRegistry.registerNewUser(user_data,0)
             resp = render(request, 'homepage.html')
             resp.set_cookie('user_id', newUser.user_id)
             resp.set_cookie('email', newUser.email)
@@ -63,9 +63,10 @@ def create_account(request):
 
 def registerNewadministrators(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            UserForm.save(form, True)
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_data = user_form.cleaned_data
+            newUser = userRegistry.registerNewUser(user_data,1)
             return render(request, 'admin-dashboard.html')
 
     form = UserForm()
