@@ -79,6 +79,7 @@ class VideoForm(forms.Form):
     subtitles = forms.CharField(max_length=255)  # comma separated array
     dubbed = forms.CharField(max_length=255)   # comma separated array
     release_date = forms.CharField(max_length=255)
+    run_time = forms.CharField(max_length=255)
     id = forms.IntegerField(min_value=0000000000000, max_value=9999999999999).hidden_widget
 
 
