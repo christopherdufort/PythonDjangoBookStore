@@ -383,4 +383,9 @@ def booksearch(request):
         return render(request, 'book-searchresults.html', {'form': search_form, 'results': results})
     if request.method == 'GET':
         print("METHOD WENT TO GET IN VIEWS.py/booksearch()")
-        return render(request, 'book-search.html', {'form': search_form})		
+        return render(request, 'book-search.html', {'form': search_form})
+
+
+def loansystem(request):
+    return render(request, 'Loan-system.html')
+
