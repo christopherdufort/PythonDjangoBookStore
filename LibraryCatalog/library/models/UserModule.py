@@ -37,8 +37,9 @@ class User:
 
     # A model is responsible for knowing how to store itself in the database( by use of DataBaseLayer module ) Active Record
     def store(self, is_admin):
-        session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-        session_expire = (datetime.today()+timedelta(hours=1))
+        self.session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+        self.session_expire = (datetime.today()+timedelta(hours=1))
+        self.is_admin = is_admin
         sql = "INSERT INTO `soen341`.`user`(`first_name`, `last_name`, `email`, `address`, `phone_number`, `password`, `session_key`, `session_expire`, `is_admin`) VALUES('";
         sql += self.first_name + "', '"
         sql += self.last_name + "', '"
@@ -46,9 +47,9 @@ class User:
         sql += self.address + "', '"
         sql += self.phone + "', '"
         sql += self.password + "', '"
-        sql += str(session_key) + "', '"
-        sql += str(session_expire) + "', '"
-        sql += str(is_admin) + "');"
+        sql += str(self.session_key) + "', '"
+        sql += str(self.session_expire) + "', '"
+        sql += str(self.is_admin) + "');"
         print(sql)
         DataBaseLayer.insertCommand(sql)
 

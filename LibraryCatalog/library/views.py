@@ -21,10 +21,12 @@ def sign_in(request):
         if(request.POST.get('logout') and ('user_id' in request.COOKIES)):
             sql_insert = "UPDATE user SET session_expire = NULL, session_key = NULL WHERE id = '" + str(request.COOKIES.get('user_id') )+"';"
             DataBaseLayer.insertCommand(sql_insert)
-            resp = render(request, 'sign-in.html', {'form': form})
-            resp.set_cookie('user_id', ['user_id'])
+            # resp = render(request, 'sign-in.html', {'form': form})
+            resp = render(request, 'homepage.html')
+            #resp.set_cookie('user_id', ['user_id'])
             resp.delete_cookie('user_id')
             resp.delete_cookie('session_key')
+            resp.delete_cookie('email')
             return resp
         auth_form = AuthenticationForm(request.POST)
         if auth_form.is_valid():
@@ -48,8 +50,13 @@ def create_account(request):
         user_form = UserForm(request.POST)
         if user_form.is_valid():
             user_data = user_form.cleaned_data
-            userRegistry.registerNewUser(user_data)
-            return render(request, 'client-home.html')
+            newUser = userRegistry.registerNewUser(user_data)
+            resp = render(request, 'homepage.html')
+            resp.set_cookie('user_id', newUser.user_id)
+            resp.set_cookie('email', newUser.email)
+            resp.set_cookie('session_key', newUser.session_key)
+            print(newUser)
+            return resp
 
     form = UserForm()
     return render(request, 'create-account.html', {'form': form})
