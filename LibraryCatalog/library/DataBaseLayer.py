@@ -68,6 +68,20 @@ def deleteCommand(deletecmd):
     return conn.affected_rows()
 
 
+def queryCommand(queryCmd):
+    # Connect to the database
+    conn = connectDb()
+    try:
+        with conn.cursor() as curr:
+            curr.execute(queryCmd)
+            result = curr.fetchall()
+            conn.commit()
+    finally:
+        conn.close()
+    return result
+
+
+
 # def printTable(tables):
 #     for row in tables:
 #         for item in row:

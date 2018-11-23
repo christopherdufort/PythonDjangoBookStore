@@ -59,9 +59,11 @@
         <tr>
            <th>Isbn_13 :   {{b.isbn_13}}</th>
          </tr>
+        {% if client %}
         <tr>
-           <th>Is Loanable :   {{b.is_loanable}}</th>
+            <th><a href="loan-system">Is Loanable :   {{b.is_loanable}}</a></th>
          </tr>
+        {% endif %}
 
 </table>
     </font>

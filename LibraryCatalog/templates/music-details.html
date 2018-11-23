@@ -51,9 +51,11 @@
         <tr>
            <th>Release Date :   {{b.release_date}}</th>
          </tr>
+        {% if client %}
         <tr>
-           <th>Is Loanable :   {{b.is_loanable}}</th>
+            <th><a href="loan-system">Is Loanable :   {{b.is_loanable}}</a></th>
          </tr>
+        {% endif %}
 
 </table>
     </font>

@@ -34,6 +34,16 @@
           <button type = "submit" class="btn btn-primary">Logout</button>
         </form>
     </div>
+    {% if adminAlert %}
+    <div class="alert alert-danger" role="alert">
+      Unauthorized - You must be logged in as an administrator to access this feature.
+    </div>
+    {% endif %}
+    {% if clientAlert %}
+    <div class="alert alert-danger" role="alert">
+      Unauthorized - You must be logged in as a client to access this feature.
+    </div>
+    {% endif %}
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">Welcome</h1>

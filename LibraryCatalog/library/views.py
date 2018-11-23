@@ -83,6 +83,8 @@ def homepage(request):
 # Updated example using the new business logic layer duplicate this for other models
 def makeNewBookEntry(request):
     if request.method == 'POST':
+        if checkIfAdmin(request) == False:
+            return render(request, 'homepage.html', {'adminAlert': "admin"})
         book_form = BookForm(request.POST)
         if book_form.is_valid():
             book_data = book_form.cleaned_data
@@ -225,7 +227,11 @@ def modifyExistingMusicRecord(request, id):
 
     return render(request, 'music-view-update.html', {'form': music_form})
 
+
 def admin_dashboard(request):
+    if checkIfAdmin(request) == False:
+        return render(request, 'homepage.html', {'adminAlert': "admin"})
+
     return render(request, 'admin-dashboard.html')
 
 def viewLoggedUsers(request):
@@ -383,4 +389,16 @@ def booksearch(request):
         return render(request, 'book-searchresults.html', {'form': search_form, 'results': results})
     if request.method == 'GET':
         print("METHOD WENT TO GET IN VIEWS.py/booksearch()")
-        return render(request, 'book-search.html', {'form': search_form})		
+        return render(request, 'book-search.html', {'form': search_form})
+
+
+def checkIfAdmin(request):
+    sessionKey = request.COOKIES.get('session_key')
+    if sessionKey:
+        retrieveUserQuery = "SELECT is_admin FROM user WHERE session_key = '%s'"%(sessionKey)
+        is_admin = DataBaseLayer.selectCommand(retrieveUserQuery)[0][0]
+        if is_admin == 0:
+            return False
+        return True
+    return False
+
