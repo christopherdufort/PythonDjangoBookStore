@@ -50,7 +50,7 @@ urlpatterns = [
     path('video-list', views.videolist),
     path('magazine-list', views.magazinelist),
     path('music-list', views.musiclist),
-    path('view-All', views.view_All),
+    path('view-All', views.detailedView),
     path('catalogue', views.catalogview),
     path('book-search', views.booksearch),
 
