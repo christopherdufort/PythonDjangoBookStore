@@ -90,7 +90,7 @@ INSERT INTO video (title, director, producers, actors, language, subtitles, dubb
 INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('Animals', 'Ed Sheeran', 'Calvin', 'Peirl', 'Adele', 'English', 'French', '2000-11-13', '12 minutes');
 INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('Picky', '	Silentó', 'Guetta', 'Ocean', 'Sean Paul', 'English', 'French', '2001-11-01', '11 minutes');
 INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('GentleMan', 'GoonRock', 'Minaj', 'Afrojack', 'Ty Dolla Sign', 'English', 'French', '2011-11-09', '10 minutes');
-INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('Dont Let Me Down', 'Dua Lipa', 'Soer', 'Deanin', 'terson', 'English', 'French', '2005-11-09', '8 minutes');
+INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('Don''t Let Me Down', 'Dua Lipa', 'Soer', 'Deanin', 'terson', 'English', 'French', '2005-11-09', '8 minutes');
 INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('Not Afraid', 'J Balvin', 'over', 'Wanz', 'Nicki Minaj', 'English', 'French', '2018-11-12', '2 minutes');
 INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('Swalla', 'Bruno Mars', 'Daddy Yankee', 'Rihanna', 'Disciples', 'English', 'French', '2018-11-12', '31 minutes');
 INSERT INTO video (title, director, producers, actors, language, subtitles, dubbed, release_date, run_time) VALUES ('Havana', 'Maluma', 'The Weeknd', 'Cardi B', 'Ellie Goulding', 'English', 'French', '2018-11-12', '50 minutes');
@@ -104,7 +104,7 @@ INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Harp
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Homa', '8 track', 'Peter Peter', 'English', '2000-03-18', 61051090);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('La Stakose', 'cd', 'Mes Aieux', 'English', '2010-02-22', 90038910);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Your Precious Love', 'casette', 'Led Zeppelin', 'French', '2011-03-04', 48871090);
-INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Ain't Nothing Like the Real Thing', 'vinyl record', 'Pink Floyd', 'English', '1993-06-22', 22218910);
+INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Ain''t Nothing Like the Real Thing', 'vinyl record', 'Pink Floyd', 'English', '1993-06-22', 22218910);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('I Am Your Man', '8 track', 'Vancouvers', 'French', '1992-06-04', 96691090);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Remember Me', 'cd', 'Burt Bacharach', 'English', '1999-06-04', 94398910);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Let the Spirit Descend', 'casette', 'Pink', 'English', '2000-02-10', 4511090);
@@ -121,5 +121,5 @@ INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Taxm
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Yellow Submarine', 'cd', 'Curtis Mayfield', 'English', '1989-03-04', 67478910);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Rubber Soul', 'casette', 'Metallica', 'Kannada', '2015-08-17', 11431090);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('Lovely Rita', 'vinyl record', 'Rock Band', 'English', '2010-08-04', 19658910);
-INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('You Won't See Me', '8 track', 'Revolution X', 'English', '2000-09-04', 39251090);
+INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('You Won''t See Me', '8 track', 'Revolution X', 'English', '2000-09-04', 39251090);
 INSERT INTO music (title, type, artist, label, release_date, ASIN) VALUES ('In My Life', 'cd', 'Rock Band', 'English', '2010-10-04', 11838910);

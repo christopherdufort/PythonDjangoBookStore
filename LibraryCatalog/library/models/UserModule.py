@@ -54,7 +54,6 @@ class User:
         DataBaseLayer.insertCommand(sql)
 
 
-
     # to_string method
     def __str__(self):
         return "User Details: "
