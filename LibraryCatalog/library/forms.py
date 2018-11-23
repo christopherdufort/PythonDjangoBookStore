@@ -22,8 +22,9 @@ class UserForm(forms.Form):
     address = forms.CharField(max_length=255)
     phone_number = forms.CharField(max_length=255)
     #is_admin = forms.BooleanField(initial=False)
-    password = forms.CharField(max_length=255)
-    email = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=255,widget=forms.PasswordInput)
+    email = forms.EmailField(max_length=255)
+  
     #session_key = forms.CharField(max_length=255)
     #session_expire = forms.DateTimeField(initial=datetime.now() + timedelta(hours=1))
 

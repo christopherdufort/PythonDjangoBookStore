@@ -2,11 +2,18 @@
 <html>
     <head>
         <title>Client Home</title>
-        <link rel = "stylesheet" href = 'library/static/css/base.css'/>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        {% load static %}
+        <!-- Bootstrap core CSS -->
+        <link href="{% static "/css/bootstrap.min.css"%}" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="{% static "/css/pricing.css"%}" rel="stylesheet">
+    
     </head>
     <body class ="color-bg">
-        
+            <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+                    <h5 class="my-0 mr-md-auto font-weight-normal">SOEN341 LibraryCatalog</h5>
+                      <a class="ml-2 btn btn-outline-primary" href="/">Logout</a>
+                  </div>
         <div class = "content">
             <div class = "input-holder">
                 <h1>Hello Client!</h1><br>
