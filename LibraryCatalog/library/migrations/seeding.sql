@@ -42,6 +42,18 @@ INSERT INTO book (title, author, format, pages, publisher, language, isbn_10, is
 
 -- magazine
 TRUNCATE magazine;
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('The New Quarterly', 'Magazines 2000', 'English', 4316195722, 615256004278);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('The Nerve', 'Magazines 2000', 'English', 7303376478, 330344423522);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Nightlife', 'Black Angus Media', 'French', 3034271322, 424097928678);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Opera Canada', 'Life Media', 'English', 392860878, 285694939122);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Peace Magazine', 'Rogers Media', 'English', 8893226922, 313798973078);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Rites', 'Readers choice', 'English', 429465278, 946098334722);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Rue Morgue', 'Great River Media', 'English', 2517062522, 703735137478);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('People 21', 'Readers choice', 'English', 9189189678, 909778610322);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Sports Illustrated Vol 22', 'Readers choice', 'English', 9729778122, 968082421878);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Spacing', 'Readers choice', 'English', 3248034078, 800159765922);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Times Vol 24', 'Great River Media', 'Multi', 1555373722, 535816826278);
+INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Toronto Life', 'Rogers Media', 'English', 3981998478, 195865801522);
 INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Alive Magazine', 'Teldon Publishing', 'English', 9012345678, 9012345678912);
 INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Auto Atlantic', 'Robert Alfers', 'English', 2222222122, 219989977878);
 INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Canada World View', 'Readers Digest', 'English', 9999990078, 989007809922);
@@ -55,18 +67,6 @@ INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Jus
 INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Literary Review of Canada', 'Literary', 'English', 8861767678, 167906032322);
 INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('The Magazine', 'Magazines 2000', 'English', 7315000122, 492697199878);
 INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Music Express', 'Life Media', 'French', 4185012078, 497022787922);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('The New Quarterly', 'Magazines 2000', 'English', 4316195722, 615256004278);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('The Nerve', 'Magazines 2000', 'English', 7303376478, 330344423522);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Nightlife', 'Black Angus Media', 'French', 3034271322, 424097928678);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Opera Canada', 'Life Media', 'English', 392860878, 285694939122);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Peace Magazine', 'Rogers Media', 'English', 8893226922, 313798973078);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Rites', 'Readers choice', 'English', 429465278, 946098334722);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Rue Morgue', 'Great River Media', 'English', 2517062522, 703735137478);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('People 21', 'Readers choice', 'English', 9189189678, 909778610322);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Sports Illustrated Vol 22', 'Readers choice', 'English', 9729778122, 968082421878);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Spacing', 'Readers choice', 'English', 3248034078, 800159765922);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Times Vol 24', 'Great River Media', 'Multi', 1555373722, 535816826278);
-INSERT INTO magazine (title, publisher, language, isbn_10, isbn_13) VALUES ('Toronto Life', 'Rogers Media', 'English', 3981998478, 195865801522);
 
 -- video
 TRUNCATE video;

@@ -50,9 +50,11 @@ class Video:
         return tables[0]
 
 # retrieve record based on Title
-    def selectVideobytitlefromstore(self, title):
+    def selectVideobytitlefromstore(self, title,sortBy):
             titlesearch = '%' + title + '%'
             select_query = "SELECT * from video WHERE CONCAT (title,director,actors,language,subtitles,release_date) LIKE '%s'" % (titlesearch)
+            if (sortBy != "Random"):
+                select_query = select_query + " " + "ORDER BY" + " " + sortBy
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 

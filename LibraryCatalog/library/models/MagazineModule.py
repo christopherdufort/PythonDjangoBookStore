@@ -56,9 +56,11 @@ class Magazine:
         return tables[0]
 
 # retrieve record based on Title
-    def selectMagazinebytitlefromstore(self, title):
+    def selectMagazinebytitlefromstore(self, title,sortBy):
             titlesearch = '%' + title + '%'
             select_query = "SELECT * from magazine WHERE CONCAT (title,publisher,language,isbn_10,isbn_13) LIKE '%s'" % (titlesearch)
+            if (sortBy != "Random"):
+                select_query = select_query + " " + "ORDER BY" + " " + sortBy
             tables = DataBaseLayer.selectCommand(select_query)
             return tables
 
