@@ -22,8 +22,10 @@ class UserRegistry:
     def authenticate(email=None, password=None):
         print("AUTH  CALLED")
         sql_select = "SELECT * FROM User WHERE email = '" + email+ "' AND password = '" + password + "';"
-        user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(sql_select)[0])
-  
+        try:
+            user = UserRegistry.formatUserTableObject(DataBaseLayer.selectCommand(sql_select)[0])
+        except IndexError as error:
+            return None
         session_expire = (datetime.datetime.today()+timedelta(hours=1))
         session_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
         sql_insert = "UPDATE user SET session_expire = '"+str(session_expire)+"',session_key = '"+session_key+"'  WHERE id = '" + str(user["id"])+"';"
@@ -49,7 +51,7 @@ class UserRegistry:
         return f_user
 
 
-    def viewLoggedUsers(self):
+    def viewLoggedUsers():
         #session_key exists 
         #session_expire > today's date
         today = datetime.datetime.today()

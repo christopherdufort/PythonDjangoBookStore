@@ -9,7 +9,7 @@ import random
 # Custom form used for login
 class AuthenticationForm(forms.Form):
     email = forms.CharField(max_length=255)
-    password = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=255,widget=forms.PasswordInput)
 
 # Custom form used for search
 class SearchForm(forms.Form):

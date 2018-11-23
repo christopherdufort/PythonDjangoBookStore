@@ -21,8 +21,8 @@ def sign_in(request):
         if(request.POST.get('logout') and ('user_id' in request.COOKIES)):
             sql_insert = "UPDATE user SET session_expire = NULL, session_key = NULL WHERE id = '" + str(request.COOKIES.get('user_id') )+"';"
             DataBaseLayer.insertCommand(sql_insert)
-            resp = render(request, 'sign-in.html', {'form': form})
-            #resp = render(request, 'homepage.html')
+            #resp = render(request, 'sign-in.html', {'form': form})
+            resp = render(request, 'homepage.html')
             #resp.set_cookie('user_id', ['user_id'])
             resp.delete_cookie('user_id')
             resp.delete_cookie('session_key')
@@ -42,6 +42,7 @@ def sign_in(request):
                     resp.set_cookie('user_id', user['id'])
                     resp.set_cookie('session_key', user['session_key'])
                     return resp
+        return render(request, 'sign-in.html', {'error': "Incorrect credentials",'form': form})
     return render(request, 'sign-in.html', {'form': form})
 
 
