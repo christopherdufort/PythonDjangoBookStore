@@ -14,7 +14,8 @@ body{
 }
 
 body.color-bg{
-    background-image: linear-gradient(to right top, #c4a965, #bb8951, #ae6a45, #9d4b3e, #872e3b);
+    /* background-image: linear-gradient(to right top, #c4a965, #bb8951, #ae6a45, #9d4b3e, #872e3b); */
+    background-color: white;
 }
 
 table, th, td {

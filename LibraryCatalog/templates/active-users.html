@@ -2,18 +2,21 @@
 <html>
 <head>
     <title>Active Users</title>
-    <link rel="stylesheet" href='static/css/base.css' />
+    <link rel="stylesheet" href='static/css/bootstrap.min.css' />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>    
 <body class ="color-bg">
     <h1>Active Users</h1>
-    <table>
+    <table class="table ">
+        <thead>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th> 
-                <th>Session Key</th>
                 <th>Session Expire</th>
+                <th>Session Key</th>
             </tr>
+            </thead>
+            <tbody>
         {% for user in users %}
             <tr>
                 <td>{{ user.first_name }}</td>
@@ -22,6 +25,7 @@
                 <td>{{ user.session_key}}</td>
             </tr>    
         {% endfor %}
+    </tbody>
     </table>
     
 </body>
