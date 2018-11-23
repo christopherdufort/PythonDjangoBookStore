@@ -131,7 +131,7 @@ class Catalogue:
            affetedRow = music.deleterow(id)
            return affetedRow
 
-    def listview(self, item_type):
+    def detailedView(self, item_type):
        if item_type == "book":
             book_list = []
             book = Book()

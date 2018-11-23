@@ -230,7 +230,7 @@ def admin_dashboard(request):
 
 def viewLoggedUsers(request):
     #get active users
-    users = UserRegistry.get_active_users()
+    users = UserRegistry.viewLoggedUsers()
     return render(request, 'active-users.html',{'users': users})
 
 
@@ -272,7 +272,7 @@ def booklist(request):
             return render(request, 'book-list.html', {'form': search_form, 'book': book})
 
     if request.method == 'GET':
-       book = catalogue.listview("book")
+       book = catalogue.detailedView("book")
        return render(request, 'book-list.html', {'form': search_form, 'book': book})
 
 def musiclist(request):
@@ -285,7 +285,7 @@ def musiclist(request):
             return render(request, 'music-list.html', {'form': search_form, 'music': music})
 
     if request.method == 'GET':
-      music = catalogue.listview("music")
+      music = catalogue.detailedView("music")
       return render(request, 'music-list.html', {'form': search_form, 'music': music})
 
 
@@ -299,7 +299,7 @@ def videolist(request):
             return render(request, 'video-list.html', {'form': search_form, 'video': video})
 
     if request.method == 'GET':
-      video = catalogue.listview("video")
+      video = catalogue.detailedView("video")
       return render(request, 'video-list.html', {'form': search_form, 'video': video})
 
 
@@ -313,16 +313,16 @@ def magazinelist(request):
             return render(request, 'magazine-list.html', {'form': search_form, 'magazine': magazine})
 
     if request.method == 'GET':
-      magazine = catalogue.listview("magazine")
+      magazine = catalogue.detailedView("magazine")
       return render(request, 'magazine-list.html', {'form': search_form, 'magazine': magazine})
 
 
 def detailedView(request):
     if request.method == 'GET':
-        book_data = catalogue.listview("book")
-        magazine_data = catalogue.listview("magazine")
-        video_data = catalogue.listview("video")
-        music_data = catalogue.listview("music")
+        book_data = catalogue.detailedView("book")
+        magazine_data = catalogue.detailedView("magazine")
+        video_data = catalogue.detailedView("video")
+        music_data = catalogue.detailedView("music")
         context = {'books': book_data, 'magazines': magazine_data, 'video': video_data, 'music': music_data}
     return render(request, 'view-All.html', context)
 
@@ -361,10 +361,10 @@ def magazinedetails(request, id):
 
 def catalogview(request):
     if request.method == 'GET':
-        book_data = catalogue.listview("book")
-        magazine_data = catalogue.listview("magazine")
-        video_data = catalogue.listview("video")
-        music_data = catalogue.listview("music")
+        book_data = catalogue.detailedView("book")
+        magazine_data = catalogue.detailedView("magazine")
+        video_data = catalogue.detailedView("video")
+        music_data = catalogue.detailedView("music")
         context = {'books': book_data, 'magazines': magazine_data, 'video': video_data, 'music': music_data}
     return render(request, 'catalogue.html', context)
 
