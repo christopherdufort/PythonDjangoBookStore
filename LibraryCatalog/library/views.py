@@ -21,8 +21,8 @@ def sign_in(request):
         if(request.POST.get('logout') and ('user_id' in request.COOKIES)):
             sql_insert = "UPDATE user SET session_expire = NULL, session_key = NULL WHERE id = '" + str(request.COOKIES.get('user_id') )+"';"
             DataBaseLayer.insertCommand(sql_insert)
-            # resp = render(request, 'sign-in.html', {'form': form})
-            resp = render(request, 'homepage.html')
+            resp = render(request, 'sign-in.html', {'form': form})
+            #resp = render(request, 'homepage.html')
             #resp.set_cookie('user_id', ['user_id'])
             resp.delete_cookie('user_id')
             resp.delete_cookie('session_key')
@@ -429,7 +429,19 @@ def checkIfAdmin(request):
         return True
     return False
 
+def checkIfClient(request):
+    sessionKey = request.COOKIES.get('session_key')
+    if sessionKey:
+        retrieveUserQuery = "SELECT is_admin FROM user WHERE session_key = '%s'"%(sessionKey)
+        is_admin = DataBaseLayer.selectCommand(retrieveUserQuery)[0][0]
+        if is_admin == 0:
+            return True
+        return False
+    return False
+
 def loansystem(request):
+    if checkIfClient(request) == False:
+        return render(request, 'homepage.html', {'clientAlert': "client"})
     return render(request, 'Loan-system.html')
 
 

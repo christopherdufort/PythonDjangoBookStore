@@ -26,13 +26,17 @@
         <a class="p-2 text-dark" href="music-list">MusicList</a>
         <a class="p-2 text-dark" href="video-list">VideosList</a>
       </nav>
-        <a class="ml-2 btn btn-outline-primary" href="create-account">Sign up</a>
-        <a class="ml-2 btn btn-outline-primary" href="sign-in">Log in</a>
-        <form  method="post" action = "sign-in">
-          {% csrf_token %}
-          <input type="hidden" name="logout" value="true">
-          <button type = "submit" class="btn btn-primary">Logout</button>
-        </form>
+
+        {% if request.COOKIES.session_key %}
+            <form  method="post" action = "sign-in">
+              {% csrf_token %}
+              <input type="hidden" name="logout" value="true">
+              <button type = "submit" class="btn btn-primary">Logout</button>
+            </form>
+        {% else %}
+            <a class="ml-2 btn btn-outline-primary" href="create-account">Sign up</a>
+            <a class="ml-2 btn btn-outline-primary" href="sign-in">Log in</a>
+        {% endif %}
     </div>
     {% if adminAlert %}
     <div class="alert alert-danger" role="alert">
