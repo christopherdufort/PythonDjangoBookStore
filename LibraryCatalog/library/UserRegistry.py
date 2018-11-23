@@ -66,9 +66,9 @@ class UserRegistry:
         return users
 
 
-    def registerNewUser(self,user_data):
+    def registerNewUser(self,user_data, is_admin):
         user = User()
         user.populateUser(user_data.get('id'), user_data.get('first_name'), user_data.get('last_name'), user_data.get('address'), user_data.get('phone'), user_data.get('is_admin'), user_data.get('password'), user_data.get('email'), user_data.get('session_expire'), user_data.get('session_key'))
-        user.store(0)  # Store self in database (not admin = 0)
+        user.store(is_admin)  # Store self in database (not admin = 0)
         self.user_list.append(user)
         return user
