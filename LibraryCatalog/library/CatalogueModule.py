@@ -14,7 +14,7 @@ class Catalogue:
     def __init__(self):
         pass
 
-    def add_item(self, item_type, item_data):
+    def addItems(self, item_type, item_data):
         if item_type == "book":
             book = Book()
             book.fillingbookitem(item_data.get('id'),item_data.get('title'), item_data.get('author'), item_data.get('book_format'),
@@ -51,7 +51,7 @@ class Catalogue:
                 self.music_list.append(music)
 
 
-    def update_item(self, item_type, item_data,id):
+    def modifyitems(self, item_type, item_data,id):
         if item_type == "book":
             book = Book()
             book.fillingbookitem(item_data.get('id'),item_data.get('title'), item_data.get('author'), item_data.get('book_format'),
@@ -113,7 +113,7 @@ class Catalogue:
            music.is_loanable = music.is_loanable
            return music
 
-    def delete_items(self, item_type, id):
+    def deleteItems(self, item_type, id):
         if item_type == "book":
             book = Book()
             affetedRow = book.deleterow(id)
